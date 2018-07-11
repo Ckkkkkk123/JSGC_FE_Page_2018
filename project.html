@@ -134,6 +134,12 @@
 				</ul>
 			</div>
 		</nav>
+		<style>
+			.table th, .table td:nth-child(8) { 
+				text-align: center;
+				vertical-align: middle!important;
+			}
+		</style>
 		<div class="content-wrapper">
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
@@ -152,12 +158,15 @@
 							<table id="example" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
 								<thead>
 									<tr>
-										<th>First name</th>
-										<th>Last name</th>
-										<th>Position</th>
-										<th>Office</th>
-										<th>Start date</th>
-										<th>Salary</th>
+										<!--<th style="display: none;">项目ID</th>-->
+										<th>项目编号</th>
+										<th>项目名</th>
+										<th>项目开始日期</th>
+										<th>所属部门</th>
+										<th>负责人</th>
+										<th>总预算</th>
+										<th>备注</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 								<!--<tfoot>
@@ -271,16 +280,16 @@
 					ajax: function(data, callback, settings) {
 						//封装请求参数
 						var param = {};
-//						console.log(data)
+						//						console.log(data)
 						param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
 						param.start = data.start; //开始的记录序号
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
-						console.log(param);
+						//						console.log(param);
 						//ajax请求数T
 						$.ajax({
 							type: "POST",
-							url: "http://127.0.0.1:2333/testList",
+							url: "http://127.0.0.1:2333/getProjectList",
 							cache: false, //禁用缓存
 							data: param, //传入组装的参数
 							dataType: "json",
@@ -304,20 +313,31 @@
 					},
 					//列表表头字段
 					columns: [{
-							"data": "First name"
+							"data": "projectSerial"
 						},
 						{
-							"data": "Last name"
-						},{
-							"data": "Position"
+							"data": "projectName"
 						},
 						{
-							"data": "Office"
-						},{
-							"data": "Start date"
+							"data": "projectStartTime"
 						},
 						{
-							"data": "Salary"
+							"data": "departmentName"
+						},
+						{
+							"data": "username"
+						},
+						{
+							"data": "projectBudgetSum"
+						},
+						{
+							"data": "projectComment"
+						},
+						{
+							"data": "projectID", //json
+							"render": function(data, type, full, callback) {
+								return('<button type="button" class="btn btn-outline btn-info btn-sm">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm">编辑信息</button>');
+							}
 						}
 					]
 				}).api();
