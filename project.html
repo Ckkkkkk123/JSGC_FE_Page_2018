@@ -135,6 +135,7 @@
 			</div>
 		</nav>
 		<style>
+			/*设置第八列，也就是按钮居中*/
 			.table th, .table td:nth-child(8) { 
 				text-align: center;
 				vertical-align: middle!important;
@@ -307,6 +308,7 @@
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									callback(returnData);
+									
 								}, 200);
 							}
 						});
@@ -336,7 +338,12 @@
 						{
 							"data": "projectID", //json
 							"render": function(data, type, full, callback) {
-								return('<button type="button" class="btn btn-outline btn-info btn-sm">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm">编辑信息</button>');
+								//data 就是上面传入的参数，projectID
+								//拼接字符串（懒得处理引号转义）
+								contractUrl = "'/contract.html?projectID="+data+"'";
+								detailUrl = "'/projectDetail.html?projectID="+data+"'";
+								
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+contractUrl+')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>');
 							}
 						}
 					]
