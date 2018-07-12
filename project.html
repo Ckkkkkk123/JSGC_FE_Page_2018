@@ -136,7 +136,9 @@
 		</nav>
 		<style>
 			/*设置第八列，也就是按钮居中*/
-			.table th, .table td:nth-child(8) { 
+			
+			.table th,
+			.table td:nth-child(8) {
 				text-align: center;
 				vertical-align: middle!important;
 			}
@@ -151,9 +153,81 @@
 					<li class="breadcrumb-item active">项目总览</li>
 				</ol>
 				<!-- Example DataTables Card-->
+				<div class="card mb-1" id="chooseCard">
+					<div class="card-header mycardheader">
+						<i class="fa fa-filter"></i> 
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black' >筛选栏</a>
+					</div>
+					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
+					<div class="form-inline">
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon	">项目编号：&nbsp;&nbsp;</span>
+								<input class="form-control" type="text" placeholder="" value="" id="projectSerial" >
+							</div>
+						</div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon	">项目名：&nbsp;&nbsp;</span>
+								<input class="form-control" type="text" placeholder="" value="" id="projectName">
+							</div>
+						</div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3 ">
+							<div class="input-group">
+								<span class="input-group-addon ">所属部门：&nbsp;</span>
+								<select class="form-control" name="checkStatus" id="projectDepartment">
+									<option value="0">技术部</option>
+									<option value="1">背锅部</option>
+								</select>
+							</div>
+						</div>
+
+					</div>
+					<br />
+					<div class="form-inline">
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon	">负责人：&nbsp;</span>
+								<input class="form-control" type="text"  id="projectOwner">
+							</div>
+						</div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon	">总预算范围：&nbsp;</span>
+								<input class="form-control" type="number"  id="projectBudgetDown">
+							</div>
+						</div>
+						<!--<div class="col-md-1"></div>-->
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon	">到：&nbsp;</span>
+								<input class="form-control" type="number" id="projectBudgetUp">
+							</div>
+						</div>
+
+					</div><br />
+				<script src="js/jsxm.js"></script>
+					<div class="form-inline">
+						<div class="col-md-4">
+							<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-success" onclick="reRenderTable()">搜索</button>
+						</div>
+
+					</div>
+					</div>
+				</div>
+
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fa fa-table"></i> 项目列表</div>
+						<i class="fa fa-table"></i> 项目列表
+						<div style="position: relative;">
+							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+						</div>
+					</div>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table id="example" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
@@ -225,14 +299,14 @@
 		<!-- Core plugin JavaScript-->
 		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 		<!-- Page level plugin JavaScript-->
-		<script src="vendor/chart.js/Chart.min.js"></script>
+		<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
 		<script src="vendor/datatables/jquery.dataTables.js"></script>
 		<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 		<!-- Custom scripts for all pages-->
 		<script src="js/sb-admin.min.js"></script>
 		<!-- Custom scripts for this page-->
 		<script src="js/sb-admin-datatables.min.js"></script>
-		<script src="js/sb-admin-charts.min.js"></script>
+		<!--<script src="js/sb-admin-charts.min.js"></script>-->
 		<script type="text/javascript">
 			$(function() {
 				//提示信息
@@ -286,11 +360,18 @@
 						param.start = data.start; //开始的记录序号
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
+						param.projectNum = $('#projectSerial').val();
+						param.projectName = $('#projectName').val();
+						param.projectDepartment = $('#projectDepartment').val();
+						param.projectOwner = $('#projectOwner').val();
+						param.projectBudgetDown = $('#projectBudgetDown').val();
+						param.projectBudgetUp = $('#projectBudgetUp').val();
+						
 						//						console.log(param);
 						//ajax请求数T
 						$.ajax({
-							type: "POST",
-							url: "http://127.0.0.1:2333/getProjectList",
+							type: "post",
+							url: "http://123.206.254.42:2333/getProjectList",
 							cache: false, //禁用缓存
 							data: param, //传入组装的参数
 							dataType: "json",
@@ -308,12 +389,14 @@
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									callback(returnData);
-									
+
 								}, 200);
 							}
 						});
 					},
 					//列表表头字段
+					
+					
 					columns: [{
 							"data": "projectSerial"
 						},
@@ -334,22 +417,30 @@
 						},
 						{
 							"data": "projectComment"
+
 						},
 						{
 							"data": "projectID", //json
 							"render": function(data, type, full, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								contractUrl = "'/contract.html?projectID="+data+"'";
-								detailUrl = "'/projectDetail.html?projectID="+data+"'";
-								
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+contractUrl+')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>');
+								contractUrl = "'/contract.html?projectID=" + data + "'";
+								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
+
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open(' + detailUrl + ')">编辑信息</button>');
 							}
 						}
 					]
 				}).api();
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 			});
+		</script>
+		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+		<script>
+			function reRenderTable(){
+				var table = $('#example').dataTable();
+				table.fnReloadAjax();
+			}
 		</script>
 		</div>
 	</body>
