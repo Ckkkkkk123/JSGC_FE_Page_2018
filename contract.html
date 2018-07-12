@@ -314,7 +314,6 @@
                   <th>合同多方</th>
                   <th>签订日期</th>
                   <th>合同金额</th>
-                  <th class="will-hide">项目id</th>
                   <th>所属项目</th>
                   <th>建设内容</th>
                 	<th>合同内容</th>
@@ -469,9 +468,7 @@
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									
 									callback(returnData);
-									//隐藏
-									$('.will-hide').hide();
-									$('#example tr').find('td:eq(5)').hide();
+									//隐藏									
 								}, 200);							
 							}
 						});
@@ -491,17 +488,7 @@
 							"data": "contractSignedTime"
 						},{
 							"data": "contractMoney"
-						},
-						{
-							"data": "projectID",
-//							"render": function(data, type, full, callback) {
-//								//data 就是上面传入的参数，projectID
-//								//拼接字符串（懒得处理引号转义）
-//									projectID=data;							
-//							}
-							//隐藏内容
-						},
-						{
+						},{
 							"data": "projectName",
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
@@ -526,7 +513,8 @@
 								//拼接字符串（懒得处理引号转义）
 								financeUrl = "'/finance.html?contractID="+data+"'";
 								detailUrl = "'/contractDetail.html?contractID="+data+"'";
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>');
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>'
+								+'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="window.open('+financeUrl+')">删除</button>');
 							}
 						}
 					]

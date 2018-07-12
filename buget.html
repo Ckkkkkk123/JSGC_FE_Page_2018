@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>预算查看</title>
+		<!-- Bootstrap core CSS-->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom fonts for this template-->
+		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Page level plugin CSS-->
+		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+		<!-- Custom styles for this template-->
+		<link href="css/sb-admin.css" rel="stylesheet">
+		<link rel="stylesheet" href="laydate/theme/default/laydate.css">
+		<script src="laydate/laydate.js" charset="utf-8"></script>
+		<style>
+			.mycardheader {
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+		<!-- Navigation-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+			<a class="navbar-brand" href="index.html">金审项目管理</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+							<i class="fa fa-fw fa-wrench"></i>
+							<span class="nav-link-text">项目管理</span>
+						</a>
+						<ul class="sidenav-second-level collapse" id="collapseComponents">
+							<li>
+								<a href="contract.html">合同列表</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="tables.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">财务管理</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="tables.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">预算查看</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="tables.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">资产管理</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="tables.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">档案管理</span>
+						</a>
+					</li>
+
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+						<a class="nav-link" href="#">
+							<i class="fa fa-fw fa-link"></i>
+							<span class="nav-link-text">审核</span>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav sidenav-toggler">
+					<li class="nav-item">
+						<a class="nav-link text-center" id="sidenavToggler">
+							<i class="fa fa-fw fa-angle-left"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-bell"></i> 通知
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+							<h6 class="dropdown-header">最近通知:</h6>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">
+								<span class="text-success">
+                <strong>通知1</strong>
+              </span>
+								<span class="small float-right text-muted">11:21 AM</span>
+								<div class="dropdown-message small">通知内容 通知内容 通知内容 通知内容</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">
+								<span class="text-danger">
+                <strong>
+                  通知2</strong>
+              </span>
+								<span class="small float-right text-muted">11:21 AM</span>
+								<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<div class="dropdown-divider"></div>-->
+							<a class="dropdown-item small" href="#">查看全部</a>
+						</div>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-user"></i>用户名
+
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+								<i class="fa fa-fw fa-cogs"></i>个人信息
+							</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+								<i class="fa fa-fw fa-sign-out"></i>退出登录
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">预算查看</a>
+					</li>
+					<li class="breadcrumb-item active">预算列表</li>
+				</ol>
+
+				<div class="card mb-1" id="chooseCard">
+					<div class="card-header mycardheader">
+						<i class="fa fa-filter"></i>
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black'>筛选栏</a>
+					</div>
+					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">项目编号：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="projectSerial">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="projectName">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+
+							<div class="col-md-3 ">
+								<div class="input-group">
+									<span class="input-group-addon	">项目开始日期范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" id="projectStartTime">
+								</div>
+								<script src="laydate/laydate.js"></script>
+								<script>
+									//执行一个laydate实例
+									laydate.render({
+										elem: '#projectStartTime',
+										range: true
+									});
+								</script>
+							</div>
+						</div>
+						<br />
+						<div class="form-inline">				
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">所有合同已付完：&nbsp;</span>
+									<select class="form-control" id="allContractPayed">
+										<option value="">请选择</option>
+										<option value="0">未付完</option>
+										<option value="1">已付完</option>
+									</select>
+								</div>
+							</div>
+
+						</div>
+						<br />
+						<script src="js/jsxm.js"></script>
+						<div class="form-inline">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-success" onclick="reRenderTable()">搜索</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Example DataTables Card-->
+				<div class="card mb-3">
+					<div class="card-header ">
+						<i class="fa fa-table"></i> 预算列表
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
+								<thead>
+									<tr>
+										<th>预算编号</th>
+										<th>项目名称</th>
+										<th>项目总预算</th>
+										<th>所有合同额</th>
+										<th>所有合同已付</th>
+										<th>所有合同未付</th>
+										<th>项目余款</th>									
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.container-fluid-->
+			<!-- /.content-wrapper-->
+			<footer class="sticky-footer">
+				<div class="container">
+					<div class="text-center">
+						<small>Copyright © Your Website 2018</small>
+					</div>
+				</div>
+			</footer>
+			<!-- Scroll to Top Button-->
+			<a class="scroll-to-top rounded" href="#page-top">
+				<i class="fa fa-angle-up"></i>
+			</a>
+			<!-- Logout Modal-->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+						</div>
+						<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+							<a class="btn btn-primary" href="login.html">Logout</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin.min.js"></script>
+	<!-- Custom scripts for this page-->
+	<script src="js/sb-admin-datatables.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			//提示信息
+			var lang = {
+				"sProcessing": "处理中...",
+				"sLengthMenu": "每页 _MENU_ 项",
+				"sZeroRecords": "没有匹配结果",
+				"sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+				"sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+				"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+				"sInfoPostFix": "",
+				"sSearch": "搜索:",
+				"sUrl": "",
+				"sEmptyTable": "表中数据为空",
+				"sLoadingRecords": "载入中...",
+				"sInfoThousands": ",",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "上页",
+					"sNext": "下页",
+					"sLast": "末页",
+					"sJump": "跳转"
+				},
+				"oAria": {
+					"sSortAscending": ": 以升序排列此列",
+					"sSortDescending": ": 以降序排列此列"
+				}
+			};
+			//列表表头字段
+			var projectID = 0;
+			//初始化表格
+			var table = $("#example").dataTable({
+
+				language: lang, //提示信息
+				autoWidth: false, //禁用自动调整列宽
+				stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
+				processing: true, //隐藏加载提示,自行处理
+				serverSide: true, //启用服务器端分页
+				searching: false, //禁用原生搜索
+				orderMulti: false, //启用多列排序
+				order: [], //取消默认排序查询,否则复选框一列会出现小箭头
+				renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
+				pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+				columnDefs: [{
+					"targets": 'nosort', //列的样式名
+					"orderable": false //包含上样式名‘nosort'的禁止排序
+				}],
+				ajax: function(data, callback, settings) {
+					//封装请求参数
+					var param = {};
+					//						console.log(data)
+					param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
+					param.start = data.start; //开始的记录序号
+					param.page = (data.start / data.length) + 1; //当前页码
+					param.order = data.order;
+					param.projectSerial = $('#projectSerial').val();
+					param.projectName = $('#projectName').val();
+					param.projectStartTime = $('#projectStartTime').val();					
+					param.allContractPayed = $('#allContractPayed :selected').val();
+
+					console.log(param);
+
+					//ajax请求数T
+					$.ajax({
+						type: "POST",
+						url: "http://123.206.254.42:2333/getBudgetList",
+						cache: false, //禁用缓存
+						data: param, //传入组装的参数
+						dataType: "json",
+						success: function(result) {
+
+							//console.log(result);
+							//setTimeout仅为测试延迟效果
+							setTimeout(function() {
+								//封装返回数据
+								var returnData = {};
+								returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+								returnData.recordsTotal = result.total; //返回数据全部记录
+								returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+								returnData.data = result.data; //返回的数据列表
+								//console.log(returnData);
+								//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+
+								callback(returnData);
+//								//隐藏
+//								$('.will-hide').hide();
+//								$('#example tr').find('td:eq(1)').hide();
+							}, 200);
+						}
+					});
+				},
+
+				columns: [{
+					"data": "budgetID"
+				}, {
+					"data": "projectName",
+					"render": function(data, type, row, callback) {
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+						return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
+					}
+				}, {
+					"data": "projectBudgetSum"
+				},{
+					"data": "projectContractsSum"
+				}, {
+					"data": "projectContractsPayed"
+				}, {
+					"data": "projectContractsNotPayed"
+				}, {
+					"data":"projectBudgetLeft"
+				}, {
+					"data": "budgetID", //json
+					"render": function(data, type, full, callback) {
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						detailUrl = "'/bugdetDetail.html?contractID=" + data + "'";
+						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open(' + detailUrl + ')">查看详情</button>' );
+					}
+				}]
+			}).api();
+
+			//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
+
+		});
+	</script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+	<script>
+		function reRenderTable() {
+			var table = $('#example').dataTable();
+			table.fnReloadAjax();
+		}
+	</script>
