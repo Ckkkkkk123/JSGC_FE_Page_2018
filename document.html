@@ -212,7 +212,6 @@
 								</div>
 							</div>
 							<!--<div class="col-md-1"></div>-->
-							
 
 						</div><br />
 						<script src="js/jsxm.js"></script>
@@ -343,7 +342,7 @@
 				};
 
 				//初始化表格
-				var table = $("#example").dataTable({
+				var table = $("#documentTable").dataTable({
 					language: lang, //提示信息
 					autoWidth: false, //禁用自动调整列宽
 					stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
@@ -366,18 +365,18 @@
 						param.start = data.start; //开始的记录序号
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
-						param.projectNum = $('#projectSerial').val();
-						param.projectName = $('#projectName').val();
-						param.projectDepartment = $('#projectDepartment').val();
-						param.projectOwner = $('#projectOwner').val();
-						param.projectBudgetDown = $('#projectBudgetDown').val();
-						param.projectBudgetUp = $('#projectBudgetUp').val();
+						param.documentSerial = $('#documentSerial').val();
+						param.documentName = $('#documentName').val();
+						param.documentType = $('#documentType').val();
+						param.documentOwner = $('#documentOwner').val();
+						param.docUploadTimeRange = $('#docUploadTimeRange').val();
+						//						param.projectBudgetUp = $('#projectBudgetUp').val();
 
 						//						console.log(param);
 						//ajax请求数T
 						$.ajax({
 							type: "post",
-							url: "http://123.206.254.42:2333/getProjectList",
+							url: "http://123.206.254.42:2333/getDocList",
 							cache: false, //禁用缓存
 							data: param, //传入组装的参数
 							dataType: "json",
@@ -403,39 +402,46 @@
 					//列表表头字段
 
 					columns: [{
-							"data": "projectSerial"
+							"data": "documentSerial"
 						},
 						{
-							"data": "projectName"
+							"data": "documentName"
 						},
 						{
-							"data": "projectStartTime"
+							"data": "projectName",
+							"render": function(data, type, row, meta) {
+								return('<a href="projectDetail.html?projectID='+ row.projectID +'"> '+ data+'</a>')
+							}
 						},
 						{
-							"data": "departmentName"
+							"data": "contractID",
+							"render": function(data, type, row, meta) {
+								if(data != 'null'){
+									return('<a href="contractDetail.html?contractID='+ row.contractID +'"> '+ data+'</a>')
+									
+								}else{
+									return('-')
+								}
+
+							}
+						},
+						
+						{
+							"data": "documentOwner"
 						},
 						{
-							"data": "username"
+							"data": "documentUploadTime"
 						},
 						{
-							"data": "projectBudgetSum"
+							"data": "documentComment"
 						},
 						{
-							"data": "projectComment",
-							//							"render":function (data,type,row,meta) {
-							//								console.log(row) 
-							//								return(row.projectID+data)
-							//							}
-						},
-						{
-							"data": "projectID", //json
-							"render": function(data, type, full, callback) {
+							"data": "documentUrl", //json
+							"render": function(data) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								contractUrl = "'/contract.html?projectID=" + data + "'";
-								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
-
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open(' + detailUrl + ')">编辑信息</button>');
+							
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + data + ')">下载</button>');
 							}
 						}
 					]
@@ -446,7 +452,7 @@
 		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 		<script>
 			function reRenderTable() {
-				var table = $('#example').dataTable();
+				var table = $('#documentTable').dataTable();
 				table.fnReloadAjax();
 			}
 		</script>
