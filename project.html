@@ -178,8 +178,8 @@
 							<div class="input-group">
 								<span class="input-group-addon ">所属部门：&nbsp;</span>
 								<select class="form-control" name="checkStatus" id="projectDepartment">
-									<option value="0">技术部</option>
-									<option value="1">背锅部</option>
+									<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
 								</select>
 							</div>
 						</div>
@@ -360,6 +360,7 @@
 						param.start = data.start; //开始的记录序号
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
+						
 						param.projectNum = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.projectDepartment = $('#projectDepartment').val();
@@ -375,8 +376,11 @@
 							cache: false, //禁用缓存
 							data: param, //传入组装的参数
 							dataType: "json",
+							async:false,
 							success: function(result) {
 								//console.log(result);
+								getDepartmentOption(result.departmentItem);
+								
 								//setTimeout仅为测试延迟效果
 								setTimeout(function() {
 									//封装返回数据
@@ -388,6 +392,7 @@
 									//console.log(returnData);
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+									
 									callback(returnData);
 
 								}, 200);
