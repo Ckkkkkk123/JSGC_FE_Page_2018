@@ -151,9 +151,9 @@
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">项目管理</a>
+						<a href="#">档案管理</a>
 					</li>
-					<li class="breadcrumb-item active">项目总览</li>
+					<li class="breadcrumb-item active">文档总览</li>
 				</ol>
 				<!-- Example DataTables Card-->
 				<div class="card mb-1" id="chooseCard">
@@ -165,24 +165,24 @@
 						<div class="form-inline">
 							<div class="col-md-3">
 								<div class="input-group">
-									<span class="input-group-addon	">项目编号：&nbsp;&nbsp;</span>
-									<input class="form-control" type="text" placeholder="" value="" id="projectSerial">
+									<span class="input-group-addon	">文档编号：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="documentSerial">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
 							<div class="col-md-3">
 								<div class="input-group">
-									<span class="input-group-addon	">项目名：&nbsp;&nbsp;</span>
-									<input class="form-control" type="text" placeholder="" value="" id="projectName">
+									<span class="input-group-addon	">文档名：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="documentName">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
 							<div class="col-md-3 ">
 								<div class="input-group">
-									<span class="input-group-addon ">所属部门：&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="projectDepartment">
-										<option value="0">技术部</option>
-										<option value="1">背锅部</option>
+									<span class="input-group-addon ">文档类型 &nbsp;</span>
+									<select class="form-control" name="checkStatus" id="documentType">
+										<option value="0">某种</option>
+										<option value="1">合同</option>
 									</select>
 								</div>
 							</div>
@@ -192,24 +192,27 @@
 						<div class="form-inline">
 							<div class="col-md-3">
 								<div class="input-group">
-									<span class="input-group-addon	">负责人：&nbsp;</span>
-									<input class="form-control" type="text" id="projectOwner">
+									<span class="input-group-addon	">归档负责人：&nbsp;</span>
+									<input class="form-control" type="text" id="documentOwner">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
-							<div class="col-md-3">
+							<script src="laydate/laydate.js"></script>
+							<script>
+								//执行一个laydate实例
+								laydate.render({
+									elem: '#docUploadTimeRange',
+									range: true
+								});
+							</script>
+							<div class="col-md-4">
 								<div class="input-group">
-									<span class="input-group-addon	">总预算范围：&nbsp;</span>
-									<input class="form-control" type="number" id="projectBudgetDown">
+									<span class="input-group-addon	">归档日期范围：&nbsp;</span>
+									<input class="form-control" type="text" id="docUploadTimeRange">
 								</div>
 							</div>
 							<!--<div class="col-md-1"></div>-->
-							<div class="col-md-3">
-								<div class="input-group">
-									<span class="input-group-addon	">到：&nbsp;</span>
-									<input class="form-control" type="number" id="projectBudgetUp">
-								</div>
-							</div>
+							
 
 						</div><br />
 						<script src="js/jsxm.js"></script>
@@ -233,16 +236,16 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table id="example" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
+							<table id="documentTable" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
 								<thead>
 									<tr>
 										<!--<th style="display: none;">项目ID</th>-->
-										<th>项目编号</th>
-										<th>项目名</th>
-										<th>项目开始日期</th>
-										<th>所属部门</th>
-										<th>负责人</th>
-										<th>总预算</th>
+										<th>文档编号</th>
+										<th>文档名</th>
+										<th>所属项目</th>
+										<th>所属合同</th>
+										<th>归档人</th>
+										<th>归档日期</th>
 										<th>备注</th>
 										<th>操作</th>
 									</tr>
