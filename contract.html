@@ -3,10 +3,6 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <title>合同管理</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,8 +12,8 @@
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css"  media="all">
-  <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="laydate/theme/default/laydate.css">
+  <script src="laydate/laydate.js" charset="utf-8"></script>
   <style>
   	.mycardheader{
   		padding: 0;
@@ -244,13 +240,20 @@
 							</div>
 						</div>
 						<div class="col-md-1"></div>
+						
 						<div class="col-md-3 ">
-							<div class="layui-inline">
-	      				<label class="layui-form-label">日期范围</label>
-	      				<div class="layui-input-inline">
-	       					<input type="text" class="layui-input" id="contractSignTime" placeholder=" - ">
-	      				</div>
+							<div class="input-group">
+	      				<span class="input-group-addon	">日期范围：&nbsp;&nbsp;</span>
+	      				<input class="form-control" type="text" id="contractSignedTime">
 					    </div>
+					    <script src="laydate/laydate.js"></script>
+							<script>
+									//执行一个laydate实例
+									laydate.render({
+										elem: '#contractSignedTime',
+										range: true
+									});
+							</script>
 						</div>
 
 					</div>
@@ -371,14 +374,12 @@
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Page level plugin JavaScript-->
-<script src="vendor/chart.js/Chart.min.js"></script>
 <script src="vendor/datatables/jquery.dataTables.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin.min.js"></script>
 <!-- Custom scripts for this page-->
 <script src="js/sb-admin-datatables.min.js"></script>
-<script src="js/sb-admin-charts.min.js"></script>
 <script type="text/javascript">
 			$(function() {
 				
