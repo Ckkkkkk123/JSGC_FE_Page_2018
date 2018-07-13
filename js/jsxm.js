@@ -2,7 +2,7 @@ function resetInput() {
 	$(" input").val("")
 }
 
-var baseUrl = "http://127.0.0.1:2333";
+var baseUrl = "http://123.206.254.42:2333";
 var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = baseUrl + "/getProjectDetail";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";

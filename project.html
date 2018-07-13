@@ -570,8 +570,8 @@
 						$('#projectIDEdit').val(result.projectID);
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
-//						$("#projectDepartmentEdit").val(result.departmentID);
-						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "selected");
+						$("#projectDepartmentEdit").val(result.departmentID);
+//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 //						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val(result.username);
 						$('#projectBudgetEdit').val(result.projectBudgetSum);
