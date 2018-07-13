@@ -295,7 +295,109 @@
         </div>
       </div>
     </div>
+    
+    <!--修改信息模态框-->
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">修改合同</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+						</div>
+						<div class="modal-body">
+							<div class="container" style="width: 90%;">
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">合同编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractNameEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同多方:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractPartnerEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同签署日期:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同额:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">所属项目编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="projectSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">建设内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select id="buildInfo" class="form-control" name="checkStatusEdit">
+											<option value="0">建设内容0</option>
+											<option value="1">建设内容1</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-10">
+										<textarea class="form-control" id="contractContentEdit" rows="5">在w3school，你可以找到你所需要的所有的网站建设教程。
+										</textarea>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同备注:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" id="contractCommentEdit" class="form-control" id="projectSerial"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary">提交</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
   </div>
+  
   
 </body>
 <!-- Bootstrap core JavaScript-->
@@ -311,8 +413,7 @@
 <!-- Custom scripts for this page-->
 <script src="js/sb-admin-datatables.min.js"></script>
 <script type="text/javascript">
-			$(function() {
-				
+			$(function() {			
 				//提示信息
 				var lang = {
 					"sProcessing": "处理中...",
@@ -372,7 +473,6 @@
 						param.projectSerial = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.allFinancePayed=$('#allFinancePayed :selected' ).val();
-						
 						console.log(param);
 						
 						
@@ -403,10 +503,7 @@
 								}, 200);							
 							}
 						});
-					},
-					
-					
-					
+					},	
 					columns: [{
 							"data": "contractSerial"
 						},
@@ -444,24 +541,69 @@
 								//拼接字符串（懒得处理引号转义）
 								financeUrl = "'/finance.html?contractID="+data+"'";
 								detailUrl = "'/contractDetail.html?contractID="+data+"'";
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>'
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;'
+								+'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail('+data+')">编辑信息</button>'
 								+'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="window.open('+financeUrl+')">删除</button>');
 							}
 						}
 					]
 				}).api();
-				
-				
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 
 			
 				
 			});
-		</script>
-		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-		<script>
-			function reRenderTable(){
-				var table = $('#example').dataTable();
-				table.fnReloadAjax();
+</script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+<script>
+	function reRenderTable(){
+		var table = $('#example').dataTable();
+		table.fnReloadAjax();
+	}
+</script>
+
+<script>
+	function showDetail(id){
+		var param = {};
+		param.contractID=id;
+		$.ajax({
+			type:"POST",
+			url:"http://123.206.254.42:2333/getContractDetail",
+			cache:false,
+			data:param,
+			dataType:"json",
+			success: function(result){
+				
 			}
-		</script>
+		});
+		alert('hehe');
+	}
+	//ajax请求数T
+//						$.ajax({
+//							type: "POST",
+//							url: "http://123.206.254.42:2333/getContractList",
+//							cache: false, //禁用缓存
+//							data: param, //传入组装的参数
+//							dataType: "json",
+//							success: function(result) {
+//								
+//							
+//								//console.log(result);
+//								//setTimeout仅为测试延迟效果
+//								setTimeout(function() {
+//									//封装返回数据
+//									var returnData = {};
+//									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+//									returnData.recordsTotal = result.total; //返回数据全部记录
+//									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+//									returnData.data = result.data; //返回的数据列表
+//									//console.log(returnData);
+//									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+//									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+//									
+//									callback(returnData);
+//									//隐藏									
+//								}, 200);							
+//							}
+//						});
+</script>
