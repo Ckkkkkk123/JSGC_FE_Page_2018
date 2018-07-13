@@ -280,24 +280,113 @@
 		<a class="scroll-to-top rounded" href="#page-top">
 			<i class="fa fa-angle-up"></i>
 		</a>
-		<!-- Logout Modal-->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+
+		<!--编辑详情-->
+		<div class="modal fade bs-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
+						<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
 					</div>
-					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<div class="clearfix"><br /></div>
+
+							<div class="row" style="display: none;">
+								<div class="col-md-2">项目ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectIDEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">项目编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectSerialEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">项目名:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectNameEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">所属部门:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7">
+									<select class="form-control" name="projectDepartmentEdit" id="projectDepartmentEdit">
+									<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+								</select>
+									<!--<input type="text" id="projectDepartmentEdit" class="form-control"></input>-->
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">负责人:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectOwnerEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">总预算:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="number" id="projectBudgetEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">备注:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-10">
+									<textarea class="form-control" rows="5" id="projectCommentEdit"></textarea>
+
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="updateProject()">提交</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >修改成功</h4>
+						
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
 		<!-- Bootstrap core JavaScript-->
 		<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -312,7 +401,12 @@
 		<!-- Custom scripts for this page-->
 		<script src="js/sb-admin-datatables.min.js"></script>
 		<!--<script src="js/sb-admin-charts.min.js"></script>-->
+		<script src="js/jsxm.js"></script>
 		<script type="text/javascript">
+			function sleep(d) {
+				for(var t = Date.now(); Date.now() - t <= d;);
+			}
+
 			$(function() {
 				//提示信息
 				var lang = {
@@ -365,7 +459,7 @@
 						param.start = data.start; //开始的记录序号
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
-						
+
 						param.projectNum = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.projectDepartment = $('#projectDepartment').val();
@@ -377,18 +471,19 @@
 						//ajax请求数T
 						$.ajax({
 							type: "post",
-							url: "http://123.206.254.42:2333/getProjectList",
+							url: getProjectListUrl,
 							cache: false, //禁用缓存
 							data: param, //传入组装的参数
 							dataType: "json",
-							async:false,
+							async: false,
 							success: function(result) {
 								//console.log(result);
-								getDepartmentOption(result.departmentItem);
-								
+								getDepartmentOption(result.departmentList);
+
 								//setTimeout仅为测试延迟效果
 								setTimeout(function() {
 									//封装返回数据
+//									getDepartmentOption(
 									var returnData = {};
 									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
 									returnData.recordsTotal = result.total; //返回数据全部记录
@@ -397,7 +492,7 @@
 									//console.log(returnData);
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-									
+
 									callback(returnData);
 
 								}, 200);
@@ -437,9 +532,9 @@
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
 								contractUrl = "'/contract.html?projectID=" + data + "'";
-								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
+								//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open(' + detailUrl + ')">编辑信息</button>');
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#detail"  onclick="showDetail(' + data + ')">编辑信息</button>');
 							}
 						}
 					]
@@ -449,9 +544,75 @@
 		</script>
 		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 		<script>
+			//刷新列表
 			function reRenderTable() {
 				var table = $('#example').dataTable();
 				table.fnReloadAjax();
+			}
+
+			//渲染详情页
+			function showDetail(id) {
+				//				ajax
+				var param = {};
+				param.projectID = id;
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				//			
+				$.ajax({
+					type: "post",
+					url: getProjectDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						$('#projectIDEdit').val(result.projectID);
+						$('#projectSerialEdit').val(result.projectSerial);
+						$('#projectNameEdit').val(result.projectName);
+//						$("#projectDepartmentEdit").val(result.departmentID);
+						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "selected");
+//						$('#projectDepartmentEdit').val(result.departmentName);
+						$('#projectOwnerEdit').val(result.username);
+						$('#projectBudgetEdit').val(result.projectBudgetSum);
+						$('#projectCommentEdit').val(result.projectComment);
+						console.log(result.projectName);
+					}
+				});
+			}
+
+			//发送修改的内容
+			function updateProject() {
+				//				ajax
+				var param = {};
+				param.projectID = $('#projectIDEdit').val();
+				param.projectSerial = $('#projectSerialEdit').val();
+				param.projectName = $('#projectNameEdit').val();
+				param.departmentName = $('#projectDepartmentEdit').val();
+				param.username = $('#projectOwnerEdit').val();
+				param.projectBudgetSum = $('#projectBudgetEdit').val();
+				param.projectComment = $('#projectCommentEdit').val();
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: updateProjectDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModel').click();
+						$('#successModal').modal('show');
+//						sleep(1);
+
+					}
+				});
 			}
 		</script>
 		</div>
