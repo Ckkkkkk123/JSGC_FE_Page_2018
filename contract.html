@@ -20,15 +20,14 @@
   	}
   </style>
 </head>
-
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">金审项目管理</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<!-- Navigation-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+			<a class="navbar-brand" href="index.html">金审项目管理</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
 						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
@@ -45,25 +44,26 @@
 						</ul>
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="financeList.html">
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">财务管理</span>
 						</a>
+						
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="budget.html">
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">预算查看</span>
 						</a>
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="asset.html">
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">资产管理</span>
 						</a>
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="document.html">
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">档案管理</span>
 						</a>
@@ -84,11 +84,49 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
-
+					<!--<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span class="d-lg-none">Messages
+              <span class="badge badge-pill badge-primary">12 New</span>
+            </span>
+            <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+            <h6 class="dropdown-header">New Messages:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>David Miller</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>Jane Smith</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>John Doe</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="#">View all messages</a>
+          </div>
+        </li>-->
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-fw fa-bell"></i> 通知
-
+							<!--<span class="d-lg-none">Alerts
+              <span class="badge badge-pill badge-warning">6 New</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>-->
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
@@ -111,10 +149,35 @@
 								<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
 							</a>
 							<div class="dropdown-divider"></div>
-
+							<!--<a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+              </span>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>-->
+							<!--</a>
+            <div class="dropdown-divider"></div>-->
 							<a class="dropdown-item small" href="#">查看全部</a>
 						</div>
 					</li>
+					<!--
+        	作者：Lzq
+        	时间：2018-07-10
+        	描述：搜索框
+        -->
+					<!--<li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </li>-->
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -137,9 +200,14 @@
 						</div>
 					</li>
 
+					<!--<li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>-->
+
 				</ul>
 			</div>
-  </nav>
+		</nav>
   <div class="content-wrapper">
   	<div class="container-fluid">
   		<!-- Breadcrumbs-->
@@ -295,7 +363,109 @@
         </div>
       </div>
     </div>
+    
+    <!--修改信息模态框-->
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">修改合同</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+						</div>
+						<div class="modal-body">
+							<div class="container" style="width: 90%;">
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">合同编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractNameEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同多方:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractPartnerEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同签署日期:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同额:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">所属项目编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="projectSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">建设内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select id="buildInfo" class="form-control" name="checkStatusEdit">
+											<option value="0">建设内容0</option>
+											<option value="1">建设内容1</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-10">
+										<textarea class="form-control" id="contractContentEdit" rows="5">在w3school，你可以找到你所需要的所有的网站建设教程。
+										</textarea>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同备注:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" id="contractCommentEdit" class="form-control" id="projectSerial"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary">提交</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
   </div>
+  
   
 </body>
 <!-- Bootstrap core JavaScript-->
@@ -311,8 +481,7 @@
 <!-- Custom scripts for this page-->
 <script src="js/sb-admin-datatables.min.js"></script>
 <script type="text/javascript">
-			$(function() {
-				
+			$(function() {			
 				//提示信息
 				var lang = {
 					"sProcessing": "处理中...",
@@ -372,7 +541,6 @@
 						param.projectSerial = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.allFinancePayed=$('#allFinancePayed :selected' ).val();
-						
 						console.log(param);
 						
 						
@@ -403,10 +571,7 @@
 								}, 200);							
 							}
 						});
-					},
-					
-					
-					
+					},	
 					columns: [{
 							"data": "contractSerial"
 						},
@@ -444,24 +609,69 @@
 								//拼接字符串（懒得处理引号转义）
 								financeUrl = "'/finance.html?contractID="+data+"'";
 								detailUrl = "'/contractDetail.html?contractID="+data+"'";
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+detailUrl+')">编辑信息</button>'
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open('+financeUrl+')">查看财务</button>&nbsp;&nbsp;'
+								+'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail('+data+')">编辑信息</button>'
 								+'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="window.open('+financeUrl+')">删除</button>');
 							}
 						}
 					]
 				}).api();
-				
-				
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 
 			
 				
 			});
-		</script>
-		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-		<script>
-			function reRenderTable(){
-				var table = $('#example').dataTable();
-				table.fnReloadAjax();
+</script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+<script>
+	function reRenderTable(){
+		var table = $('#example').dataTable();
+		table.fnReloadAjax();
+	}
+</script>
+
+<script>
+	function showDetail(id){
+		var param = {};
+		param.contractID=id;
+		$.ajax({
+			type:"POST",
+			url:"http://123.206.254.42:2333/getContractDetail",
+			cache:false,
+			data:param,
+			dataType:"json",
+			success: function(result){
+				
 			}
-		</script>
+		});
+		alert('hehe');
+	}
+	//ajax请求数T
+//						$.ajax({
+//							type: "POST",
+//							url: "http://123.206.254.42:2333/getContractList",
+//							cache: false, //禁用缓存
+//							data: param, //传入组装的参数
+//							dataType: "json",
+//							success: function(result) {
+//								
+//							
+//								//console.log(result);
+//								//setTimeout仅为测试延迟效果
+//								setTimeout(function() {
+//									//封装返回数据
+//									var returnData = {};
+//									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+//									returnData.recordsTotal = result.total; //返回数据全部记录
+//									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+//									returnData.data = result.data; //返回的数据列表
+//									//console.log(returnData);
+//									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+//									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+//									
+//									callback(returnData);
+//									//隐藏									
+//								}, 200);							
+//							}
+//						});
+</script>
