@@ -7,6 +7,11 @@ var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = baseUrl + "/getProjectDetail";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
+var getUserListUrl = baseUrl + "/getUserList";
+var getUserDetailUrl = baseUrl + "/initUserUpdate";
+var updateUserUrl = baseUrl + "/updateUser";
+var addUserUrl = baseUrl + "/addUser";
+var addFinanceDetailUrl = baseUrl + "/addFinance";
 
 function getDepartmentOption(departmentList) {
 	for(i in departmentList) {
@@ -95,5 +100,19 @@ for(i in purchaseTypeList) {
 
 		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
 		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+	}
+}
+
+
+function getLevelOption(levelList) {
+//	$.each(purchaseTypeList, function(index, el) {
+//		//alert(el);
+//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
+//	});
+
+for(i in levelList) {
+
+		$('#level').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
+		$('#levelEdit').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
 	}
 }

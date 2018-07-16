@@ -359,6 +359,8 @@
 						<div style="position: relative;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<!--<button type="button" class="btn btn-default" style="position: absolute; right: 200; top:50%;margin-top:-32px">添加财物</button>-->
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#financeAdd" >添加信息</button>
 						</div>
 					</div>
 
@@ -633,6 +635,11 @@
 					</div>
 					<div class="modal-body">
 						<!--<p id='222'>One fine body…</p>-->
+						<div class="input-group" style="display: none;">
+							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeIDUpdt">
+						</div>
+						<br />
 						<div class="input-group">
 							<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="financeSerialsUpdt">
@@ -766,11 +773,212 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel>Close</button>
-						<button type="button" class="btn btn-primary" onclick="updateFinance()>Save</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">Close</button>
+						<button type="button" class="btn btn-primary" onclick="updateFinance()">Save</button>
 					</div>
 				</div>
 			</div>
+		</div>
+		
+		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >修改成功</h4>
+						
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<!--添加信息-->
+		<div class="modal fade" id="financeAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabelAdd">添加财物信息</h4>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                  
+                  <span aria-hidden="true">×</span>
+                </button>
+
+					</div>
+					<div class="modal-body">
+						<!--<p id='222'>One fine body…</p>-->
+						<div class="input-group" style="display: none;">
+							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeIDAdd">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeSerialsAdd">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	pull-right">项目编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectSerialAdd">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contracSerialAdd">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="date" id="dateAdd">
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="paidAdd">
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">摘要：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeNameAdd">
+						</div>
+						<br />
+
+						
+							<!--<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMinUpdt">
+								</div>
+							</div>
+
+							<div class="col-md-1"></div>
+							<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMaxUpdt">
+								</div>
+							</div>-->
+							
+							<div class="input-group">
+									<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMoneyAdd">
+								</div>
+								
+								
+
+						
+
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="lendTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="borrowTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="payWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="purchaseWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="orgWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="purchaseTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">Close</button>
+						<button type="button" class="btn btn-primary" onclick="addFinance()">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="successModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >添加成功</h4>
+						
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
 		</div>
 		
 		<script type="text/javascript">
@@ -793,7 +1001,7 @@
 									getPurchaseWayOption(result.purchaseWayItem);
 									getOrgWayOption(result.orgWayItem);
 									getPurchaseTypeOption(result.purchaseTypeItem);
-									
+									$('#financeIDUpdt').val(result.financeID);
 									$('#financeSerialsUpdt').val(result.financeSerials);
 									$('#projectSerialUpdt').val(result.projectSerial);
 									$('#contracSerialUpdt').val(result.contractSerisal);
@@ -830,7 +1038,8 @@
 			
 			
 			function updateFinance(){
-				var param = {};//此时是否还需要financeID？怎么传？
+				var param = {};
+				param.financeID = $('#financeIDUpdt').val();
 				param.financeSerials = $('#financeSerialsUpdt').val();
 				param.projectSerial = $('#projectSerialUpdt').val();
 				param.contracSerial = $('#contracSerialUpdt').val();
@@ -861,6 +1070,45 @@
 //						alert("成功")
 						$('#closeModel').click();
 						$('#successModal').modal('show');
+//						sleep(1);
+
+					}
+				});
+			}
+			
+			function addFinance(){
+				var param = {};
+//				param.financeID = $('#financeIDUpdt').val();
+				param.financeSerials = $('#financeSerialsUpdt').val();
+				param.projectSerial = $('#projectSerialUpdt').val();
+				param.contracSerial = $('#contracSerialUpdt').val();
+				param.financeData = $('#dateUpdt').val();
+				param.financeName = $('#financeNameUpdt').val();
+				param.financeMoney = $('#financeMoneyUpdt').val();
+				param.financeLenderID = $('#lendTypeUpdt').val();
+				param.financeBorrowerID = $('#borrowTypeUpdt').val();
+				param.payMethodID = $('#payWayUpdt').val();
+				param.financeBuyMethodID = $('#purchaseWayUpdt').val();
+				param.financeOrgID = $('#orgWayUpdt').val();
+				param.financeTypeID = $('#purchaseTypeUpdt').val();
+				param.financeStatus = $('#paidUpdt').val();
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: addFinanceDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModelAdd').click();
+						$('#successModalAdd').modal('show');
 //						sleep(1);
 
 					}
