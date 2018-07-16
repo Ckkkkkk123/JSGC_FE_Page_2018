@@ -9,8 +9,8 @@ var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 var getContractDetailUrl=baseUrl+"/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
-
-
+var getBudgetDetailUrl=baseUrl+"/getBudgetDetail";
+var getContractUseMoneyUrl=baseUrl+'/getContractUseMoney';
 function getDepartmentOption(departmentList) {
 	for(i in departmentList) {
 

@@ -400,11 +400,12 @@
 					"data":"projectBudgetLeft"
 				}, {
 					"data": "budgetID", //json
-					"render": function(data, type, full, callback) {
+					"render": function(data, type, row, callback) {
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
-						detailUrl = "'/bugdetDetail.html?contractID=" + data + "'";
-						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open(' + detailUrl + ')">查看详情</button>' );
+						detailUrl="'"+baseUrl+'/budget_detail.html?bugdetID='+row.budgetID+"'";
+						tempUrl="'"+'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID='+row.budgetID+"'";
+						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
 					}
 				}]
 			}).api();
@@ -418,5 +419,5 @@
 		function reRenderTable() {
 			var table = $('#example').dataTable();
 			table.fnReloadAjax();
-		}
+		}		
 	</script>
