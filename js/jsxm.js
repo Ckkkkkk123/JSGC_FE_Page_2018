@@ -6,12 +6,19 @@ var baseUrl = "http://123.206.254.42:2333";
 var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = baseUrl + "/getProjectDetail";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
+var getContractDetailUrl=baseUrl+"/getContractDetail";
+var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
+
 var getUserListUrl = baseUrl + "/getUserList";
 var getUserDetailUrl = baseUrl + "/initUserUpdate";
 var updateUserUrl = baseUrl + "/updateUser";
 var addUserUrl = baseUrl + "/addUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
+
+
+var getBudgetDetailUrl=baseUrl+"/getBudgetDetail";
+var getContractUseMoneyUrl=baseUrl+'/getContractUseMoney';
 
 function getDepartmentOption(departmentList) {
 	for(i in departmentList) {
@@ -21,10 +28,13 @@ function getDepartmentOption(departmentList) {
 	}
 }
 
-//	$.each(departmentList, function(index, el) {
-//		//alert(el);
-//		$('#projectDepartment').append('<option value=' + index + '>' + el + '</option>');
-//	});
+
+function getBuildContentOption(buildContentList){
+	for(i in buildContentList){
+		$('#buildContentEdit').append('<option value=' + buildContentList[i]["buildContentID"] + '>' + buildContnetList[i]["buildInfo"] + '</option>');
+	}
+}
+
 
 function getLendTypeOption(lendTypeList) {
 
