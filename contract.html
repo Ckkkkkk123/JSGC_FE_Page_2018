@@ -13,6 +13,7 @@
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<link rel="stylesheet" href="laydate/theme/default/laydate.css">
+		<link rel="stylesheet" href="css/chosen.min.css">
 		<script src="laydate/laydate.js" charset="utf-8"></script>
 		<style>
 			.mycardheader {
@@ -277,11 +278,33 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">合同下财务付款情况：&nbsp;</span>
-									<select class="form-control" id="allFinancePayed">
+									<!--<select class="form-control" id="allFinancePayed">
 										<option value="">全部</option>
 										<option value="0">未付完</option>
 										<option value="1">已付完</option>
-									</select>
+									</select>-->
+									 <select data-placeholder="Your Favorite Football Team" data-live-search="true"  class="chosen-select form-control" tabindex="5">
+            <option value=""></option>
+            <optgroup label="NFC EAST">
+              <option>Dallas Cowboys</option>
+              <option>New York Giants</option>
+              <option>Philadelphia Eagles</option>
+              <option>部门2</option>
+            </optgroup>
+            <optgroup label="NFC NORTH">
+              <option>Chicago Bears</option>
+              <option>Detroit Lions</option>
+              <option selected="selected">Green Bay Packers</option>
+              <option>Minnesota Vikings</option>
+            </optgroup>
+            <optgroup label="NFC SOUTH">
+              <option>Atlanta Falcons</option>
+              <option>Carolina Panthers</option>
+              <option>New Orleans Saints</option>
+              <option>Tampa Bay Buccaneers</option>
+            </optgroup>
+           </select>
+</select>
 								</div>
 							</div>
 
@@ -496,9 +519,11 @@
 	<script src="js/sb-admin.min.js"></script>
 	<!-- Custom scripts for this page-->
 	<script src="js/sb-admin-datatables.min.js"></script>
+	<script src="js/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript">
 		$(function() {
+			$('.chosen-select').chosen();
 			//提示信息
 			var lang = {
 				"sProcessing": "处理中...",
