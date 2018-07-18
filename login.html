@@ -64,21 +64,22 @@
 				//			
 				$.ajax({
 					type: "post",
-					url: loginUrl,
+					url: "http://localhost:8080/login",
 					cache: false, //禁用缓存
-					data: param, //传入组装的参数
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
+					crossDomain: true,
 					success: function(result) {
-						//console.log(result);
-						//						$('#modal-body').html("成功");
-//						alert("成功")
+
 						$('#closeModel').click();
 						$('#successModal').modal('show');
 //						sleep(1);
 
 					}
 				});
+				
 			}
   </script>
 </body>
