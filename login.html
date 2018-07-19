@@ -36,7 +36,7 @@
              
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="index.html">登录</a>
+          <a class="btn btn-primary btn-block" href="javascript:void(0);" onclick="login()">登录</a>
         </form>
         <div class="text-center">
         	<br />
@@ -50,6 +50,38 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="js/jsxm.js" ></script>
+  <script>
+  	function login() {
+				//				ajax
+				var param = {};
+				param.email = $('#email').val();
+				param.password = $('#password').val();
+				
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: "http://localhost:8080/login",
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					success: function(result) {
+
+						$('#closeModel').click();
+						$('#successModal').modal('show');
+//						sleep(1);
+
+					}
+				});
+				
+			}
+  </script>
 </body>
 
 </html>

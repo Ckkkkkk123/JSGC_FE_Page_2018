@@ -9,10 +9,11 @@ var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 var getContractDetailUrl=baseUrl+"/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
-
+var loginUrl = baseUrl + "/login";
 var getUserListUrl = baseUrl + "/getUserList";
 var getUserDetailUrl = baseUrl + "/initUserUpdate";
 var updateUserUrl = baseUrl + "/updateUser";
+var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = baseUrl + "/addUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 

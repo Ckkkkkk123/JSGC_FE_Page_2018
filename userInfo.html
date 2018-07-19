@@ -234,13 +234,11 @@
           </div>
            <div class="form-group">
             <label for="exampleInputPermissionLevel">权限</label>
-            <input class="form-control" id="permissionLevel" type="text" placeholder="permissionLevel" readonly="readonly" style="width: 400px;">
-          </div>
-          <div class="form-group">
-            <div class="form-check">
-              <label class="form-check-label">
-             
-            </div>
+            <input class="form-control" id="permissionLevel" type="text" placeholder="不可修改" readonly="readonly" style="width: 400px;">
+          </div><br />
+         <div>
+         	<a class="btn btn-dark btn-lg" href="javascript:void(0);" onclick="updateUserInfo()">提交</a>
+         </div>
           </div>
 
         </form>
@@ -294,6 +292,41 @@
     <script src="js/sb-admin-datatables.min.js"></script>
 
   </div>
+  
+  <script type="text/javascript" src="js/jsxm.js" ></script>
+  <script>
+  	function updateUserInfo() {
+				//				ajax
+				var param = {};
+				param.userName = $('#username').val();
+				param.password = $('#password').val();
+				param.email = $('#email').val();
+				param.phone = $('#phone').val();
+				
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: updateUserInfoUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModel').click();
+						$('#successModal').modal('show');
+//						sleep(1);
+
+					}
+				});
+			}
+  </script>
+  
 </body>
 
 </html>
