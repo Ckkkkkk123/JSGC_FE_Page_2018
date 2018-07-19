@@ -407,17 +407,16 @@
 		<script src="js/jsxm.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="js/chosen.jquery.min.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript">		
 			function sleep(d) {
 				for(var t = Date.now(); Date.now() - t <= d;);
-			}
-			
+			}					
 			$(function() {
 				$('#detail').on('show.bs.modal', function (e) {
+					 $("#projectDepartmentEdit").trigger("chosen:updated");
 			 		 $('.chosen-select',this).chosen({width: "inherit"}) ;
 				})
-					
-				
+			
 				//提示信息
 				var lang = {
 					"sProcessing": "处理中...",
@@ -580,7 +579,8 @@
 						$('#projectIDEdit').val(result.projectID);
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
-						$("#projectDepartmentEdit").val(result.departmentID);
+						$('#projectDepartmentEdit').val(result.departmentID);
+						//$("#projectDepartmentEdit").val(result.departmentID); 原来关闭摸态框再次加载select不显示后台值.
 //						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 //						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val(result.username);
