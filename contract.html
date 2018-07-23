@@ -14,6 +14,7 @@
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<link rel="stylesheet" href="laydate/theme/default/laydate.css">
 		<link rel="stylesheet" href="css/chosen.min.css">
+		<link rel="stylesheet" href="css/fileinput/fileinput.min.css"/>
 		<script src="laydate/laydate.js" charset="utf-8"></script>
 		<style>
 			.mycardheader {
@@ -325,7 +326,7 @@
 					<div class="card-header ">
 						<i class="fa fa-table"></i> 合同列表
 						<div style="position: relative;">
-							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target ="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 						</div>
 					</div>
@@ -504,7 +505,29 @@
 				</div>
 				<!-- /.modal -->
 			</div>
+			<!--上传文件模态框-->
+			<div class="modal fade" id="fileinputModal" tabindex="-1" role="dialog" aria-labelledby="fileinputModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="fileinputModalLabel">选择一个Excel，导入</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      
+			      <div class="modal-body">
+			      	 <a href="http://localhost:8080/contractsExcelModel.xls" class="form-control" style="border:none;">下载导入模板</a>
+			        <div class="file-loading">
+			          <input id="excel_file" name="file" type="file" class="file-loading"/>
+			        </div>
+			        <div id="kartik-file-errors"></div>
+			      
+			    </div>
+			  </div>
+			</div>
 		</div>
+		
 
 	</body>
 	<!-- Bootstrap core JavaScript-->
@@ -520,10 +543,12 @@
 	<!-- Custom scripts for this page-->
 	<script src="js/sb-admin-datatables.min.js"></script>
 	<script src="js/chosen.jquery.min.js"></script>
-	
+	<script src="js/fileinput/fileinput.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('.chosen-select').chosen();
+			var oFileInput=new FileInput();
+			oFileInput.Init("excel_file","http://localhost:8080/batchUploadContracts");
+			
 			//提示信息
 			var lang = {
 				"sProcessing": "处理中...",
@@ -651,12 +676,12 @@
 				}]
 			}).api();
 			//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
-
 		});
 	</script>
 	
 	<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 	<script type="text/javascript">
+	
 			function reRenderTable() {
 				var table = $('#example').dataTable();
 				table.fnReloadAjax();
@@ -720,5 +745,50 @@
 					}
 				});
 			}
-		</script>
+			//初始化fileinput
+			var FileInput = function () {
+			    var oFile = new Object();
+			
+			    //初始化fileinput控件（第一次初始化）
+			    oFile.Init = function(ctrlName, uploadUrl) {
+				    var control = $('#' + ctrlName);
+				
+				    //初始化上传控件的样式
+				    control.fileinput({
+				        language: 'zh', //设置语言
+				        uploadUrl: uploadUrl, //上传的地址
+				        allowedFileExtensions: ['xls','jpg'],//接收的文件后缀
+				        showUpload: true, //是否显示上传按钮
+				        showCaption: false,//是否显示标题
+				        browseClass: "btn btn-primary", //按钮样式     
+//				        dropZoneEnabled: false,//是否显示拖拽区域
+				        //minImageWidth: 50, //图片的最小宽度
+				        //minImageHeight: 50,//图片的最小高度
+				        //maxImageWidth: 1000,//图片的最大宽度
+				        //maxImageHeight: 1000,//图片的最大高度
+				        //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+				        //minFileCount: 0,
+				        maxFileCount:1, //表示允许同时上传的最大文件个数
+				        enctype: 'multipart/form-data',
+				        validateInitialCount:true,
+				        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+				        msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+				    });
+				
+				    //导入文件上传完成之后的事件
+				    $("#excel_file").on("fileuploaded", function (event, data, previewId, index) {
+				        $("#fileinputModal").modal("hide");			
+				        console.log(data);
+				        alert('成功行数->'+data.response.successSize+'\n'
+				        +'失败行数->'+data.response.defeatSize+'\n'
+				        +'Excel内部编号冲突行号:'+data.response.rowNumsRepeatInner+'\n'
+				        +'与数据库编号冲突行号:'+data.response.rowNumsRepeatDB+'\n'
+				        +'所属关系不对行号:'+data.response.rowNumsOutJoinNotExist);
+				        
+				        
+					});
+					}
+					return oFile;
+			};
+	</script>
 	
