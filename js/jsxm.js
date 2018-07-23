@@ -3,6 +3,7 @@ function resetInput() {
 }
 
 var baseUrl = "http://123.206.254.42:2333";
+var testUrl = "http://127.0.0.1:8080"
 var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = baseUrl + "/getProjectDetail";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
@@ -10,6 +11,7 @@ var getContractDetailUrl=baseUrl+"/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
+var logoutUrl = testUrl + '/logout';
 var getUserListUrl = baseUrl + "/getUserList";
 var getUserDetailUrl = baseUrl + "/initUserUpdate";
 var updateUserUrl = baseUrl + "/updateUser";
