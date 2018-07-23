@@ -71,6 +71,9 @@
 					dataType: "json",
 					async: false,
 					crossDomain: true,
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 					success: function(data) {
 						console.log(status)
 						if(data["Token"] != null){
@@ -81,7 +84,17 @@
 						}else{
 							alter("用户名或密码错误");
 						}
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录");
+							window.location.href='login.html';
+						}
 					}
+
 				});
 				
 			}

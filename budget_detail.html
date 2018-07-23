@@ -398,6 +398,9 @@
 			async:true,
 			data:param,
 			dataType:"json",
+			beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 			success:function(result){
 				$('#budgetSerial').text(result.budgetSerial);
 				$('#projectName').text(result.projectName);
@@ -406,7 +409,17 @@
 				$('#projectContractsPayed').text(result.projectContractsPayed);
 				$('#projectContractsNotPayed').text(result.projectContractsNotPayed);
 				$('#projectBudgetLeft').text(result.projectContractsNotPayed);			
-			}		
+			}		,
+			error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录");
+							window.location.href='login.html';
+						}
+					}
+
 		});
 	});
 	function displayContractsUseMoney(){		
