@@ -116,7 +116,8 @@
 
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-fw fa-user"></i>用户名
+						<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
+
 
 					</a>
 					<!--拉到左边dropdown-menu-right-->
@@ -415,10 +416,11 @@
 					},
 					statusCode: {
 						401: function() {
-							alert("登录状态错误，请重新登录");
-							window.location.href='login.html';
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
 						}
 					}
+
 
 		});
 	});
@@ -444,7 +446,17 @@
 					
 				}
 				$('#dataTable').parent().parent().parent().parent().parent().show();
-			}
+			},
+			error: function(result, status) {
+						console.log(result)
+					},
+			statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+
 		});
 	}
 	function getQueryString() {
@@ -467,4 +479,30 @@
 	    }
 	    return args;
 	}
+	function logout() {
+
+				$.ajax({
+					type: "post",
+					url: logoutUrl,
+					cache: false, //禁用缓存
+					data: "", //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//								alert("登录状态错误，请重新登录");
+						//							
+						window.open('login.html');
+					},
+					error: function(result, status) {
+						console.log(result)
+						window.location.href = 'login.html';
+					}
+				});
+			}
 </script>
+<script>
+			$('#usernameLable').text(localStorage.getItem("username"));
+		</script>

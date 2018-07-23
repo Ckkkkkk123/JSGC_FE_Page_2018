@@ -181,7 +181,7 @@
         
         <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-user"></i>用户名
+            <i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
          
           </a>
           <!--拉到左边dropdown-menu-right-->
@@ -331,14 +331,15 @@
 					},
 					statusCode: {
 						401: function() {
-							alert("登录状态错误，请重新登录再尝试");
-							window.location.href = 'login.html';
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
 						}
 					}
 
+
 				});
 				function logout() {
-				
+
 				$.ajax({
 					type: "post",
 					url: logoutUrl,
@@ -357,19 +358,15 @@
 					error: function(result, status) {
 						console.log(result)
 						window.location.href = 'login.html';
-					},
-//					statusCode: {
-//						401: function() {
-//							alert("登录状态错误，请重新登录再尝试");
-//							window.open('login.html');
-//						}
-//					}
-
+					}
 				});
 			}
 			}
   </script>
-  
+  <script>
+			$('#usernameLable').text(localStorage.getItem("username"));
+		</script>
+
 </body>
 
 </html>
