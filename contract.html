@@ -592,6 +592,9 @@
 						cache: false, //禁用缓存
 						data: param, //传入组装的参数
 						dataType: "json",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 						success: function(result) {
 							getBuildContentOption(result.buildContentList);
 							//console.log(result);
@@ -610,7 +613,17 @@
 								callback(returnData);
 								//隐藏									
 							}, 200);
+						},
+						error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录");
+							window.location.href='login.html';
 						}
+					}
+
 					});
 				},
 				columns: [{

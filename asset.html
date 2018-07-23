@@ -946,6 +946,7 @@
 					"orderable": false //包含上样式名‘nosort'的禁止排序
 				}],
 				ajax: function(data, callback, settings) {
+					
 					//封装请求参数
 					var param = {};
 					//						console.log(data)
@@ -963,11 +964,15 @@
 
 					//ajax请求数T
 					$.ajax({
+						
 						type: "POST",
 						url: getAssetListUrl,
 						cache: false, //禁用缓存
 						data: param, //传入组装的参数
 						dataType: "json",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 						success: function(result) {
 
 							//console.log(result);
@@ -989,7 +994,17 @@
 //								$('.will-hide').hide();
 //								$('#example tr').find('td:eq(1)').hide();
 							}, 200);
+						},
+						error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录");
+							window.location.href='login.html';
 						}
+					}
+
 					});
 				},
 
