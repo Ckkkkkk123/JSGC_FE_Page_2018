@@ -566,20 +566,24 @@
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
 				//			
-				
+//				console.log(JSON.stringify(param));
 				$.ajax({
 					type: "post",
-					url: getProjectDetailUrl,
+					url: 'http://127.0.0.1:8080/getProjectDetail',
 					cache: false, //禁用缓存
 					data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
+//					Content-Type: "application/json",
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 					success: function(result) {
-						//console.log(result);
+						//console.log(result);¬
 						$('#projectIDEdit').val(result.projectID);
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
-						$('#projectDepartmentEdit').val(result.departmentID);
+						$('#projectDepartmentEdit').val(result.projectDepartmentID);
 						//$("#projectDepartmentEdit").val(result.departmentID); 原来关闭摸态框再次加载select不显示后台值.
 //						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 //						$('#projectDepartmentEdit').val(result.departmentName);
