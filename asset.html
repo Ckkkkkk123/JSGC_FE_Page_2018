@@ -16,6 +16,16 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
+		<style>
+			/*设置第八列，也就是按钮居中*/
+			
+			.table th,
+			.table td:nth-child(14) {
+				text-align: center;
+				vertical-align: middle!important;
+			}
+			 th, td { white-space: nowrap; }
+		</style>
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -222,6 +232,7 @@
 						<div style="position: relative;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addAsset" >添加信息</button>
 						</div>
 					</div>
 					<div class="card-body">
@@ -242,7 +253,7 @@
 										<th>经手人</th>
 										<th>使用部门</th>
 										<th>所属项目</th>
-										<th>操作</th>
+										<th>操作         </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -287,8 +298,8 @@
 		</div>
 		
 		
-		
-		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<!--更新信息-->
+		<div class="modal fade bs-example-modal-lg" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -300,11 +311,27 @@
 						<div class="modal-body">
 							<div class="container" style="width: 90%;">
 								<div class="clearfix"><br /></div>
+								
+								<div class="row" style="display: none;">
+								<div class="col-md-2">资产ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="assetIDEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
 
 								<div class="row">
 									<div class="col-md-2">资产编号:</div>
 									<!--<div class="col-1"></div>-->
-									<div class="col-md-7"><input type="text" class="form-control" id="assetIDEdit"></input>
+									<div class="col-md-7"><input type="text" class="form-control" id="assetSerialEdit"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+								<div class="row">
+									<div class="col-md-2">资产名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetNameEdit"></input>
 									</div>
 								</div>
 								<div class="clearfix"><br /></div>
@@ -313,10 +340,23 @@
 									<div class="col-md-2">购置日期:</div>
 									<!--<div class="col-1"></div>-->
 									<div class="col-md-7">
-										<select class="form-control" name="checkStatus" id="assetDateEdit">
+										<select class="form-control"  id="assetDateEdit">
 											<option value="2">背锅部</option>
 											<option value="0">技术部</option>
 											<option value="1">背锅部</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+								<div class="row">
+									<div class="col-md-2">审核状态:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control" name="checkStatus" id="assetStatusEdit">
+											<option value="2">审核中</option>
+											<option value="0">未通过</option>
+											<option value="1">通过</option>
 										</select>
 									</div>
 								</div>
@@ -357,7 +397,7 @@
 								<div class="row">
 									<div class="col-md-2">金额:</div>
 									<!--<div class="col-1"></div>-->
-									<div class="col-md-7"><input type="text" class="form-control"></input>
+									<div class="col-md-7"><input type="text" class="form-control" id="assetMoneySumEdit"></input>
 									</div>
 								</div>
 								<div class="clearfix"><br /></div>
@@ -399,7 +439,166 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary">提交</button>
+								<button type="button" class="btn btn-primary" onclick="updateAsset()">提交</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--查看信息-->
+			<div class="modal fade bs-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabelDetail">查看信息</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+						</div>
+						<div class="modal-body">
+							<div class="container" style="width: 90%;">
+								<div class="clearfix"><br /></div>
+								
+								<div class="row" style="display: none;">
+								<div class="col-md-2">资产ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="assetIDDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+
+								<div class="row">
+									<div class="col-md-2">资产编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetSerailDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+								<div class="row">
+									<div class="col-md-2">资产名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetNameDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">购置日期:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control"  id="assetDateDetail">
+											<option value="2">背锅部</option>
+											<option value="0">技术部</option>
+											<option value="1">背锅部</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+<!--								
+								<div class="row">
+									<div class="col-md-2">所属项目编号:</div>
+									
+									<div class="col-md-7"><input type="text" class="form-control" id="assetProjectDetail"></input>
+									</div>
+								</div>-->
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">审核状态:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control" name="checkStatus" id="assetStatusDetail">
+											<option value="2">审核中</option>
+											<option value="0">未通过</option>
+											<option value="1">通过</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">规格:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetSpecDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">型号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetModelDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">数量:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetAmountDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">单价:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetMoneyDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">金额:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetMoneySumDetail"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">经手人:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetOwnerDetail"></input>
+									</div>
+								</div>
+								
+								
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">使用部门:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control" name="checkStatus" id="assetDepIDDetail">
+											<option value="2">背锅部</option>
+											<option value="0">技术部</option>
+											<option value="1">背锅部</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">备注:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-10">
+										<textarea class="form-control" rows="5" id="assetCommentDetail">在w3school，你可以找到你所需要的所有的网站建设教程。
+										</textarea>
+
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+							</div>
+							<div class="modal-footer">
+								<!--<button type="button" class="btn btn-primary" onclick="updateAsset()">提交</button>-->
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
 							</div>
@@ -407,12 +606,229 @@
 					</div>
 				</div>
 			</div>
-			<script>
-				//ajax
-				function showDetail(id) {
-					$('#222').text('id 是' + id)
-				}
-			</script>
+			
+			
+			<!--添加信息-->
+			<div class="modal fade bs-example-modal-lg" id="addAsset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabelAdd">修改信息</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+						</div>
+						<div class="modal-body">
+							<div class="container" style="width: 90%;">
+								<div class="clearfix"><br /></div>
+								
+								<!--<div class="row" style="display: none;">
+								<div class="col-md-2">资产ID:</div>
+								
+								<div class="col-md-7"><input type="text" id="assetIDEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>-->
+
+								<div class="row">
+									<div class="col-md-2">资产编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetSerialAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+								<div class="row">
+									<div class="col-md-2">资产名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetNameAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">购置日期:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control"  id="assetDateAdd">
+											<option value="2">背锅部</option>
+											<option value="0">技术部</option>
+											<option value="1">背锅部</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								
+								<div class="row">
+									<div class="col-md-2">审核状态:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control" name="checkStatus" id="assetStatusAdd">
+											<option value="2">审核中</option>
+											<option value="0">未通过</option>
+											<option value="1">通过</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">规格:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetSpecAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">型号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetModelAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">数量:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetAmountAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">单价:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetMoneyAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">金额:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetMoneySumAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">经手人:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="assetOwnerAdd"></input>
+									</div>
+								</div>
+								
+								
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">使用部门:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select class="form-control" name="checkStatus" id="assetDepIDAdd">
+											<option value="2">背锅部</option>
+											<option value="0">技术部</option>
+											<option value="1">背锅部</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="clearfix"><br /></div>
+
+								<div class="row">
+									<div class="col-md-2">备注:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-10">
+										<textarea class="form-control" rows="5" id="assetCommentAdd">在w3school，你可以找到你所需要的所有的网站建设教程。
+										</textarea>
+
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" onclick="addAsset()">提交</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">关闭</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--更新成功-->
+			<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >修改成功</h4>
+						
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<!--添加成功-->
+		<div class="modal fade" id="successModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >添加成功</h4>
+						
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<!--确认删除-->
+		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
+							
+								<div class="row" style="display: none;">
+								<div class="col-md-2">资产ID:</div>
+								<div class="col-md-7"><input type="text" id="assetIdDelete" class="form-control"></input>
+								</div>
+							</div>
+							
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="deleteAsset()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 			<!-- /.container-fluid-->
 			<!-- /.content-wrapper-->
@@ -521,6 +937,7 @@
 				serverSide: true, //启用服务器端分页
 				searching: false, //禁用原生搜索
 				orderMulti: false, //启用多列排序
+				scrollX: true,
 				order: [], //取消默认排序查询,否则复选框一列会出现小箭头
 				renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
 				pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
@@ -547,7 +964,7 @@
 					//ajax请求数T
 					$.ajax({
 						type: "POST",
-						url: "http://123.206.254.42:2333/getAssetList",
+						url: getAssetListUrl,
 						cache: false, //禁用缓存
 						data: param, //传入组装的参数
 						dataType: "json",
@@ -614,7 +1031,11 @@
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
 						
-						return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(23333)"">编辑</button>' );
+//						return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(23333)"">编辑</button>' );
+						return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#detail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;'
+								+ '<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#update" onclick="getAssetUpdate(' + data + ')">编辑信息</button>&nbsp;'
+								+ '<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteAssetID(' + data + ')">删除</button>');
+								
 					}
 				}]
 			}).api();
@@ -628,5 +1049,166 @@
 		function reRenderTable() {
 			var table = $('#example').dataTable();
 			table.fnReloadAjax();
+		}
+		
+		function showDetail(id) {
+			var param = {};
+				param.assetID = id;			
+				
+				$.ajax({
+					type: "post",
+					url: getAssetDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						
+						$('#assetIDDetail').val(result.assetID);
+						$('#assetSerailDetail').val(result.assetSerial);
+						$('#assetNameDetail').val(result.assetName);
+						$('#assetDateDetail').val(result.assetDate);
+						$('#assetSpecDetail').val(result.assetSpec);
+						$('#assetModelDetail').val(result.assetModel); 原来关闭摸态框再次加载select不显示后台值.
+						$('#assetAmountDetail').val(result.assetAmount);
+						$('#assetMoneyDetail').val(result.assetMoney);
+						$('#assetMoneySumDetail').val(result.assetMoneySum);
+						$('#assetOwnerDetail').val(result.assetOwner);
+						$('#assetDepIDDetail').val(result.assetDepID);
+						$('#assetDepIDDetail').val(result.assetDepID);
+						$('#assetStatusDetail').val(result.assetStatus);
+						console.log(result.projectName);
+					}
+				});
+		}
+		
+		function getAssetUpdate(id) {
+			var param = {};
+				param.assetID = id;			
+				
+				$.ajax({
+					type: "post",
+					url: getAssetUpdateUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						
+						$('#assetIDEdit').val(result.assetID);
+						$('#assetSerailEdit').val(result.assetSerial);
+						$('#assetNameEdit').val(result.assetName);
+						$('#assetDateEdit').val(result.assetDate);
+						$('#assetSpecEdit').val(result.assetSpec);
+						$('#assetModelEdit').val(result.assetModel); 
+						$('#assetAmountEdit').val(result.assetAmount);
+						$('#assetMoneyEdit').val(result.assetMoney);
+						$('#assetMoneySumEdit').val(result.assetMoneySum);
+						$('#assetOwnerEdit').val(result.assetOwner);
+						$('#assetDepIDEdit').val(result.assetDepID);
+						$('#assetCommentEdit').val(result.assetComment );
+						$('#assetStatusEdit').val(result.assetStatus);
+						console.log(result.projectName);
+					}
+				});
+		}
+		
+		function updateAsset(id){
+			var param = {};
+				param.assetID = $('#assetIDEdit').val();
+				param.assetSerial = $('#assetSerailEdit').val();
+				param.assetName = $('#assetNameEdit').val();
+				param.assetDate = $('#assetDateEdit').val();
+				param.assetSpec = $('#assetSpecEdit').val();
+				param.assetModel = $('#assetModelEdit').val();
+				param.assetAmount = $('#assetAmountEdit').val();
+				param.assetMoney = $('#assetMoneyEdit').val();
+				param.assetMoneySum = $('#assetMoneySumEdit').val();
+				param.assetOwner = $('#assetOwnerEdit').val();
+				param.assetDepID = $('#assetDepIDEdit').val();
+				param.assetComment = $('#assetCommentEdit').val();
+				param.assetStatus = $('#assetStatusEdit').val();
+				
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: updateAssetDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModel').click();
+						$('#successModal').modal('show');
+//						sleep(1);
+
+					}
+				});
+		}
+		
+		function addAsset(){
+			var param = {};
+//				param.assetID = $('#assetIDEdit').val();
+				param.assetSerial = $('#assetSerailAdd').val();
+				param.assetName = $('#assetNameAdd').val();
+				param.assetDate = $('#assetDateAdd').val();
+				param.assetSpec = $('#assetSpecAdd').val();
+				param.assetModel = $('#assetModelAdd').val();
+				param.assetAmount = $('#assetAmountAdd').val();
+				param.assetMoney = $('#assetMoneyAdd').val();
+				param.assetMoneySum = $('#assetMoneySumAdd').val();
+				param.assetOwner = $('#assetOwnerAdd').val();
+				param.assetDepID = $('#assetDepIDAdd').val();
+				param.assetComment = $('#assetCommentAdd').val();
+				param.assetStatus = $('#assetStatusAdd').val();
+				
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: addAssetUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModelAdd').click();
+						$('#successModalAdd').modal('show');
+//						sleep(1);
+
+					}
+				});
+		}
+		
+		function deleteAssetID(id){
+			$('#assetIdDelete').val(id);	
+			$('#deleteModal').modal('show');
+		}
+		
+		function deleteAsset(id){
+			var param = {};
+				param.assetID = $('#assetIdDelete').val();
+				console.log(JSON.stringify(param));			
+				$.ajax({
+					type: "post",
+					url: deleteAssetUrl,
+					cache: false, //禁用缓存
+//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					success: function(result) {
+						$('#closeModelDelete').click();
+
+					}
+				});
 		}
 	</script>
