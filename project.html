@@ -668,7 +668,8 @@
 					success: function(result) {
 						//								alert("登录状态错误，请重新登录");
 						//							
-						window.open('login.html');
+						window.location.href = 'login.html';
+						
 					},
 					error: function(result, status) {
 						console.log(result)
