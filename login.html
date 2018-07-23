@@ -57,6 +57,8 @@
 				var param = {};
 				param.email = $('#email').val();
 				param.password = $('#password').val();
+				var qs = getQueryString();
+				var type = qs["type"];
 				
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
@@ -77,12 +79,18 @@
 					success: function(data) {
 						console.log(status)
 						if(data["Token"] != null){
-//							console.log(data["Token"]);
+//							console.log(data["username"]);
 							localStorage.setItem("Token",data["Token"]);
+							localStorage.setItem("username", data["username"]);
 							alert("登陆成功");
-							window.opener=null;
-							window.open('','_self');
-							window.close();
+							if (type == 1){
+								window.opener=null;
+								window.open('','_self');
+								window.close();
+							}else{
+								window.location.href="index.html";
+							}
+							
 						}else{
 							alter("用户名或密码错误");
 						}
