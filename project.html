@@ -17,6 +17,7 @@
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/chosen.min.css">
+		<link rel="stylesheet" href="css/fileinput/fileinput.min.css" />
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -233,6 +234,7 @@
 						<div style="position: relative;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addProject" >添加信息</button>
 						</div>
 					</div>
 					<div class="card-body">
@@ -369,12 +371,148 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">修改成功</h4>
 
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
+							
+								<div class="row" style="display: none;">
+								<div class="col-md-2">项目ID:</div>
+								<div class="col-md-7"><input type="text" id="projectIdDelete" class="form-control"></input>
+								</div>
+							</div>
+							
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="deleteProject()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade bs-example-modal-lg" id="addProject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabelAdd">添加项目信息</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-bodyAdd">
+						<div class="container" style="width: 90%;">
+							<div class="clearfix"><br /></div>
+
+							<!--<div class="row" style="display: none;">
+								<div class="col-md-2">项目ID:</div>
+								<div class="col-md-7"><input type="text" id="projectIDAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>-->
+
+							<div class="row">
+								<div class="col-md-2">项目编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectSerialAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">项目名:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectNameAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">所属部门:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7">
+									<select class="form-control chosen-select" name="projectDepartmentEdit" id="projectDepartmentAdd">
+									<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+									<!--<input type="text" id="projectDepartmentEdit" class="form-control"></input>-->
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">负责人:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="projectOwnerAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">总预算:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="number" id="projectBudgetAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">备注:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-10">
+									<textarea class="form-control" rows="5" id="projectCommentAdd"></textarea>
+
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="addProject()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="successModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" >添加成功</h4>
+						
 						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
 
 					</div>
@@ -406,7 +544,9 @@
 		<script src="js/jsxm.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="js/chosen.jquery.min.js"></script>
-		<script type="text/javascript">
+
+		<script src="js/fileinput/fileinput.min.js"></script>
+		<script type="text/javascript">		
 			function sleep(d) {
 				for(var t = Date.now(); Date.now() - t <= d;);
 			}
@@ -553,7 +693,10 @@
 								contractUrl = "'/contract.html?projectID=" + data + "'";
 								//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#detail"  onclick="showDetail(' + data + ')">编辑信息</button>');
+								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;'
+								+ '<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#detail" onclick="showDetail(' + data + ')">编辑信息</button>	&nbsp;&nbsp;'
+								+ '<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="addToProjectID(' + data + ')">删除</button>');
+								
 							}
 						}
 					]
@@ -664,6 +807,78 @@
 
 				});
 			}
+
+			
+			function addProject() {
+				//				ajax
+				var param = {};
+//				param.projectID = $('#projectIDEdit').val();
+				param.projectSerial = $('#projectSerialAdd').val();
+				param.projectName = $('#projectNameAdd').val();
+				param.departmentName = $('#projectDepartmentAdd').val();
+				param.username = $('#projectOwnerAdd').val();
+				param.projectBudgetSum = $('#projectBudgetAdd').val();
+				param.projectComment = $('#projectCommentAdd').val();
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: addProjectUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModelAdd').click();
+						$('#successModalAdd').modal('show');
+//						sleep(1);
+
+					}
+				});
+			}
+			
+			function deleteProject() {
+				//				ajax
+				var param = {};
+				param.projectID = $('#projectIdDelete').val();
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: deleteProjectUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+//						alert("成功")
+						$('#closeModelDelete').click();
+						
+//						sleep(1);
+
+					}
+				});
+			}
+			
+			function addToProjectID(id) {
+				
+				$('#projectIdDelete').val(id);	
+				$('#deleteModal').modal('show');
+			}
+			
+			
+
 			//注销
 			function logout() {
 

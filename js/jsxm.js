@@ -3,12 +3,24 @@ function resetInput() {
 }
 
 var baseUrl = "http://123.206.254.42:2333";
-var testUrl = "http://127.0.0.1:8080"
+var testUrl = "http://localhost:8080";
+
 var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = baseUrl + "/getProjectDetail";
+var addProjectUrl = baseUrl + "/addProject";
+var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
+var getAssetListUrl = baseUrl + "/getAssetList";
+var getAssetDetailUrl = baseUrl + "/getAssetDetail";
+var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
+var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
+var addAssetUrl = baseUrl + "/addAsset";
+var deleteAssetUrl = baseUrl + "/deleteAsset";
 var getContractDetailUrl=baseUrl+"/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
+var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
+var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
+var deleteAssetUrl = testUrl + "/deleteAsset";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
