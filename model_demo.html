@@ -172,7 +172,8 @@
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-fw fa-user"></i>用户名
+							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
+
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
@@ -184,7 +185,7 @@
 							</a>
 
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black" onclick="logout()">
 								<i class="fa fa-fw fa-sign-out"></i>退出登录
 							</a>
 

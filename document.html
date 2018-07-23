@@ -116,7 +116,8 @@
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-fw fa-user"></i>用户名
+							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
+
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
@@ -128,7 +129,7 @@
 							</a>
 
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black" onclick="logout()">
 								<i class="fa fa-fw fa-sign-out"></i>退出登录
 							</a>
 
@@ -515,10 +516,11 @@
 					},
 					statusCode: {
 						401: function() {
-							alert("登录状态错误，请重新登录");
-							window.location.href='login.html';
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
 						}
 					}
+
 
 						});
 					},
@@ -571,6 +573,34 @@
 				}).api();
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 			});
+			
+			function logout() {
+
+				$.ajax({
+					type: "post",
+					url: logoutUrl,
+					cache: false, //禁用缓存
+					data: "", //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//								alert("登录状态错误，请重新登录");
+						//							
+						window.open('login.html');
+					},
+					error: function(result, status) {
+						console.log(result)
+						window.location.href = 'login.html';
+					}
+				});
+			}
+
+		</script>
+		<script>
+			$('#usernameLable').text(localStorage.getItem("username"));
 		</script>
 		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 		<script>

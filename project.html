@@ -645,7 +645,17 @@
 									callback(returnData);
 
 								}, 200);
-							}
+							},
+							error: function(result, status) {
+						console.log(result)
+					},
+							statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+
 						});
 					},
 					//列表表头字段
@@ -746,6 +756,7 @@
 							window.open('login.html?type=1');
 						}
 					}
+
 				});
 			}
 
@@ -788,10 +799,11 @@
 					},
 					statusCode: {
 						401: function() {
-							alert("登录状态错误，请重新登录");
+							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
 						}
 					}
+
 
 				});
 			}
@@ -888,14 +900,7 @@
 					error: function(result, status) {
 						console.log(result)
 						window.location.href = 'login.html';
-					},
-					//					statusCode: {
-					//						401: function() {
-					//							alert("登录状态错误，请重新登录再尝试");
-					//							window.open('login.html');
-					//						}
-					//					}
-
+					}
 				});
 			}
 		</script>

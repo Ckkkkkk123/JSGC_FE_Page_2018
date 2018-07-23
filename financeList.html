@@ -46,7 +46,7 @@
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">财务管理</span>
 						</a>
-						
+
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
 						<a class="nav-link" href="budget.html">
@@ -85,7 +85,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-fw fa-bell"></i> 通知
-					
+
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
@@ -108,15 +108,14 @@
 								<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
 							</a>
 							<div class="dropdown-divider"></div>
-							
+
 							<a class="dropdown-item small" href="#">查看全部</a>
 						</div>
 					</li>
-					
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-fw fa-user"></i>用户名
+							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
@@ -128,7 +127,7 @@
 							</a>
 
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black" onclick="logout()">
 								<i class="fa fa-fw fa-sign-out"></i>退出登录
 							</a>
 
@@ -146,7 +145,11 @@
 				text-align: center;
 				vertical-align: middle!important;
 			}
-			th, td { white-space: nowrap; }
+			
+			th,
+			td {
+				white-space: nowrap;
+			}
 		</style>
 		<div class="content-wrapper">
 			<div class="container-fluid">
@@ -327,7 +330,7 @@
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 							<!--<button type="button" class="btn btn-default" style="position: absolute; right: 200; top:50%;margin-top:-32px">添加财物</button>-->
-							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#financeAdd" >添加信息</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#financeAdd">添加信息</button>
 						</div>
 					</div>
 
@@ -493,8 +496,8 @@
 								data: param, //传入组装的参数
 								dataType: "json",
 								beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+								},
 								success: function(result) {
 									//console.log(result);
 									//setTimeout仅为测试延迟效果
@@ -520,14 +523,14 @@
 									}, 200);
 								},
 								error: function(result, status) {
-						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录");
-							window.location.href='login.html';
-						}
-					}
+									console.log(result)
+								},
+								statusCode: {
+									401: function() {
+										alert("登录状态错误，请重新登录后再尝试");
+										window.open('login.html?type=1');
+									}
+								}
 
 							});
 						},
@@ -581,15 +584,15 @@
 							"render": function(data, type, full, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-//								updateUrl = "'/financeUpdate.html?financeID=" + data + "'";
-//								detailUrl = "'/financeDetail.html?financeID=" + data + "'";
+								//								updateUrl = "'/financeUpdate.html?financeID=" + data + "'";
+								//								detailUrl = "'/financeDetail.html?financeID=" + data + "'";
 
 								//								<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal" onclick="showDetail(23333)">编辑信息</button>
-//								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showFinanceDetail(' + data + ')">编辑信息</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm"  onclick="window.open(' + detailUrl + ')">查看信息</button>');
-								return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;'
-								+ '<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#financeUpdate" onclick="getAssetUpdate(' + data + ')">编辑信息</button>&nbsp;'
-								+ '<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteFinanceID(' + data + ')">删除</button>');
-								
+								//								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showFinanceDetail(' + data + ')">编辑信息</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm"  onclick="window.open(' + detailUrl + ')">查看信息</button>');
+								return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;' +
+									'<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#financeUpdate" onclick="getAssetUpdate(' + data + ')">编辑信息</button>&nbsp;' +
+									'<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteFinanceID(' + data + ')">删除</button>');
+
 							}
 						}]
 					}).api();
@@ -597,12 +600,12 @@
 				});
 			</script>
 			<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-		<script>
-			function reRenderTable() {
-				var table = $('#financeTable').dataTable();
-				table.fnReloadAjax();
-			}
-		</script>
+			<script>
+				function reRenderTable() {
+					var table = $('#financeTable').dataTable();
+					table.fnReloadAjax();
+				}
+			</script>
 		</div>
 		<!--更新信息-->
 		<div class="modal fade" id="financeUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -619,7 +622,7 @@
 
 					</div>
 					<div class="modal-body">
-						
+
 						<div class="input-group" style="display: none;">
 							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="financeIDUpdt">
@@ -675,8 +678,7 @@
 						</div>
 						<br />
 
-						
-							<!--<div class="col-md-5">
+						<!--<div class="col-md-5">
 								<div class="input-group">
 									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
 									<input class="form-control" type="number" id="financeMinUpdt">
@@ -690,15 +692,11 @@
 									<input class="form-control" type="number" id="financeMaxUpdt">
 								</div>
 							</div>-->
-							
-							<div class="input-group">
-									<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<input class="form-control" type="number" id="financeMoneyUpdt">
-								</div>
-								
-								
 
-						
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyUpdt">
+						</div>
 
 						<br />
 
@@ -769,8 +767,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" >修改成功</h4>
-						
+						<h4 class="modal-title">修改成功</h4>
+
 						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
 
 					</div>
@@ -784,7 +782,7 @@
 			</div>
 			<!-- /.modal -->
 		</div>
-		
+
 		<!--添加信息-->
 		<div class="modal fade" id="financeAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-lg" role="document">
@@ -856,8 +854,7 @@
 						</div>
 						<br />
 
-						
-							<!--<div class="col-md-5">
+						<!--<div class="col-md-5">
 								<div class="input-group">
 									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
 									<input class="form-control" type="number" id="financeMinUpdt">
@@ -871,15 +868,11 @@
 									<input class="form-control" type="number" id="financeMaxUpdt">
 								</div>
 							</div>-->
-							
-							<div class="input-group">
-									<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<input class="form-control" type="number" id="financeMoneyAdd">
-								</div>
-								
-								
 
-						
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyAdd">
+						</div>
 
 						<br />
 
@@ -950,8 +943,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" >添加成功</h4>
-						
+						<h4 class="modal-title">添加成功</h4>
+
 						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
 
 					</div>
@@ -965,7 +958,7 @@
 			</div>
 			<!-- /.modal -->
 		</div>
-		
+
 		<!--查看信息-->
 		<div class="modal fade" id="financeDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-lg" role="document">
@@ -981,7 +974,7 @@
 
 					</div>
 					<div class="modal-body">
-						
+
 						<div class="input-group" style="display: none;">
 							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="financeIDDetail">
@@ -1037,8 +1030,7 @@
 						</div>
 						<br />
 
-						
-							<!--<div class="col-md-5">
+						<!--<div class="col-md-5">
 								<div class="input-group">
 									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
 									<input class="form-control" type="number" id="financeMinDetail">
@@ -1052,15 +1044,11 @@
 									<input class="form-control" type="number" id="financeMaxDetail">
 								</div>
 							</div>-->
-							
-							<div class="input-group">
-									<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<input class="form-control" type="number" id="financeMoneyDetail">
-								</div>
-								
-								
 
-						
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyDetail">
+						</div>
 
 						<br />
 
@@ -1126,7 +1114,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!--删除信息-->
 		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
@@ -1140,13 +1128,12 @@
 					<div class="modal-body" id="modal-body">
 						<div class="container" style="width: 90%;">
 							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
-							
-								<div class="row" style="display: none;">
+
+							<div class="row" style="display: none;">
 								<div class="col-md-2">项目ID:</div>
 								<div class="col-md-7"><input type="text" id="assetIdDelete" class="form-control"></input>
 								</div>
 							</div>
-							
 
 						</div>
 						<div class="modal-footer">
@@ -1157,64 +1144,73 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<script type="text/javascript">
-			function getAssetUpdate(financeID){
-				
-					var param = {};
-					param.financeID = financeID;
-					$.ajax({
-							type: "post",
-							url: getFinanceUpdateUrl,
-							cache: false, //禁用缓存
-							data: param, //传入组装的参数
-							dataType: "json",
-							async:false,
-							success: function(result) {
-								//console.log(result);
-									getLendTypeOption(result.lendTypeItem);
-									getBorrowTypeOption(result.borrowTypeItem);
-									getPayWayOption(result.payWayItem);
-									getPurchaseWayOption(result.purchaseWayItem);
-									getOrgWayOption(result.orgWayItem);
-									getPurchaseTypeOption(result.purchaseTypeItem);
-									$('#financeIDUpdt').val(result.financeID);
-									$('#financeSerialsUpdt').val(result.financeSerials);
-									$('#projectSerialUpdt').val(result.projectSerial);
-									$('#contracSerialUpdt').val(result.contractSerisal);
-									$('#dateUpdt').val(result.financeDate);
-									$('#paidUpdt').val(result.financeStatus);
-									$('#financeNameUpdt').val(result.financeName);
-									$('#financeMoneyUpdt').val(result.financeMoney);
-									$('#lendTypeUpdt').val(result.financeLenderID);
-									$('#borrowTypeUpdt').val(result.financeBorrowerID);
-									$('#payWayUpdt').val(result.payMethodID);
-									$('#purchaseWayUpdt').val(result.financeBuyMethodID);
-									$('#orgWayUpdt').val(result.financeOrgID);
-									$('#purchaseTypeUpdt').val(result.financeTypeID);
-								
-								//setTimeout仅为测试延迟效果
-//								setTimeout(function() {
-//									//封装返回数据
-//									var returnData = {};
-//									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
-//									returnData.recordsTotal = result.total; //返回数据全部记录
-//									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-//									returnData.data = result.data; //返回的数据列表
-//									//console.log(returnData);
-//									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-//									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-//									
-//									callback(returnData);
-//
-//								}, 200);
-							}
-						});
-				
+			function getAssetUpdate(financeID) {
+
+				var param = {};
+				param.financeID = financeID;
+				$.ajax({
+					type: "post",
+					url: getFinanceUpdateUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+						//console.log(result);
+						getLendTypeOption(result.lendTypeItem);
+						getBorrowTypeOption(result.borrowTypeItem);
+						getPayWayOption(result.payWayItem);
+						getPurchaseWayOption(result.purchaseWayItem);
+						getOrgWayOption(result.orgWayItem);
+						getPurchaseTypeOption(result.purchaseTypeItem);
+						$('#financeIDUpdt').val(result.financeID);
+						$('#financeSerialsUpdt').val(result.financeSerials);
+						$('#projectSerialUpdt').val(result.projectSerial);
+						$('#contracSerialUpdt').val(result.contractSerisal);
+						$('#dateUpdt').val(result.financeDate);
+						$('#paidUpdt').val(result.financeStatus);
+						$('#financeNameUpdt').val(result.financeName);
+						$('#financeMoneyUpdt').val(result.financeMoney);
+						$('#lendTypeUpdt').val(result.financeLenderID);
+						$('#borrowTypeUpdt').val(result.financeBorrowerID);
+						$('#payWayUpdt').val(result.payMethodID);
+						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
+						$('#orgWayUpdt').val(result.financeOrgID);
+						$('#purchaseTypeUpdt').val(result.financeTypeID);
+
+						//setTimeout仅为测试延迟效果
+						//								setTimeout(function() {
+						//									//封装返回数据
+						//									var returnData = {};
+						//									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
+						//									returnData.recordsTotal = result.total; //返回数据全部记录
+						//									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+						//									returnData.data = result.data; //返回的数据列表
+						//									//console.log(returnData);
+						//									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+						//									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+						//									
+						//									callback(returnData);
+						//
+						//								}, 200);
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+
+				});
+
 			}
-			
-			
-			function updateFinance(){
+
+			function updateFinance() {
 				var param = {};
 				param.financeID = $('#financeIDUpdt').val();
 				param.financeSerials = $('#financeSerialsUpdt').val();
@@ -1244,18 +1240,28 @@
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
-//						alert("成功")
+						//						alert("成功")
 						$('#closeModel').click();
 						$('#successModal').modal('show');
-//						sleep(1);
+						//						sleep(1);
 
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
 					}
+
 				});
 			}
-			
-			function addFinance(){
+
+			function addFinance() {
 				var param = {};
-//				param.financeID = $('#financeIDUpdt').val();
+				//				param.financeID = $('#financeIDUpdt').val();
 				param.financeSerials = $('#financeSerialsUpdt').val();
 				param.projectSerial = $('#projectSerialUpdt').val();
 				param.contracSerial = $('#contracSerialUpdt').val();
@@ -1283,63 +1289,95 @@
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
-//						alert("成功")
+						//						alert("成功")
 						$('#closeModelAdd').click();
 						$('#successModalAdd').modal('show');
-//						sleep(1);
+						//						sleep(1);
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
 
+				});
+			}
+
+			function logout() {
+
+				$.ajax({
+					type: "post",
+					url: logoutUrl,
+					cache: false, //禁用缓存
+					data: "", //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//								alert("登录状态错误，请重新登录");
+						//							
+						window.open('login.html');
+					},
+					error: function(result, status) {
+						console.log(result)
+						window.location.href = 'login.html';
 					}
 				});
 			}
-			
-			function showDetail(financeID){
-				var param = {};
-					param.financeID = financeID;
-					$.ajax({
-							type: "post",
-							url: getFinanceDetailUrl,
-							cache: false, //禁用缓存
-							data: param, //传入组装的参数
-							dataType: "json",
-							async:false,
-							success: function(result) {
-								
-									getLendTypeOption(result.lendTypeItem);
-									getBorrowTypeOption(result.borrowTypeItem);
-									getPayWayOption(result.payWayItem);
-									getPurchaseWayOption(result.purchaseWayItem);
-									getOrgWayOption(result.orgWayItem);
-									getPurchaseTypeOption(result.purchaseTypeItem);
-									$('#financeIDDetail').val(result.financeID);
-									$('#financeSerialsDetail').val(result.financeSerials);
-									$('#projectSerialDetail').val(result.projectSerial);
-									$('#projectNameDetail').val(result.projectName);
-									$('#contracSerialDetail').val(result.contractSerisal);
-									$('#contractNameDetail').val(result.contractName);
-									
-									$('#dateDetail').val(result.financeDate);
-									$('#paidDetail').val(result.financeStatus);
-									$('#financeNameDetail').val(result.financeName);
-									$('#financeMoneyDetail').val(result.financeMoney);
-									$('#lendTypeDetail').val(result.financeLenderID);
-									$('#borrowTypeDetail').val(result.financeBorrowerID);
-									$('#payWayDetail').val(result.payMethodID);
-									$('#purchaseWayDetail').val(result.financeBuyMethodID);
-									$('#orgWayDetail').val(result.financeOrgID);
-									$('#purchaseTypeDetail').val(result.financeTypeID);
 
-							}
-						});
-				
+			function showDetail(financeID) {
+				var param = {};
+				param.financeID = financeID;
+				$.ajax({
+					type: "post",
+					url: getFinanceDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					success: function(result) {
+
+						getLendTypeOption(result.lendTypeItem);
+						getBorrowTypeOption(result.borrowTypeItem);
+						getPayWayOption(result.payWayItem);
+						getPurchaseWayOption(result.purchaseWayItem);
+						getOrgWayOption(result.orgWayItem);
+						getPurchaseTypeOption(result.purchaseTypeItem);
+						$('#financeIDDetail').val(result.financeID);
+						$('#financeSerialsDetail').val(result.financeSerials);
+						$('#projectSerialDetail').val(result.projectSerial);
+						$('#projectNameDetail').val(result.projectName);
+						$('#contracSerialDetail').val(result.contractSerisal);
+						$('#contractNameDetail').val(result.contractName);
+
+						$('#dateDetail').val(result.financeDate);
+						$('#paidDetail').val(result.financeStatus);
+						$('#financeNameDetail').val(result.financeName);
+						$('#financeMoneyDetail').val(result.financeMoney);
+						$('#lendTypeDetail').val(result.financeLenderID);
+						$('#borrowTypeDetail').val(result.financeBorrowerID);
+						$('#payWayDetail').val(result.payMethodID);
+						$('#purchaseWayDetail').val(result.financeBuyMethodID);
+						$('#orgWayDetail').val(result.financeOrgID);
+						$('#purchaseTypeDetail').val(result.financeTypeID);
+
+					}
+				});
+
 			}
-			
-			
-			function deleteFinanceID(financeID){
-				$('#assetIdDelete').val(financeID);	
+
+			function deleteFinanceID(financeID) {
+				$('#assetIdDelete').val(financeID);
 				$('#deleteModal').modal('show');
 			}
-			
-			function deleteAsset(financeID){
+
+			function deleteAsset(financeID) {
 				var param = {};
 				param.assetID = $('#assetIdDelete').val();
 				//				alert(JSON.stringify(param))
@@ -1358,16 +1396,19 @@
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
-//						alert("成功")
+						//						alert("成功")
 						$('#closeModelDelete').click();
-						
-//						sleep(1);
+
+						//						sleep(1);
 
 					}
 				});
 			}
 		</script>
 
+		<script>
+			$('#usernameLable').text(localStorage.getItem("username"));
+		</script>
 	</body>
 
 </html>
