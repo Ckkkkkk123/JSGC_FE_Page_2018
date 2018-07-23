@@ -17,6 +17,7 @@
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/chosen.min.css">
+		<link rel="stylesheet" href="css/fileinput/fileinput.min.css" />
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -543,10 +544,12 @@
 		<script src="js/jsxm.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="js/chosen.jquery.min.js"></script>
-		<script type="text/javascript">
-			function sleep(d) {
-				for(var t = Date.now(); Date.now() - t <= d;);
-			}
+
+		<script src="js/fileinput/fileinput.min.js"></script>
+		<script type="text/javascript">		
+//			function sleep(d) {
+//				for(var t = Date.now(); Date.now() - t <= d;);
+//			}
 			$(function() {
 				$('#detail').on('show.bs.modal', function(e) {
 					$("#projectDepartmentEdit").trigger("chosen:updated");
@@ -642,7 +645,17 @@
 									callback(returnData);
 
 								}, 200);
-							}
+							},
+							error: function(result, status) {
+						console.log(result)
+					},
+							statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+
 						});
 					},
 					//列表表头字段
@@ -743,6 +756,7 @@
 							window.open('login.html?type=1');
 						}
 					}
+
 				});
 			}
 
@@ -785,10 +799,11 @@
 					},
 					statusCode: {
 						401: function() {
-							alert("登录状态错误，请重新登录");
+							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
 						}
 					}
+
 
 				});
 			}
@@ -885,14 +900,7 @@
 					error: function(result, status) {
 						console.log(result)
 						window.location.href = 'login.html';
-					},
-					//					statusCode: {
-					//						401: function() {
-					//							alert("登录状态错误，请重新登录再尝试");
-					//							window.open('login.html');
-					//						}
-					//					}
-
+					}
 				});
 			}
 		</script>
