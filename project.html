@@ -249,8 +249,8 @@
 										<th>所属部门</th>
 										<th>负责人</th>
 										<th>总预算</th>
-										<th>备注</th>
-										<th>操作</th>
+										<th class="nosort">备注</th>
+										<th class="nosort">操作</th>
 									</tr>
 								</thead>
 								<!--<tfoot>
@@ -610,7 +610,7 @@
 						param.page = (data.start / data.length) + 1; //当前页码
 						param.order = data.order;
 
-						param.projectNum = $('#projectSerial').val();
+						param.projectSerial = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.projectDepartment = $('#projectDepartment').val();
 						param.projectOwner = $('#projectOwner').val();
@@ -621,11 +621,16 @@
 						//ajax请求数T
 						$.ajax({
 							type: "post",
-							url: getProjectListUrl,
+							//url: getProjectListUrl,
+							url:"http://127.0.0.1:8080/getProjectList",
 							cache: false, //禁用缓存
-							data: param, //传入组装的参数
+							data: Json.strparam, //传入组装的参数
+							contentType:"application/json",
 							dataType: "json",
 							async: false,
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
 							success: function(result) {
 								//console.log(result);
 								getDepartmentOption(result.departmentList);

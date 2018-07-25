@@ -327,7 +327,7 @@
 						<i class="fa fa-table"></i> 合同列表
 						<div style="position: relative;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
-							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
 						</div>
 					</div>
 					<div class="card-body">
@@ -342,9 +342,9 @@
 										<th>合同金额</th>
 										<th>所属项目</th>
 										<th>建设内容</th>
-										<th>合同内容</th>
-										<th>备注信息</th>
-										<th>操作</th>
+										<th class="nosort">合同内容</th>
+										<th class="nosort">备注信息</th>
+										<th class="nosort">操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -517,7 +517,7 @@
 						</div>
 
 						<div class="modal-body">
-							<a href="http://localhost:8080/contractsExcelModel.xls" class="form-control" style="border:none;">下载导入模板</a>
+							<a download="contractsExcelModel.xls" href="http://localhost:8080/contractsExcelModel.xls" class="form-control" style="border:none;">下载导入模板</a>
 							<div class="file-loading">
 								<input id="excel_file" name="file" type="file" class="file-loading" />
 							</div>
@@ -601,6 +601,7 @@
 					param.start = data.start; //开始的记录序号
 					param.page = (data.start / data.length) + 1; //当前页码
 					param.order = data.order;
+					getOrder(data.order);//lzq,批量导出获取当前页面的Order
 					param.contractSerial = $('#contractSerial').val();
 					param.contractName = $('#contractName').val();
 					param.contractSignedTime = $('#contractSignedTime').val();
@@ -808,6 +809,7 @@
 	<script>
 		//初始化fileinput
 		var FileInput = function() {
+
 			var oFile = new Object();
 
 			//初始化fileinput控件（第一次初始化）
@@ -818,11 +820,12 @@
 				control.fileinput({
 					language: 'zh', //设置语言
 					uploadUrl: uploadUrl, //上传的地址
-					allowedFileExtensions: ['xls', 'jpg'], //接收的文件后缀
+					allowedFileExtensions: ['xls'], //接收的文件后缀
 					showUpload: true, //是否显示上传按钮
-					showCaption: false, //是否显示标题
+					showCaption: true, //是否显示标题
 					browseClass: "btn btn-primary", //按钮样式     
-					//				        dropZoneEnabled: false,//是否显示拖拽区域
+					dropZoneEnabled: false,//是否显示拖拽区域
+					showPreview:true, //乱码?
 					//minImageWidth: 50, //图片的最小宽度
 					//minImageHeight: 50,//图片的最小高度
 					//maxImageWidth: 1000,//图片的最大宽度
@@ -834,11 +837,18 @@
 					validateInitialCount: true,
 					previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
 					msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+					fileSingle: '文件',
+					filePlural: '个文件',
+					browseLabel: '选择 &hellip;',
+					removeLabel: '移除',
+					removeTitle: '清除选中文件',
+					
 				});
 
 				//导入文件上传完成之后的事件
 				$("#excel_file").on("fileuploaded", function(event, data, previewId, index) {
 					$("#fileinputModal").modal("hide");
+					
 					console.log(data);
 					alert('成功行数->' + data.response.successSize + '\n' +
 						'失败行数->' + data.response.defeatSize + '\n' +
@@ -850,4 +860,41 @@
 			}
 			return oFile;
 		};
+		
+		var tempOrder;
+		function getOrder( order){
+			tempOrder=order;
+		}
+		var batchDownload=function(){
+			var param={};
+			if(tempOrder!='')
+				param.order=tempOrder;
+			if($('#contractSerial').val()!="")
+				param.contractSerial = $('#contractSerial').val();
+			if($('#contractName').val()!="")
+				param.contractName = $('#contractName').val();
+			if($('#contractSignedTime').val()!="")
+				param.contractSignedTime = $('#contractSignedTime').val();
+			if($('#projectSerial').val()!="")
+				param.projectSerial = $('#projectSerial').val();
+			if($('#projectName').val()!="")
+				param.projectName = $('#projectName').val();
+			if($('#allFinancePayed :selected').val()!="")
+				param.allFinancePayed = $('#allFinancePayed :selected').val();
+			//伪表单提交
+			var form=$("<form>");//定义一个form表单
+		    form.attr("style","display:none");
+		    form.attr("target","");
+		    form.attr("method","post");
+		    form.attr("action","http://localhost:8080/batchDownloadContracts");//请求url
+		    var input1=$("<input>");
+		    input1.attr("type","hidden");
+		    input1.attr("name","param");//设置属性的名字
+		    input1.attr("value",JSON.stringify(param));//设置属性的值
+		    
+		    $("body").append(form);//将表单放置在web中
+		    form.append(input1);
+		    form.submit();//表单提交
+		}
+		
 	</script>
