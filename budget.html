@@ -275,6 +275,97 @@
 				</div>
 			</div>
 		</div>
+		
+		<!--查看详情-->
+		<div class="modal fade bs-example-modal-lg" id="budgeDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">查看预算信息</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<div class="clearfix"><br /></div>
+
+							<div class="row" style="display: none;">
+								<div class="col-md-2">预算ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="budgetIdDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">预算编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="budgetSerialDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">项目名称:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="budgetProjectNameDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="row">
+								<div class="col-md-2">项目总预算:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="budgetSumDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							
+
+							<div class="row">
+								<div class="col-md-2">合同款金额:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="budgetContratSumDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">已付合同款金额:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="number" id="paidContractSumDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+							<div class="row">
+								<div class="col-md-2">未付合同款金额：</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="number" id="unpaidContractSumDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="row">
+								<div class="col-md-2">余款:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="number" id="leftSumDetail" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+							<!--<button type="button" class="btn btn-primary" onclick="updateProject()">提交</button>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</body>
 	<!-- Bootstrap core JavaScript-->
@@ -424,7 +515,8 @@
 						//拼接字符串（懒得处理引号转义）
 						detailUrl="'"+baseUrl+'/budget_detail.html?bugdetID='+row.budgetID+"'";
 						tempUrl="'"+'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID='+row.budgetID+"'";
-						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
+//						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
+						return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#budgeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;');
 					}
 				}]
 			}).api();
@@ -453,6 +545,50 @@
 						console.log(result)
 						window.location.href = 'login.html';
 					}
+				});
+			}
+		
+		function showDetail(id) {
+				//				ajax
+				var param = {};
+				param.budgetId = id;
+					
+				$.ajax({
+					type: "post",
+					url: getBudgetDetailUrl,
+					cache: false, //禁用缓存
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					//					Content-Type: "application/json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result, status) {
+						//console.log(result);¬
+						$('#budgetIdDetail').val(result.budgetID);
+						$('#budgetSerialDetail').val(result.budgetSerial);
+						$('#budgetProjectNameDetail').val(result.projectName);
+						$('#budgetSumDetail').val(result.budgetSum);
+						$("#budgetContratSumDetail").val(result.contractSum); 
+						
+						$('#paidContractSumDetail').val(result.paidContractSum);
+						$('#unpaidContractSumDetail').val(result.unpaidContractSum);
+						$('#leftSumDetail').val(result.leftSum);
+//						$('#projectCommentEdit').val(result.projectComment);
+//						console.log(result.projectName);
+//						console.log(status)
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+
 				});
 			}
 	</script>

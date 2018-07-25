@@ -165,24 +165,7 @@
 							<a class="dropdown-item small" href="#">查看全部</a>
 						</div>
 					</li>
-					<!--
-        	作者：Lzq
-        	时间：2018-07-10
-        	描述：搜索框
-        -->
-					<!--<li class="nav-item">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-            <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for...">
-              <span class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </form>
-        </li>-->
-
+	
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
@@ -327,7 +310,12 @@
 						<i class="fa fa-table"></i> 合同列表
 						<div style="position: relative;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+<<<<<<< HEAD
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
+=======
+							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addContract" >添加信息</button>
+>>>>>>> a4c7b884bb2bb792be1c15a38f02a828f1b4f0a7
 						</div>
 					</div>
 					<div class="card-body">
@@ -486,6 +474,7 @@
 					</div>
 				</div>
 			</div>
+			<!--修改成功-->
 			<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -527,6 +516,155 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="modal fade bs-example-modal-lg" id="addContract" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabelAdd">添加合同</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+						</div>
+						<div class="modal-body">
+							<div class="container" style="width: 90%;">
+								<div class="row" style="display: none;">
+									<div class="col-md-2">合同ID:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" id="contractIDAdd" class="form-control"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractSerialAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同名称:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractNameAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同多方:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="contractPartnerAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同签署日期:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同额:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">所属项目编号:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" class="form-control" id="projectSerialAdd"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">建设内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7">
+										<select id="buildContentAdd" class="form-control" name="checkStatusAdd">
+
+										</select>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同内容:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-10">
+										<textarea class="form-control" id="contractContentAdd" rows="5">
+										</textarea>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+								<div class="row">
+									<div class="col-md-2">合同备注:</div>
+									<!--<div class="col-1"></div>-->
+									<div class="col-md-7"><input type="text" id="contractCommentAdd" class="form-control"></input>
+									</div>
+								</div>
+								<div class="clearfix"><br /></div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">关闭</button>
+								<button type="button" class="btn btn-primary" onclick="addContract()">提交</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--添加成功-->
+			<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">添加成功</h4>
+
+							<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+						</div>
+						<!--<div class="modal-body"></div>-->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal -->
+			</div>
+			
+			<!--确认删除-->
+			<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
+							
+								<div class="row" style="display: none;">
+								<div class="col-md-2">合同ID:</div>
+								<div class="col-md-7"><input type="text" id="contractIdDelete" class="form-control"></input>
+								</div>
+							</div>
+							
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="deleteContract()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</body>
 	<!-- Bootstrap core JavaScript-->
@@ -610,10 +748,10 @@
 					param.allFinancePayed = $('#allFinancePayed :selected').val();
 					console.log(param);
 
-					//ajax请求数T
+					//ajax请求数T    
 					$.ajax({
 						type: "POST",
-						url: "http://123.206.254.42:2333/getContractList",
+						url: getContractListUrl,
 						cache: false, //禁用缓存
 						data: param, //传入组装的参数
 						dataType: "json",
@@ -684,7 +822,7 @@
 						detailUrl = "'/contractDetail.html?contractID=" + data + "'";
 						return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + financeUrl + ')">查看财务</button>&nbsp;&nbsp;' +
 							'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
-							'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="window.open(' + financeUrl + ')">删除</button>');
+							'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="deleteContractId(' + data + ')">删除</button>');
 					}
 				}]
 			}).api();
@@ -709,6 +847,9 @@
 				cache: false,
 				data: param,
 				dataType: "json",
+				beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 				success: function(result) {
 					$('#contractIDEdit').val(id);
 					$('#contractSerialEdit').val(result.contractSerial);
@@ -757,6 +898,9 @@
 				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
+				beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 				success: function(result) {
 					//console.log(result);
 					//						$('#modal-body').html("成功");
@@ -801,6 +945,96 @@
 					window.location.href = 'login.html';
 				}
 			});
+		}
+		
+		function addContract() {
+			//				ajax
+			var param = {};
+			param.contractID = $('#contractIDAdd').val();
+			param.contractSerial = $('#contractSerialAdd').val();
+			param.contractName = $('#contractNameAdd').val();
+			param.contractPartner = $('#contractPartnerAdd').val();
+			param.contractSignedTime = $('#contractSignedTimeAdd').val();
+			param.contractMoney = $('#contractMoneyAdd').val();
+			param.buildContent = $('#buildContentAdd').val();
+			param.contractContent = $('#contractContentAdd').val();
+			param.contractComment = $('#contractCommentAdd').val();
+
+			//				alert(JSON.stringify(param))
+			//						console.log(param);
+			console.log(JSON.stringify(param));
+			//			
+			$.ajax({
+				type: "post",
+				url: addContractDetailUrl,
+				cache: false, //禁用缓存
+				data: param, //传入组装的参数
+				dataType: "json",
+				async: false,
+				beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
+				success: function(result) {
+					//console.log(result);
+					//						$('#modal-body').html("成功");
+					//						alert("成功")
+					$('#closeModelAdd').click();
+					$('#successModalAdd').modal('show');
+					//						sleep(1);
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
+
+			});
+		}
+		
+		function deleteContractId(contractId){
+			$('#contractIdDelete').val(contractId);	
+			$('#deleteModal').modal('show');
+		}
+		
+		function deleteContract(contractId){
+			var param = {};
+				param.contractID = $('#contractIdDelete').val();
+				console.log(JSON.stringify(param));
+							
+				$.ajax({
+					type: "post",
+					url: deleteContractUrl,
+					cache: false, //禁用缓存
+//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						
+						$('#closeModelDelete').click();
+						
+//						
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+				});
 		}
 	</script>
 	<script>

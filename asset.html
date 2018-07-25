@@ -1090,6 +1090,9 @@
 				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
 				success: function(result) {
 
 					$('#assetIDDetail').val(result.assetID);
@@ -1098,7 +1101,7 @@
 					$('#assetDateDetail').val(result.assetDate);
 					$('#assetSpecDetail').val(result.assetSpec);
 					$('#assetModelDetail').val(result.assetModel);
-					原来关闭摸态框再次加载select不显示后台值.
+					//原来关闭摸态框再次加载select不显示后台值.
 					$('#assetAmountDetail').val(result.assetAmount);
 					$('#assetMoneyDetail').val(result.assetMoney);
 					$('#assetMoneySumDetail').val(result.assetMoneySum);
@@ -1107,7 +1110,16 @@
 					$('#assetDepIDDetail').val(result.assetDepID);
 					$('#assetStatusDetail').val(result.assetStatus);
 					console.log(result.projectName);
-				}
+				},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							}
+						}
 			});
 		}
 
@@ -1122,6 +1134,9 @@
 				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
 				success: function(result) {
 
 					$('#assetIDEdit').val(result.assetID);
@@ -1138,7 +1153,16 @@
 					$('#assetCommentEdit').val(result.assetComment);
 					$('#assetStatusEdit').val(result.assetStatus);
 					console.log(result.projectName);
-				}
+				},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							}
+						}
 			});
 		}
 
@@ -1167,6 +1191,9 @@
 				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
 				success: function(result) {
 					//console.log(result);
 					//						$('#modal-body').html("成功");
@@ -1175,7 +1202,16 @@
 					$('#successModal').modal('show');
 					//						sleep(1);
 
-				}
+				},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							}
+						}
 			});
 		}
 
@@ -1204,6 +1240,9 @@
 				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
 				success: function(result) {
 					//console.log(result);
 					//						$('#modal-body').html("成功");
@@ -1212,7 +1251,16 @@
 					$('#successModalAdd').modal('show');
 					//						sleep(1);
 
-				}
+				},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							}
+						}
 			});
 		}
 
@@ -1234,10 +1282,22 @@
 				dataType: "json",
 				async: false,
 				crossDomain: true,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
 				success: function(result) {
 					$('#closeModelDelete').click();
 
-				}
+				},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							}
+						}
 			});
 		}
 	</script>

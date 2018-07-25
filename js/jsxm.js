@@ -10,14 +10,25 @@ var getProjectDetailUrl = baseUrl + "/getProjectDetail";
 var addProjectUrl = baseUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
+
 var getAssetListUrl = baseUrl + "/getAssetList";
 var getAssetDetailUrl = baseUrl + "/getAssetDetail";
 var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
 var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
+
+var getContractListUrl = baseUrl + "/getContractList";
 var getContractDetailUrl=baseUrl+"/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
+var addContractDetailUrl = baseUrl + "/addContract";
+var deleteContractUrl = baseUrl + "/deleteContract";
+
+var getDocListUrl = baseUrl + "/getDocList";
+
+var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+
+var getFinanceListUrl = baseUrl + "/getContractList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
 var deleteAssetUrl = testUrl + "/deleteAsset";
