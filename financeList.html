@@ -23,12 +23,15 @@
 		<script src="js/jsxm.js"></script>
 		<script>
 			$(function(){
-//				$('#BorrowType').on('show.bs.modal', function(e) {
-//					$("#BorrowType").trigger("chosen:updated");
+				$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				$('#financeUpdate').on('show.bs.modal', function(e) {
+					$("#BorrowTypeUpdt").trigger("chosen:updated");
 					$('.chosen-select', this).chosen({
 						width: "inherit"
 					});
-//				})
+				})
 			})
 		</script>
 	</head>
