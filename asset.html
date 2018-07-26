@@ -16,20 +16,7 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
-		<style>
-			/*设置第八列，也就是按钮居中*/
-			
-			.table th,
-			.table td:nth-child(14) {
-				text-align: center;
-				vertical-align: middle!important;
-			}
-			
-			th,
-			td {
-				white-space: nowrap;
-			}
-		</style>
+		<script src="js/jsxm.js"></script>
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -103,28 +90,28 @@
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
 							<h6 class="dropdown-header">最近通知:</h6>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">
-								<span class="text-success">
-                <strong>通知1</strong>
-              </span>
-								<span class="small float-right text-muted">11:21 AM</span>
-								<div class="dropdown-message small">通知内容 通知内容 通知内容 通知内容</div>
+							<!--<div class="dropdown-divider"></div>
+							<a class="dropdown-item">
+								<span class="text-success" id="noticeTitle">
+                					<strong>通知1</strong>
+              					</span>
+								<span class="small float-right text-muted" id="noticeTime">11:21 AM</span>
+								<div class="dropdown-message small" id="noticeContent">通知内容 通知内容 通知内容 通知内容</div>
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">
-								<span class="text-danger">
+							<a class="dropdown-item" href="#" data-toggle="modal" on data-target="#addProject">
+								<span class="text-danger" id="noticeTitle2">
                 <strong>
                   通知2</strong>
               </span>
-								<span class="small float-right text-muted">11:21 AM</span>
-								<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+								<span class="small float-right text-muted" id="noticeTime2">11:21 AM</span>
+								<div class="dropdown-message small" id="noticeContent2">This is an automated server response message. All systems are online.</div>
 							</a>
 							<div class="dropdown-divider"></div>
 
-							<a class="dropdown-item small" href="#">查看全部</a>
+							<a class="dropdown-item small" href="#">查看全部</a>-->
 						</div>
 					</li>
 
@@ -152,6 +139,7 @@
 				</ul>
 			</div>
 		</nav>
+		
 		<div class="content-wrapper">
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
@@ -219,7 +207,7 @@
 							</div>
 						</div>
 						<br />
-						<script src="js/jsxm.js"></script>
+
 						<div class="form-inline">
 							<div class="col-md-4">
 								<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
@@ -840,35 +828,14 @@
 		<a class="scroll-to-top rounded" href="#page-top">
 			<i class="fa fa-angle-up"></i>
 		</a>
-		<!-- Logout Modal-->
-		<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-							</div>
-							<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-								<a class="btn btn-primary" href="login.html">Logout</a>
-							</div>
-						</div>
-					</div>
-				</div>-->
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
 		<!-- Core plugin JavaScript-->
 		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 		<!-- Custom scripts for all pages-->
 		<script src="js/sb-admin.min.js"></script>
+ 		</div>
 
-		</div>
-
-	</body>
 	<!-- Bootstrap core JavaScript-->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -922,7 +889,7 @@
 				serverSide: true, //启用服务器端分页
 				searching: false, //禁用原生搜索
 				orderMulti: false, //启用多列排序
-				scrollX: true,
+//				scrollX: true,
 				order: [], //取消默认排序查询,否则复选框一列会出现小箭头
 				renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
 				pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
@@ -953,7 +920,8 @@
 						type: "POST",
 						url: getAssetListUrl,
 						cache: false, //禁用缓存
-						data: param, //传入组装的参数
+						contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 						dataType: "json",
 						beforeSend: function(xhr) {
 							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -1087,7 +1055,8 @@
 				type: "post",
 				url: getAssetDetailUrl,
 				cache: false, //禁用缓存
-				data: param, //传入组装的参数
+				contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				beforeSend: function(xhr) {
@@ -1111,15 +1080,15 @@
 					$('#assetStatusDetail').val(result.assetStatus);
 					console.log(result.projectName);
 				},
-						error: function(result, status) {
-							console.log(result)
-						},
-						statusCode: {
-							401: function() {
-								alert("登录状态错误，请重新登录后再尝试");
-								window.open('login.html?type=1');
-							}
-						}
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
 			});
 		}
 
@@ -1131,7 +1100,8 @@
 				type: "post",
 				url: getAssetUpdateUrl,
 				cache: false, //禁用缓存
-				data: param, //传入组装的参数
+				contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				beforeSend: function(xhr) {
@@ -1154,15 +1124,15 @@
 					$('#assetStatusEdit').val(result.assetStatus);
 					console.log(result.projectName);
 				},
-						error: function(result, status) {
-							console.log(result)
-						},
-						statusCode: {
-							401: function() {
-								alert("登录状态错误，请重新登录后再尝试");
-								window.open('login.html?type=1');
-							}
-						}
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
 			});
 		}
 
@@ -1188,7 +1158,8 @@
 				type: "post",
 				url: updateAssetDetailUrl,
 				cache: false, //禁用缓存
-				data: param, //传入组装的参数
+				contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				beforeSend: function(xhr) {
@@ -1203,15 +1174,15 @@
 					//						sleep(1);
 
 				},
-						error: function(result, status) {
-							console.log(result)
-						},
-						statusCode: {
-							401: function() {
-								alert("登录状态错误，请重新登录后再尝试");
-								window.open('login.html?type=1');
-							}
-						}
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
 			});
 		}
 
@@ -1237,7 +1208,8 @@
 				type: "post",
 				url: addAssetUrl,
 				cache: false, //禁用缓存
-				data: param, //传入组装的参数
+				contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				beforeSend: function(xhr) {
@@ -1252,15 +1224,15 @@
 					//						sleep(1);
 
 				},
-						error: function(result, status) {
-							console.log(result)
-						},
-						statusCode: {
-							401: function() {
-								alert("登录状态错误，请重新登录后再尝试");
-								window.open('login.html?type=1');
-							}
-						}
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
 			});
 		}
 
@@ -1289,16 +1261,63 @@
 					$('#closeModelDelete').click();
 
 				},
-						error: function(result, status) {
-							console.log(result)
-						},
-						statusCode: {
-							401: function() {
-								alert("登录状态错误，请重新登录后再尝试");
-								window.open('login.html?type=1');
-							}
-						}
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
 			});
 		}
 	</script>
-	
+	<script type="text/javascript">
+		function getNotice() {
+			$.ajax({
+				type: "post",
+				url: getNoticeUrl,
+				cache: false, //禁用缓存
+				contentType: "application/json,charset=utf-8",
+				data: null, //传入组装的参数
+				dataType: "json",
+//				async: false,
+				crossDomain: true,
+				scriptCharset: 'utf-8',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+					var NotiData = "";
+					for(i in result) {
+						console.log(i);
+						NotiData += '<div class="dropdown-divider"></div>' +
+							'<a class="dropdown-item">' +
+							'<span class="text-success">' +
+							'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+							'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+							'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+
+					}
+					console.log(NotiData);
+					$('#notice').append(NotiData);
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					}
+				}
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function() {
+			getNotice()
+		})
+	</script>

@@ -46,6 +46,8 @@ var addFinanceDetailUrl = baseUrl + "/addFinance";
 var getBudgetDetailUrl=baseUrl+"/getBudgetDetail";
 var getContractUseMoneyUrl=baseUrl+'/getContractUseMoney';
 
+var getNoticeUrl = testUrl + "/getNotification";
+
 function getDepartmentOption(departmentList) {
 	for(i in departmentList) {
 
