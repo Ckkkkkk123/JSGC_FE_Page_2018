@@ -624,7 +624,7 @@
 							//url: getProjectListUrl,
 							url:"http://127.0.0.1:8080/getProjectList",
 							cache: false, //禁用缓存
-							data: Json.strparam, //传入组装的参数
+							data: JSON.stringify(param), //传入组装的参数
 							contentType:"application/json",
 							dataType: "json",
 							async: false,
@@ -675,10 +675,10 @@
 							"data": "projectStartTime"
 						},
 						{
-							"data": "departmentName"
+							"data": "projectDepartment.departmentName"
 						},
 						{
-							"data": "username"
+							"data": "projectCharger.username"
 						},
 						{
 							"data": "projectBudgetSum"
@@ -691,7 +691,7 @@
 							//							}
 						},
 						{
-							"data": "projectID", //json
+							"data": "projectId", //json
 							"render": function(data, type, full, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
@@ -874,7 +874,7 @@
 //					contentType: "application/json",
 					data: param, //传入组装的参数
 					dataType: "json",
-					async: false,
+					async:false,
 					crossDomain: true,
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));

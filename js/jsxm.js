@@ -6,8 +6,8 @@ var baseUrl = "http://123.206.254.42:2333";
 var testUrl = "http://localhost:8080";
 
 var getProjectListUrl = baseUrl + "/getProjectList";
-var getProjectDetailUrl = baseUrl + "/getProjectDetail";
-var addProjectUrl = baseUrl + "/addProject";
+var getProjectDetailUrl = testUrl + "/getProjectDetail";
+var addProjectUrl = testUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 
