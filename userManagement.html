@@ -89,28 +89,28 @@
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
 							<h6 class="dropdown-header">最近通知:</h6>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">
-								<span class="text-success">
-                <strong>通知1</strong>
-              </span>
-								<span class="small float-right text-muted">11:21 AM</span>
-								<div class="dropdown-message small">通知内容 通知内容 通知内容 通知内容</div>
+							<!--<div class="dropdown-divider"></div>
+							<a class="dropdown-item">
+								<span class="text-success" id="noticeTitle">
+                					<strong>通知1</strong>
+              					</span>
+								<span class="small float-right text-muted" id="noticeTime">11:21 AM</span>
+								<div class="dropdown-message small" id="noticeContent">通知内容 通知内容 通知内容 通知内容</div>
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">
-								<span class="text-danger">
+							<a class="dropdown-item" href="#" data-toggle="modal" on data-target="#addProject">
+								<span class="text-danger" id="noticeTitle2">
                 <strong>
                   通知2</strong>
               </span>
-								<span class="small float-right text-muted">11:21 AM</span>
-								<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+								<span class="small float-right text-muted" id="noticeTime2">11:21 AM</span>
+								<div class="dropdown-message small" id="noticeContent2">This is an automated server response message. All systems are online.</div>
 							</a>
 							<div class="dropdown-divider"></div>
 
-							<a class="dropdown-item small" href="#">查看全部</a>
+							<a class="dropdown-item small" href="#">查看全部</a>-->
 						</div>
 					</li>
 
@@ -533,7 +533,8 @@
 							type: "post",
 							url: getUserListUrl,
 							cache: false, //禁用缓存
-							data: param, //传入组装的参数
+							contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 							dataType: "json",
 							async: false,
 							success: function(result) {
@@ -621,7 +622,8 @@
 					type: "post",
 					url: getuserDetailUrl,
 					cache: false, //禁用缓存
-					data: param, //传入组装的参数
+					contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
 					beforeSend: function(xhr) {
@@ -656,7 +658,8 @@
 					url: logoutUrl,
 					cache: false, //禁用缓存
 					data: "", //传入组装的参数
-					dataType: "json",
+					contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 					async: false,
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -707,7 +710,8 @@
 					type: "post",
 					url: updateUserUrl,
 					cache: false, //禁用缓存
-					data: param, //传入组装的参数
+					contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
 					success: function(result) {
@@ -751,7 +755,8 @@
 					type: "post",
 					url: addUserUrl,
 					cache: false, //禁用缓存
-					data: param, //传入组装的参数
+					contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
 					success: function(result) {
@@ -798,10 +803,57 @@
 					}
 				});
 			}
+			
+			function getNotice() {
+				$.ajax({
+						type: "post",
+						url: getNoticeUrl,
+						cache: false, //禁用缓存
+						contentType: "application/json,charset=utf-8",
+						data: null, //传入组装的参数
+						dataType: "json",
+						async: false,
+						crossDomain: true,
+						scriptCharset: 'utf-8',
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
+						success: function(result) {
+							var NotiData = "";
+							for(i in result) {
+								console.log(i);
+								NotiData += '<div class="dropdown-divider"></div>' +
+									'<a class="dropdown-item">' +
+									'<span class="text-success">' +
+									'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+									'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+									'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+
+						}
+							console.log(NotiData);
+						$('#notice').append(NotiData);
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+				});
+			}
 
 		</script>
 		<script>
 			$('#usernameLable').text(localStorage.getItem("username"));
+		</script>
+		<script>
+			$(document).ready(function(){
+				getNotice() 
+			})
 		</script>
 
 		</div>

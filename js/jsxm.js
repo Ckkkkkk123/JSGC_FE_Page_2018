@@ -11,7 +11,7 @@ var addProjectUrl = testUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 
-var getAssetListUrl = baseUrl + "/getAssetList";
+var getAssetListUrl = testUrl + "/getAssetList";
 var getAssetDetailUrl = baseUrl + "/getAssetDetail";
 var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
 var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
@@ -19,12 +19,12 @@ var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
 var getContractListUrl = baseUrl + "/getContractList";
-var getContractDetailUrl=baseUrl+"/getContractDetail";
+var getContractDetailUrl = baseUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var addContractDetailUrl = baseUrl + "/addContract";
 var deleteContractUrl = baseUrl + "/deleteContract";
 
-var getDocListUrl = baseUrl + "/getDocList";
+var getDocListUrl = testUrl + "/getDocList";
 
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
@@ -42,25 +42,39 @@ var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = baseUrl + "/addUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 
+var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
-var getBudgetDetailUrl=baseUrl+"/getBudgetDetail";
-var getContractUseMoneyUrl=baseUrl+'/getContractUseMoney';
+var getNoticeUrl = testUrl + "/getNotification";
 
-function getDepartmentOption(departmentList) {
-	for(i in departmentList) {
+function getDepartmentOption() {
+	var param = {};
+	param.baseDataType = "Department";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "json",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+//			$('#lendType').html(result)
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	});
 
-		$('#projectDepartmentEdit').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
-		$('#projectDepartment').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
-	}
 }
 
-
-function getBuildContentOption(buildContentList){
-	for(i in buildContentList){
+function getBuildContentOption(buildContentList) {
+	for(i in buildContentList) {
 		$('#buildContentEdit').append('<option value=' + buildContentList[i]["buildContentID"] + '>' + buildContnetList[i]["buildInfo"] + '</option>');
 	}
 }
-
 
 function getLendTypeOption(lendTypeList) {
 
@@ -76,24 +90,39 @@ function getLendTypeOption(lendTypeList) {
 	}
 }
 
-function getBorrowTypeOption(borrowTypeList) {
-//	$.each(borrowTypeList, function(index, el) {
-//		//alert(el);
-//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
-//	});
-for(i in borrowTypeList) {
-
-		$('#borrowTypeUpdt').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-		$('#borrowType').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-	}
+function getBorrowTypeOption() {
+	//	$.each(borrowTypeList, function(index, el) {
+	//		//alert(el);
+	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
+	//	});
+	var param = {};
+	param.baseDataType = "BorrowType";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#BorrowType').append(result);
+			$('#borrowTypeUpdt').html(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 }
 
 function getPayWayOption(payWayList) {
-//	$.each(payWayList, function(index, el) {
-//		//alert(el);
-//		$('#payWay').append('<option value=' + index + '>' + el + '</option>');
-//	});
-for(i in payWayList) {
+	//	$.each(payWayList, function(index, el) {
+	//		//alert(el);
+	//		$('#payWay').append('<option value=' + index + '>' + el + '</option>');
+	//	});
+	for(i in payWayList) {
 
 		$('#payWayUpdt').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
 		$('#payWay').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
@@ -101,12 +130,12 @@ for(i in payWayList) {
 }
 
 function getPurchaseWayOption(purchaseWayList) {
-//	$.each(purchaseWayList, function(index, el) {
-//		//alert(el);
-//		$('#purchaseWay').append('<option value=' + index + '>' + el + '</option>');
-//	});
+	//	$.each(purchaseWayList, function(index, el) {
+	//		//alert(el);
+	//		$('#purchaseWay').append('<option value=' + index + '>' + el + '</option>');
+	//	});
 
-for(i in purchaseWayList) {
+	for(i in purchaseWayList) {
 
 		$('#purchaseWayUpdt').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
 		$('#purchaseWay').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
@@ -114,12 +143,12 @@ for(i in purchaseWayList) {
 }
 
 function getOrgWayOption(orgWayList) {
-//	$.each(orgWayList, function(index, el) {
-//		//alert(el);
-//		$('#orgWay').append('<option value=' + index + '>' + el + '</option>');
-//	});
+	//	$.each(orgWayList, function(index, el) {
+	//		//alert(el);
+	//		$('#orgWay').append('<option value=' + index + '>' + el + '</option>');
+	//	});
 
-for(i in orgWayList) {
+	for(i in orgWayList) {
 
 		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
 		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
@@ -127,26 +156,25 @@ for(i in orgWayList) {
 }
 
 function getPurchaseTypeOption(purchaseTypeList) {
-//	$.each(purchaseTypeList, function(index, el) {
-//		//alert(el);
-//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
-//	});
+	//	$.each(purchaseTypeList, function(index, el) {
+	//		//alert(el);
+	//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
+	//	});
 
-for(i in purchaseTypeList) {
+	for(i in purchaseTypeList) {
 
 		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
 		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
 	}
 }
 
-
 function getLevelOption(levelList) {
-//	$.each(purchaseTypeList, function(index, el) {
-//		//alert(el);
-//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
-//	});
+	//	$.each(purchaseTypeList, function(index, el) {
+	//		//alert(el);
+	//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
+	//	});
 
-for(i in levelList) {
+	for(i in levelList) {
 
 		$('#level').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
 		$('#levelEdit').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
@@ -154,26 +182,46 @@ for(i in levelList) {
 }
 
 function getQueryString() {
-    var qs = location.search.substr(1),
-    // 获取url中"?"符后的字串  
-    args = {},
-    // 保存参数数据的对象qwewq
-    items = qs.length ? qs.split("&") : [],
-    // 取得每一个参数项,
-    item = null,
-    len = items.length;
+	var qs = location.search.substr(1),
+		// 获取url中"?"符后的字串  
+		args = {},
+		// 保存参数数据的对象qwewq
+		items = qs.length ? qs.split("&") : [],
+		// 取得每一个参数项,
+		item = null,
+		len = items.length;
 
-    for (var i = 0; i < len; i++) {
-        item = items[i].split("=");
-        var name = decodeURIComponent(item[0]),
-        value = decodeURIComponent(item[1]);
-        if (name) {
-            args[name] = value;
-        }
-    }
-    return args;
+	for(var i = 0; i < len; i++) {
+		item = items[i].split("=");
+		var name = decodeURIComponent(item[0]),
+			value = decodeURIComponent(item[1]);
+		if(name) {
+			args[name] = value;
+		}
+	}
+	return args;
 }
 
 //获取
 //var qs = getQueryString();
 //var storeID = qs["storeID"];
+
+function timestampToTime(timestamp) {
+	var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+	Y = date.getFullYear() + '-';
+	M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+	D = date.getDate() + ' ';
+	h = date.getHours() + ':';
+	m = date.getMinutes() + ':';
+	s = date.getSeconds();
+	return Y + M + D + h + m + s;
+}
+
+function timestampToDate(timestamp) {
+	var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+	Y = date.getFullYear() + '-';
+	M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+	D = date.getDate() + ' ';
+
+	return Y + M + D;
+}
