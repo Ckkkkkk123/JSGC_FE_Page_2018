@@ -670,7 +670,15 @@
 					}, {
 						"data": "projectName"
 					}, {
-						"data": "projectStartTime"
+						"data": "projectStartTime",
+						"render": function(data, type, full, callback) {
+							if(data!=null){
+							return(timestampToDate(data));
+								
+							}else{
+								return("无记录");
+							}
+						}
 					}, {
 						"data": "departmentName"
 					}, {
