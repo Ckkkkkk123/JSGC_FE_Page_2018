@@ -11,7 +11,7 @@ var addProjectUrl = baseUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 
-var getAssetListUrl = baseUrl + "/getAssetList";
+var getAssetListUrl = testUrl + "/getAssetList";
 var getAssetDetailUrl = baseUrl + "/getAssetDetail";
 var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
 var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
@@ -24,7 +24,7 @@ var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var addContractDetailUrl = baseUrl + "/addContract";
 var deleteContractUrl = baseUrl + "/deleteContract";
 
-var getDocListUrl = baseUrl + "/getDocList";
+var getDocListUrl = testUrl + "/getDocList";
 
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
