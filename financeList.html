@@ -18,14 +18,14 @@
 		<link rel="stylesheet" href="css/chosen.min.css">
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="js/chosen.jquery.min.js"></script>
-		
+		<script src="js/chosen.jquery.min.js"></script>
+
 		<script src="js/jsxm.js"></script>
 		<script>
-			$(function(){
+			$(function() {
 				$('.chosen-select', this).chosen({
-						width: "190px"
-					});
+					width: "190px"
+				});
 				$('#financeUpdate').on('show.bs.modal', function(e) {
 					$("#BorrowTypeUpdt").trigger("chosen:updated");
 					$('.chosen-select', this).chosen({
@@ -108,7 +108,7 @@
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
 							<h6 class="dropdown-header">最近通知:</h6>
-							
+
 						</div>
 					</li>
 
@@ -256,7 +256,7 @@
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
-									
+
 								</div>
 							</div>
 							<div class="col-md-1"></div>
@@ -264,8 +264,8 @@
 								<div class="input-group">
 									<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType"> 
-										
+									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType">
+
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -548,7 +548,16 @@
 						columns: [{
 							"data": "financeSerials"
 						}, {
-							"data": "financeDate"
+							"data": "financeDate",
+							"render": function(data, type, full, callback) {
+								if(data != null) {
+									return(timestampToDate(data));
+
+								} else {
+									return("无记录");
+
+								}
+							}
 						}, {
 							"data": "project.projectName",
 							"render": function(data, type, row, callback) {
@@ -591,15 +600,9 @@
 						}, {
 							"data": "financeId", //json
 							"render": function(data, type, full, callback) {
-								//data 就是上面传入的参数，projectID
-								//拼接字符串（懒得处理引号转义）
-								//								updateUrl = "'/financeUpdate.html?financeID=" + data + "'";
-								//								detailUrl = "'/financeDetail.html?financeID=" + data + "'";
-
-								//								<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal" onclick="showDetail(23333)">编辑信息</button>
-								//								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showFinanceDetail(' + data + ')">编辑信息</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm"  onclick="window.open(' + detailUrl + ')">查看信息</button>');
+								
 								return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;' +
-									'<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#financeUpdate" onclick="getAssetUpdate(' + data + ')">编辑信息</button>&nbsp;' +
+									'<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#financeUpdate" onclick="getFinanceUpdate(' + data + ')">编辑信息</button>&nbsp;' +
 									'<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteFinanceID(' + data + ')">删除</button>');
 
 							}
@@ -687,20 +690,6 @@
 						</div>
 						<br />
 
-						<!--<div class="col-md-5">
-								<div class="input-group">
-									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
-									<input class="form-control" type="number" id="financeMinUpdt">
-								</div>
-							</div>
-
-							<div class="col-md-1"></div>
-							<div class="col-md-5">
-								<div class="input-group">
-									<span class="input-group-addon	">--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<input class="form-control" type="number" id="financeMaxUpdt">
-								</div>
-							</div>-->
 
 						<div class="input-group">
 							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -1000,11 +989,11 @@
 						</div>
 						<br />
 
-						<div class="input-group">
+						<!--<div class="input-group">
 							<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="projectNameDetail">
 						</div>
-						<br />
+						<br />-->
 
 						<div class="input-group">
 							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
@@ -1012,11 +1001,11 @@
 						</div>
 						<br />
 
-						<div class="input-group">
+						<!--<div class="input-group">
 							<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="contractNameDetail">
 						</div>
-						<br />
+						<br />-->
 
 						<div class="input-group">
 							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -1139,15 +1128,15 @@
 							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
 
 							<div class="row" style="display: none;">
-								<div class="col-md-2">项目ID:</div>
-								<div class="col-md-7"><input type="text" id="assetIdDelete" class="form-control"></input>
+								<div class="col-md-2">財務ID:</div>
+								<div class="col-md-7"><input type="text" id="financeIdDelete" class="form-control"></input>
 								</div>
 							</div>
 
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
-							<button type="button" class="btn btn-primary" onclick="deleteAsset()">提交</button>
+							<button type="button" class="btn btn-primary" onclick="deleteFinance()">提交</button>
 						</div>
 					</div>
 				</div>
@@ -1155,70 +1144,21 @@
 		</div>
 
 		<script type="text/javascript">
-			function getAssetUpdate(financeID) {
+			function getFinanceUpdate(financeID) {
 
-//				var param = {};
-//				param.financeID = financeID;
-//				$.ajax({
-//					type: "post",
-//					url: getFinanceUpdateUrl,
-//					cache: false, //禁用缓存
-//					//contentType: "application/json",
-//					//data: JSON.stringify(param), //传入组装的参数
-//					data:param, 
-//					dataType: "json",
-//					async: false,
-//					beforeSend: function(xhr) {
-//									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-//								},
-//					success: function(result) {
-//						//console.log(result);
-//						getLendTypeOption(result.lendTypeItem);
-//						getBorrowTypeOption(result.borrowTypeItem);
-//						getPayWayOption(result.payWayItem);
-//						getPurchaseWayOption(result.purchaseWayItem);
-//						getOrgWayOption(result.orgWayItem);
-//						getPurchaseTypeOption(result.purchaseTypeItem);
-//						$('#financeIDUpdt').val(result.financeID);
-//						$('#financeSerialsUpdt').val(result.financeSerials);
-//						$('#projectSerialUpdt').val(result.projectSerial);
-//						$('#contracSerialUpdt').val(result.contractSerisal);
-//						$('#dateUpdt').val(result.financeDate);
-//						$('#paidUpdt').val(result.financeStatus);
-//						$('#financeNameUpdt').val(result.financeName);
-//						$('#financeMoneyUpdt').val(result.financeMoney);
-//						$('#lendTypeUpdt').val(result.financeLenderID);
-//						$('#borrowTypeUpdt').val(result.financeBorrowerID);
-//						$('#payWayUpdt').val(result.payMethodID);
-//						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
-//						$('#orgWayUpdt').val(result.financeOrgID);
-//						$('#purchaseTypeUpdt').val(result.financeTypeID);
-//						
-//					},
-//					error: function(result, status) {
-//						console.log(result)
-//					},
-//					statusCode: {
-//						401: function() {
-//							alert("登录状态错误，请重新登录后再尝试");
-//							window.open('login.html?type=1');
-//						}
-//					}
-//
-//				});
-var param = {};
+				var param = {};
 				param.financeID = financeID;
 				$.ajax({
 					type: "post",
 					url: getFinanceDetailUrl,
 					cache: false, //禁用缓存
-//					contentType: "application/json",
-						data: param, //传入组装的参数
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
 					beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 
 						getLendTypeOption(result.lendTypeItem);
@@ -1244,7 +1184,7 @@ var param = {};
 						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
 						$('#orgWayUpdt').val(result.financeOrgID);
 						$('#purchaseTypeUpdt').val(result.financeTypeID);
-
+						reRenderTable();
 					}
 				});
 
@@ -1255,7 +1195,7 @@ var param = {};
 				param.financeID = $('#financeIDUpdt').val();
 				param.financeSerials = $('#financeSerialsUpdt').val();
 				param.projectSerial = $('#projectSerialUpdt').val();
-				param.contracSerial = $('#contracSerialUpdt').val();
+				param.contractSerial = $('#contracSerialUpdt').val();
 				param.financeData = $('#dateUpdt').val();
 				param.financeName = $('#financeNameUpdt').val();
 				param.financeMoney = $('#financeMoneyUpdt').val();
@@ -1275,9 +1215,12 @@ var param = {};
 					url: updateFinanceDetailUrl,
 					cache: false, //禁用缓存
 					contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
@@ -1325,9 +1268,12 @@ var param = {};
 					url: addFinanceDetailUrl,
 					cache: false, //禁用缓存
 					contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 						getLendTypeOption(result.lendTypeItem);
 						getBorrowTypeOption(result.borrowTypeItem);
@@ -1383,13 +1329,13 @@ var param = {};
 					type: "post",
 					url: getFinanceDetailUrl,
 					cache: false, //禁用缓存
-//					contentType: "application/json",
-						data: param, //传入组装的参数
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
 					beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 
 						getLendTypeOption(result.lendTypeItem);
@@ -1416,74 +1362,93 @@ var param = {};
 						$('#orgWayDetail').val(result.financeOrgID);
 						$('#purchaseTypeDetail').val(result.financeTypeID);
 
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
 					}
 				});
 
 			}
 
 			function deleteFinanceID(financeID) {
-				$('#assetIdDelete').val(financeID);
+				$('#financeIdDelete').val(financeID);
 				$('#deleteModal').modal('show');
 			}
 
-			function deleteAsset(financeID) {
+			function deleteFinance() {
 				var param = {};
-				param.assetID = $('#assetIdDelete').val();
+				param.financeID = $('#financeIdDelete').val();
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
 				console.log(JSON.stringify(param));
 				//			
 				$.ajax({
 					type: "post",
-					url: deleteAssetUrl,
+					url: deleteFinanceUrl,
 					cache: false, //禁用缓存
-//					contentType: "application/json",
-					data:param, //传入组装的参数
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
 					crossDomain: true,
 					beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
 						$('#closeModelDelete').click();
-
+						//alert('刪除成功');
+						reRenderTable();
 						//						sleep(1);
 
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
 					}
 				});
 			}
-			
+
 			function getNotice() {
 				$.ajax({
-						type: "post",
-						url: getNoticeUrl,
-						cache: false, //禁用缓存
-						contentType: "application/json,charset=utf-8",
-						data: null, //传入组装的参数
-						dataType: "json",
-						async: false,
-						crossDomain: true,
-						scriptCharset: 'utf-8',
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
-						success: function(result) {
-							var NotiData = "";
-							for(i in result) {
-								console.log(i);
-								NotiData += '<div class="dropdown-divider"></div>' +
-									'<a class="dropdown-item">' +
-									'<span class="text-success">' +
-									'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
-									'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
-									'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+					type: "post",
+					url: getNoticeUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json,charset=utf-8",
+					data: null, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					scriptCharset: 'utf-8',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						var NotiData = "";
+						for(i in result) {
+							console.log(i);
+							NotiData += '<div class="dropdown-divider"></div>' +
+								'<a class="dropdown-item">' +
+								'<span class="text-success">' +
+								'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+								'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+								'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
 
 						}
-							console.log(NotiData);
+						console.log(NotiData);
 						$('#notice').append(NotiData);
 
 					},
@@ -1499,10 +1464,10 @@ var param = {};
 				});
 			}
 		</script>
-<script>
-			$(document).ready(function(){
+		<script>
+			$(document).ready(function() {
 				getNotice();
-				$.fn.dataTable.ext.errMode = 'none'; 
+				$.fn.dataTable.ext.errMode = 'none';
 			})
 		</script>
 		<script>

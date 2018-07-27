@@ -31,6 +31,7 @@ var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
+var deleteFinanceUrl=baseUrl+"/deleteFinance";
 var deleteAssetUrl = testUrl + "/deleteAsset";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
