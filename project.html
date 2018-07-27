@@ -166,41 +166,26 @@
 					</div>
 					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
 						<div class="form-inline">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">项目编号：&nbsp;&nbsp;</span>
 									<input class="form-control" type="text" placeholder="" value="" id="projectSerial">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">项目名：&nbsp;&nbsp;</span>
 									<input class="form-control" type="text" placeholder="" value="" id="projectName">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
-							<div class="col-md-2 ">
+							<div class="col-md-3 ">
 								<div class="input-group">
 									<span class="input-group-addon ">所属部门：&nbsp;</span>
 									<select class="form-control" name="checkStatus" id="projectDepartment">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
-									</select>
-
-								</div>
-
-							</div>
-
-							<div class="col-md-1"></div>
-							<div class="col-md-2 ">
-								<div class="input-group">
-									<span class="input-group-addon ">项目状态：&nbsp;</span>
-									<select class="form-control" name="projectStatus" id="projectStatus">
-										<option value="0"></option>
-										<option value="1">进行中</option>
-										<option value="2">审核中</option>
-										<option value="3">已完成</option>
 									</select>
 
 								</div>
@@ -264,7 +249,6 @@
 										<th>所属部门</th>
 										<th>负责人</th>
 										<th>总预算</th>
-										<th>项目状态</th>
 										<th class="nosort">备注</th>
 										<th class="nosort">操作</th>
 									</tr>
@@ -364,20 +348,6 @@
 								<div class="col-md-2">总预算:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-7"><input type="number" id="projectBudgetEdit" class="form-control"></input>
-								</div>
-							</div>
-							<div class="clearfix"><br /></div>
-
-							<div class="row">
-								<div class="col-md-2">项目状态:</div>
-								<!--<div class="col-1"></div>-->
-								<div class="col-md-7">
-									<select class="form-control" name="projectStatus" id="projectStatusEdit">
-										<option value="0"></option>
-										<option value="1">进行中</option>
-										<option value="2">审核中</option>
-										<option value="3">已完成</option>
-									</select>
 								</div>
 							</div>
 							<div class="clearfix"><br /></div>
@@ -517,19 +487,6 @@
 							<div class="clearfix"><br /></div>
 
 							<div class="row">
-								<div class="col-md-2">项目状态:</div>
-								<div class="col-md-7">
-									<select class="form-control" name="projectStatus" id="projectStatusAdd">
-										<option value="0"></option>
-										<option value="1">进行中</option>
-										<option value="2">审核中</option>
-										<option value="3">已完成</option>
-									</select>
-								</div>
-							</div>
-							<div class="clearfix"><br /></div>
-
-							<div class="row">
 								<div class="col-md-2">备注:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-10">
@@ -655,7 +612,6 @@
 						param.projectSerial = $('#projectSerial').val();
 						param.projectName = $('#projectName').val();
 						param.projectDepartment = $('#projectDepartment').val();
-						param.projectStatus = $('#projectStatus').val;
 						param.projectOwner = $('#projectOwner').val();
 						param.projectBudgetDown = $('#projectBudgetDown').val();
 						param.projectBudgetUp = $('#projectBudgetUp').val();
@@ -667,7 +623,7 @@
 							//url: getProjectListUrl,
 							url: "http://127.0.0.1:8080/getProjectList",
 							cache: false, //禁用缓存
-
+							
 							data: JSON.stringify(param), //传入组装的参数
 							contentType: "application/json",
 							dataType: "json",
@@ -733,17 +689,6 @@
 					}, {
 						"data": "projectBudgetSum"
 					}, {
-						"data": "projectStatus",
-						"render": function(data, type, full, callback) {
-							if(data == 1) {
-								return("进行中");
-							} else if(data == 2) {
-								return("审核中");
-							} else if(data == 3) {
-								return("已完成");
-							}
-						}
-					}, {
 						"data": "projectComment",
 						//							"render":function (data,type,row,meta) {
 						//								console.log(row) 
@@ -792,7 +737,7 @@
 					type: "post",
 					url: 'http://127.0.0.1:8080/getProjectDetail',
 					cache: false, //禁用缓存
-					//					contentType: "application/json",
+//					contentType: "application/json",
 					data: param, //传入组装的参数
 					dataType: "json",
 					//					async: false,
@@ -802,7 +747,7 @@
 					},
 					success: function(result, status) {
 						//console.log(result);
-
+						
 						$('#projectIDEdit').val(result.projectID);
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
@@ -811,7 +756,6 @@
 						//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 						//						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val(result.username);
-						$('#projectStatus').val(result.projectStatus);
 						$('#projectBudgetEdit').val(result.projectBudgetSum);
 						$('#projectCommentEdit').val(result.projectComment);
 						console.log(result.projectName);
@@ -826,10 +770,9 @@
 						//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 						//						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val("");
-						$('#projectStatus').val("");
 						$('#projectBudgetEdit').val("");
 						$('#projectCommentEdit').val("");
-
+						
 						console.log(result)
 					},
 					statusCode: {
@@ -851,7 +794,6 @@
 				param.projectName = $('#projectNameEdit').val();
 				param.departmentName = $('#projectDepartmentEdit').val();
 				param.username = $('#projectOwnerEdit').val();
-				param.projectStatus = $('#projectStatusEdit').val();
 				param.projectBudgetSum = $('#projectBudgetEdit').val();
 				param.projectComment = $('#projectCommentEdit').val();
 				//				alert(JSON.stringify(param))
@@ -876,7 +818,7 @@
 						$('#closeModel').click();
 						$('#successModal').modal('show');
 						//						sleep(1);
-						reRenderTable();
+
 					},
 					error: function(result, status) {
 						console.log(result)
@@ -901,7 +843,6 @@
 				param.username = $('#projectOwnerAdd').val();
 				param.projectBudgetSum = $('#projectBudgetAdd').val();
 				param.projectComment = $('#projectCommentAdd').val();
-				param.projectStatus = $('#projectStatusAdd').val();
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
 				console.log(JSON.stringify(param));
@@ -924,7 +865,7 @@
 						$('#closeModelAdd').click();
 						$('#successModalAdd').modal('show');
 						//						sleep(1);
-						reRenderTable();
+
 					},
 					error: function(result, status) {
 						console.log(result)
@@ -965,7 +906,7 @@
 						$('#closeModelDelete').click();
 
 						//						sleep(1);
-						reRenderTable();
+
 					},
 					error: function(result, status) {
 						console.log(result)

@@ -1,5 +1,8 @@
 function resetInput() {
-	$(" input").val("")
+	$("#chooseCard input").val("");
+	$("#chooseCard select").val("");
+	$('#chooseCard .chosen-select').val("")
+	$('#chooseCard .chosen-select').trigger("chosen:updated");
 }
 
 var baseUrl = "http://localhost:8080";
@@ -130,6 +133,7 @@ function getBorrowTypeOption() {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
+		async:true,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
