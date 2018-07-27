@@ -27,9 +27,22 @@
 						width: "190px"
 					});
 				$('#financeUpdate').on('show.bs.modal', function(e) {
+					$("#lendTypeUpdt").trigger("chosen:updated");
+					$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				})
+			})
+		</script>
+		<script>
+			$(function(){
+				$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				$('#financeUpdate').on('show.bs.modal', function(e) {
 					$("#BorrowTypeUpdt").trigger("chosen:updated");
 					$('.chosen-select', this).chosen({
-						width: "inherit"
+						width: "190px"
 					});
 				})
 			})
@@ -263,7 +276,7 @@
 								<div class="input-group">
 									<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType"> 
+									<select data-placeholder="选择贷方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType"> 
 										
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
@@ -329,7 +342,9 @@
 				<script>
 					$(document).ready(getBorrowTypeOption());
 				</script>
-
+				<script>
+					$(document).ready(getLendTypeOption());
+				</script>
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i> 财务列表
@@ -1071,6 +1086,7 @@
 						<div class="input-group">
 							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
 							<select class="form-control" name="checkStatus" id="borrowTypeDetail">
+								
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>

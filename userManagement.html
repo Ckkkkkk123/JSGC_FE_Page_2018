@@ -385,7 +385,13 @@
 								</div>
 							</div>
 							<div class="clearfix"><br /></div>
-
+							<div class="row">
+								<div class="col-md-2">密码：</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="pwdAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
 							<div class="row">
 								<div class="col-md-2">邮箱:</div>
 								<!--<div class="col-1"></div>-->
@@ -537,6 +543,9 @@
 						data: JSON.stringify(param), //传入组装的参数
 							dataType: "json",
 							async: false,
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
 							success: function(result) {
 								//console.log(result);
 								getLevelOption(result.levelItem);
@@ -580,10 +589,10 @@
 							"data": "email"
 						},
 						{
-							"data": "phoneNumber"
+							"data": "phone"
 						},
 						{
-							"data": "level"
+							"data": "permissionLevel"
 						},
 						
 						{
@@ -594,7 +603,7 @@
 //								contractUrl = "'/contract.html?projectID=" + data + "'";
 								//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
-								return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#detail"  onclick="showUserDetail(' + data + ')">编辑信息</button>');
+								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#detail"  onclick="showUserDetail(' + data + ')">编辑信息</button>');
 							}
 						}
 					]
@@ -623,12 +632,12 @@
 					url: getuserDetailUrl,
 					cache: false, //禁用缓存
 					contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
 					beforeSend: function(xhr) {
 							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+					},
 					success: function(result) {
 						//console.log(result);
 						getLevelOption(result.levelItem);
@@ -714,6 +723,9 @@
 						data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
@@ -741,9 +753,10 @@
 				var param = {};
 //				param.userID = $('#userIDEdit').val();
 				param.username = $('#usernameAdd').val();
+				param.password = $('#pwdAdd').val();
 				param.email = $('#emailAdd').val();
 //				param.phoneNumber = $('#projectNameAdd').val();
-				param.phoneNumber = $('#phoneNumberAdd').val();
+				param.phone = $('#phoneNumberAdd').val();
 				param.level = $('#levelAdd').val();
 //				param.projectBudgetSum = $('#projectBudgetEdit').val();
 //				param.projectComment = $('#projectCommentEdit').val();
@@ -759,6 +772,9 @@
 						data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
