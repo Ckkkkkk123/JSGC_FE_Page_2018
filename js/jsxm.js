@@ -85,21 +85,28 @@ function getBuildContentOption(buildContentList) {
 }
 
 function getLendTypeOption(lendTypeList) {
+var param = {};
+	param.baseDataType = "LendType";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#lendType').append(result);
+			$('#lendTypeUpdt').html(result);
+			$('#lendTypeAdd').html(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 
-	//	$.each(lendTypeList, function(index, el) {
-	//		//alert(el);
-	//		$('#lendType').append('<option value=' + index + '>' + el + '</option>');
-	//	});
-
-	for(i in lendTypeList) {
-
-		$('#lendTypeUpdt').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendType').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendTypeDetail').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendTypeAdd').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		
-		
-	}
 }
 
 //<<<<<<< HEAD
@@ -145,62 +152,117 @@ function getBorrowTypeOption() {
 }
 
 function getPayWayOption(payWayList) {
-	//	$.each(payWayList, function(index, el) {
-	//		//alert(el);
-	//		$('#payWay').append('<option value=' + index + '>' + el + '</option>');
-	//	});
-	for(i in payWayList) {
-
-		$('#payWayUpdt').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
-		$('#payWay').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
-		$('#payWayDetail').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
-		$('#payWayAdd').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
-	}
+	var param = {};
+	param.baseDataType = "PayMethod";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#payWay').append(result);
+			$('#payWayUpdt').html(result);
+			$('#payWayAdd').html(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 }
 
 function getPurchaseWayOption(purchaseWayList) {
-	//	$.each(purchaseWayList, function(index, el) {
-	//		//alert(el);
-	//		$('#purchaseWay').append('<option value=' + index + '>' + el + '</option>');
-	//	});
+	var param = {};
+	param.baseDataType = "PurchaseWay";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#purchaseWay').append(result);
+			$('#purchaseWayUpdt').html(result);
+			$('#purchaseWayAdd').append(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 
-	for(i in purchaseWayList) {
-
-		$('#purchaseWayUpdt').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
-		$('#purchaseWay').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
-		$('#purchaseWayDetail').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
-		$('#purchaseWayAdd').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
-	}
+	
 }
 
 function getOrgWayOption(orgWayList) {
-	//	$.each(orgWayList, function(index, el) {
-	//		//alert(el);
-	//		$('#orgWay').append('<option value=' + index + '>' + el + '</option>');
-	//	});
+	var param = {};
+	param.baseDataType = "BuyOrgMethod";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#orgWay').append(result);
+			$('#orgWayUpdt').html(result);
+			$('#orgWayAdd').append(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 
-	for(i in orgWayList) {
-
-		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-		$('#orgWayDetail').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-		$('#orgWayAdd').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-	}
+//	for(i in orgWayList) {
+//
+//		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+//		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+//		$('#orgWayDetail').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+//		$('#orgWayAdd').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+//	}
 }
 
 function getPurchaseTypeOption(purchaseTypeList) {
-	//	$.each(purchaseTypeList, function(index, el) {
-	//		//alert(el);
-	//		$('#purchaseType').append('<option value=' + index + '>' + el + '</option>');
-	//	});
+	var param = {};
+	param.baseDataType = "PurchaseType";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#purchaseType').append(result);
+			$('#purchaseTypeUpdt').html(result);
+			$('#purchaseTypeAdd').append(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 
-	for(i in purchaseTypeList) {
-
-		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-		$('#purchaseTypeDetail').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-		$('#purchaseTypeAdd').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-	}
+//	for(i in purchaseTypeList) {
+//
+//		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+//		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+//		$('#purchaseTypeDetail').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+//		$('#purchaseTypeAdd').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+//	}
 }
 
 function getLevelOption(levelList) {

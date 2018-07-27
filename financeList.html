@@ -264,7 +264,7 @@
 								<div class="input-group">
 									<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType">
+									<select  data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType">
 
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
@@ -274,8 +274,8 @@
 							<!--<div class="col-md-1"></div>-->
 							<div class="col-md-3">
 								<div class="input-group">
-									<span class="input-group-addon	">支付方式：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="payWay">
+									<span class="input-group-addon">支付方式：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<select data-live-search="true" class="chosen-select form-control" tabindex="5" id="payWay">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -288,7 +288,7 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="purchaseWay">
+									<select class="form-control chosen-select" name="checkStatus" id="purchaseWay">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -298,7 +298,7 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">采购组织方式：&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="orgWay">
+									<select class="form-control chosen-select" name="checkStatus" id="orgWay">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -308,7 +308,7 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">采购项目分类：&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="purchaseType">
+									<select class="form-control chosen-select" name="checkStatus" id="purchaseType">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -328,7 +328,20 @@
 				</div>
 				<!--填充下拉框-->
 				<script>
-					$(document).ready(getBorrowTypeOption());
+					$(document).ready(getBorrowTypeOption()
+					);
+					$(document).ready(getPayWayOption()
+					);
+					$(document).ready(getLendTypeOption()
+					);
+					$(document).ready(getPurchaseWayOption()
+					);
+					$(document).ready(getOrgWayOption()
+					);
+					$(document).ready(getPurchaseTypeOption()
+					);
+					
+					
 				</script>
 
 				<div class="card mb-3">
@@ -489,7 +502,7 @@
 							param.financeMoneyMin = $('#financeMin').val();
 							param.financeMoneyMax = $('#financeMax').val();
 							param.financeLenderID = $('#lendType').val();
-							param.financeBorrowerID = $('#borrowType').val();
+							param.financeBorrowerID = $('#BorrowType').val();
 							param.payMethodID = $('#payWay').val();
 							param.financeBuyMethodID = $('#purchaseWay').val();
 							param.fianceOrgID = $('#orgWay').val();
@@ -510,12 +523,12 @@
 								success: function(result) {
 									//console.log(result);
 									//setTimeout仅为测试延迟效果
-									getLendTypeOption(result.lendTypeItem);
-									getBorrowTypeOption(result.borrowTypeItem);
-									getPayWayOption(result.payWayItem);
-									getPurchaseWayOption(result.purchaseWayItem);
-									getOrgWayOption(result.orgWayItem);
-									getPurchaseTypeOption(result.purchaseTypeItem);
+//									getLendTypeOption(result.lendTypeItem);
+//									getBorrowTypeOption(result.borrowTypeItem);
+//									getPayWayOption(result.payWayItem);
+//									getPurchaseWayOption(result.purchaseWayItem);
+//									getOrgWayOption(result.orgWayItem);
+//									getPurchaseTypeOption(result.purchaseTypeItem);
 
 									setTimeout(function() {
 										//封装返回数据
@@ -563,7 +576,8 @@
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectId + "'";
+//								projectUrl = "'http://localhost:8080//projectDetial.html?projectID=" + row.projectId + "'";
+								projectUrl = "'"+baseUrl + "//projectDetial.html?projectID=" + row.projectId + "'";
 								return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 							}
 						}, {
@@ -571,7 +585,8 @@
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractId + "'";
+								contractUrl = "'"+baseUrl + "//contractDetial.html?contractID=" + row.contractId + "'";
+//								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractId + "'";
 								return('<a target="_blank" href=' + contractUrl + '>' + data + '</a>')
 							}
 						}, {
