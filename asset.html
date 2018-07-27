@@ -979,7 +979,17 @@
 				}, {
 					"data": "assetComment"
 				}, {
-					"data": "assetDate"
+					"data": "assetDate",
+					"render": function(data, type, full, callback) {
+							if(data != null) {
+								return(timestampToDate(data));
+
+							} else {
+								return("无记录");
+
+							}
+						}
+					
 				}, {
 					"data": "assetStatus"
 				}, {
