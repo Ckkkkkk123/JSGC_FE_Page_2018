@@ -2,12 +2,12 @@ function resetInput() {
 	$(" input").val("")
 }
 
-var baseUrl = "http://123.206.254.42:2333";
+var baseUrl = "http://localhost:8080";
 var testUrl = "http://localhost:8080";
 
 var getProjectListUrl = baseUrl + "/getProjectList";
-var getProjectDetailUrl = baseUrl + "/getProjectDetail";
-var addProjectUrl = baseUrl + "/addProject";
+var getProjectDetailUrl = testUrl + "/getProjectDetail";
+var addProjectUrl = testUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
 
@@ -28,7 +28,7 @@ var getDocListUrl = testUrl + "/getDocList";
 
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
-var getFinanceListUrl = baseUrl + "/getContractList";
+var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
 var deleteAssetUrl = testUrl + "/deleteAsset";
@@ -67,7 +67,14 @@ function getDepartmentOption() {
 			console.log(result)
 		}
 	});
-
+//
+//<<<<<<< HEAD
+//		$('#projectDepartmentEdit').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
+//		$('#projectDepartment').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
+//		
+//	}
+//=======
+//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 }
 
 function getBuildContentOption(buildContentList) {
@@ -76,19 +83,6 @@ function getBuildContentOption(buildContentList) {
 	}
 }
 
-function getLendTypeOption(lendTypeList) {
-
-	//	$.each(lendTypeList, function(index, el) {
-	//		//alert(el);
-	//		$('#lendType').append('<option value=' + index + '>' + el + '</option>');
-	//	});
-
-	for(i in lendTypeList) {
-
-		$('#lendTypeUpdt').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendType').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-	}
-}
 
 
 function getLendTypeOption() {
@@ -147,6 +141,22 @@ function getDepartmentOption() {
 	})
 }
 
+
+//<<<<<<< HEAD
+//function getBorrowTypeOption(borrowTypeList) {
+////	$.each(borrowTypeList, function(index, el) {
+////		//alert(el);
+////		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
+////	});
+//for(i in borrowTypeList) {
+//
+//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowType').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//	}
+//=======
+
 function getBorrowTypeOption() {
 	//	$.each(borrowTypeList, function(index, el) {
 	//		//alert(el);
@@ -173,6 +183,7 @@ function getBorrowTypeOption() {
 			console.log(result)
 		}
 	})
+//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 }
 
 function getPayWayOption(payWayList) {
@@ -184,6 +195,8 @@ function getPayWayOption(payWayList) {
 
 		$('#payWayUpdt').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
 		$('#payWay').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
+		$('#payWayDetail').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
+		$('#payWayAdd').append('<option value=' + payWayList[i]["payWayID"] + '>' + payWayList[i]["payWayValue"] + '</option>');
 	}
 }
 
@@ -197,6 +210,8 @@ function getPurchaseWayOption(purchaseWayList) {
 
 		$('#purchaseWayUpdt').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
 		$('#purchaseWay').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
+		$('#purchaseWayDetail').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
+		$('#purchaseWayAdd').append('<option value=' + purchaseWayList[i]["purchaseWayID"] + '>' + purchaseWayList[i]["purchaseWayValue"] + '</option>');
 	}
 }
 
@@ -210,6 +225,8 @@ function getOrgWayOption(orgWayList) {
 
 		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
 		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+		$('#orgWayDetail').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+		$('#orgWayAdd').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
 	}
 }
 
@@ -223,6 +240,8 @@ function getPurchaseTypeOption(purchaseTypeList) {
 
 		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
 		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+		$('#purchaseTypeDetail').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+		$('#purchaseTypeAdd').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
 	}
 }
 
@@ -236,6 +255,8 @@ function getLevelOption(levelList) {
 
 		$('#level').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
 		$('#levelEdit').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
+		$('#levelDetail').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
+		$('#levelAdd').append('<option value=' + levelList[i]["levelID"] + '>' + levelList[i]["levelValue"] + '</option>');
 	}
 }
 

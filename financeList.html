@@ -236,7 +236,8 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="paid">
+									<select class="form-control" name="checkStatus" id="financePaid">
+										<option value="2"></option>
 										<option value="0">是</option>
 										<option value="1">否</option>
 									</select>
@@ -363,18 +364,18 @@
 									<tr>
 										<th>凭证号</th>
 										<th>日期</th>
-										<th>所属项目</th>
-										<th>所属合同</th>
+										<th class="nosort">所属项目</th>
+										<th class="nosort">所属合同</th>
 										<th>金额</th>
-										<th>是否付款</th>
-										<th>摘要</th>
-										<th>借方科目</th>
-										<th>贷方科目</th>
-										<th>支付方式</th>
-										<th>采购方式</th>
-										<th>采购组织方式</th>
-										<th>采购项目分类</th>
-										<th>操作</th>
+										<th class="nosort">是否付款</th>
+										<th class="nosort">摘要</th>
+										<th class="nosort">借方科目</th>
+										<th class="nosort">贷方科目</th>
+										<th class="nosort">支付方式</th>
+										<th class="nosort">采购方式</th>
+										<th class="nosort">采购组织方式</th>
+										<th class="nosort">采购项目分类</th>
+										<th class="nosort">操作</th>
 
 									</tr>
 								</thead>
@@ -499,7 +500,7 @@
 							param.contracSerial = $('#contracSerial').val();
 							param.contractName = $('#contractName').val();
 							param.financeDate = $('#date').val();
-							param.financePaid = $('#paid').val();
+							param.financePaid = $('#financePaid').val();
 							param.financeMoneyMin = $('#financeMin').val();
 							param.financeMoneyMax = $('#financeMax').val();
 							param.financeLenderID = $('#lendType').val();
@@ -513,9 +514,10 @@
 							//ajax请求数T
 							$.ajax({
 								type: "post",
-								url: "http://123.206.254.42:2333/getFinanceList",
+								url: getFinanceListUrl,
 								cache: false, //禁用缓存
-								data: param, //传入组装的参数
+								contentType: "application/json",
+								data: JSON.stringify(param), //传入组装的参数
 								dataType: "json",
 								beforeSend: function(xhr) {
 									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -563,19 +565,19 @@
 						}, {
 							"data": "financeDate"
 						}, {
-							"data": "projectName",
+							"data": "project.projectName",
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+								projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectId + "'";
 								return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 							}
 						}, {
-							"data": "contractName",
+							"data": "contract.contractName",
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractID + "'";
+								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractId + "'";
 								return('<a target="_blank" href=' + contractUrl + '>' + data + '</a>')
 							}
 						}, {
@@ -585,24 +587,24 @@
 						}, {
 							"data": "financeName"
 						}, {
-							"data": "lendType"
+							"data": "lender.accountantName"
 						}, {
-							"data": "borrowType"
+							"data": "borrower.accountantName"
 
 						}, {
-							"data": "payWay"
+							"data": "payMethod.payMethodInfo"
 
 						}, {
-							"data": "purchaseWay"
+							"data": "buyMethod.buyMethodInfo"
 
 						}, {
-							"data": "orgWay"
+							"data": "buyOrgForm.buyOrgFormInfo"
 
 						}, {
-							"data": "purchaseType"
+							"data": "buyType.buyTypeInfo"
 
 						}, {
-							"data": "financeID", //json
+							"data": "financeId", //json
 							"render": function(data, type, full, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
@@ -687,7 +689,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="paidUpdt">
+							<select class="form-control" name="checkStatus" id="financePaid">
 								<option value="0">是</option>
 								<option value="1">否</option>
 							</select>
@@ -1171,18 +1173,70 @@
 		<script type="text/javascript">
 			function getAssetUpdate(financeID) {
 
-				var param = {};
+//				var param = {};
+//				param.financeID = financeID;
+//				$.ajax({
+//					type: "post",
+//					url: getFinanceUpdateUrl,
+//					cache: false, //禁用缓存
+//					//contentType: "application/json",
+//					//data: JSON.stringify(param), //传入组装的参数
+//					data:param, 
+//					dataType: "json",
+//					async: false,
+//					beforeSend: function(xhr) {
+//									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+//								},
+//					success: function(result) {
+//						//console.log(result);
+//						getLendTypeOption(result.lendTypeItem);
+//						getBorrowTypeOption(result.borrowTypeItem);
+//						getPayWayOption(result.payWayItem);
+//						getPurchaseWayOption(result.purchaseWayItem);
+//						getOrgWayOption(result.orgWayItem);
+//						getPurchaseTypeOption(result.purchaseTypeItem);
+//						$('#financeIDUpdt').val(result.financeID);
+//						$('#financeSerialsUpdt').val(result.financeSerials);
+//						$('#projectSerialUpdt').val(result.projectSerial);
+//						$('#contracSerialUpdt').val(result.contractSerisal);
+//						$('#dateUpdt').val(result.financeDate);
+//						$('#paidUpdt').val(result.financeStatus);
+//						$('#financeNameUpdt').val(result.financeName);
+//						$('#financeMoneyUpdt').val(result.financeMoney);
+//						$('#lendTypeUpdt').val(result.financeLenderID);
+//						$('#borrowTypeUpdt').val(result.financeBorrowerID);
+//						$('#payWayUpdt').val(result.payMethodID);
+//						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
+//						$('#orgWayUpdt').val(result.financeOrgID);
+//						$('#purchaseTypeUpdt').val(result.financeTypeID);
+//						
+//					},
+//					error: function(result, status) {
+//						console.log(result)
+//					},
+//					statusCode: {
+//						401: function() {
+//							alert("登录状态错误，请重新登录后再尝试");
+//							window.open('login.html?type=1');
+//						}
+//					}
+//
+//				});
+var param = {};
 				param.financeID = financeID;
 				$.ajax({
 					type: "post",
-					url: getFinanceUpdateUrl,
+					url: getFinanceDetailUrl,
 					cache: false, //禁用缓存
-					contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+//					contentType: "application/json",
+						data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 					success: function(result) {
-						//console.log(result);
+
 						getLendTypeOption(result.lendTypeItem);
 						getBorrowTypeOption(result.borrowTypeItem);
 						getPayWayOption(result.payWayItem);
@@ -1192,7 +1246,10 @@
 						$('#financeIDUpdt').val(result.financeID);
 						$('#financeSerialsUpdt').val(result.financeSerials);
 						$('#projectSerialUpdt').val(result.projectSerial);
-						$('#contracSerialUpdt').val(result.contractSerisal);
+						$('#projectNameUpdt').val(result.projectName);
+						$('#contracSerialUpdt').val(result.contractSerial);
+						$('#contractNameUpdt').val(result.contractName);
+
 						$('#dateUpdt').val(result.financeDate);
 						$('#paidUpdt').val(result.financeStatus);
 						$('#financeNameUpdt').val(result.financeName);
@@ -1204,32 +1261,7 @@
 						$('#orgWayUpdt').val(result.financeOrgID);
 						$('#purchaseTypeUpdt').val(result.financeTypeID);
 
-						//setTimeout仅为测试延迟效果
-						//								setTimeout(function() {
-						//									//封装返回数据
-						//									var returnData = {};
-						//									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
-						//									returnData.recordsTotal = result.total; //返回数据全部记录
-						//									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-						//									returnData.data = result.data; //返回的数据列表
-						//									//console.log(returnData);
-						//									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-						//									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-						//									
-						//									callback(returnData);
-						//
-						//								}, 200);
-					},
-					error: function(result, status) {
-						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						}
 					}
-
 				});
 
 			}
@@ -1313,9 +1345,12 @@
 					dataType: "json",
 					async: false,
 					success: function(result) {
-						//console.log(result);
-						//						$('#modal-body').html("成功");
-						//						alert("成功")
+						getLendTypeOption(result.lendTypeItem);
+						getBorrowTypeOption(result.borrowTypeItem);
+						getPayWayOption(result.payWayItem);
+						getPurchaseWayOption(result.purchaseWayItem);
+						getOrgWayOption(result.orgWayItem);
+						getPurchaseTypeOption(result.purchaseTypeItem);
 						$('#closeModelAdd').click();
 						$('#successModalAdd').modal('show');
 						//						sleep(1);
@@ -1364,10 +1399,13 @@
 					type: "post",
 					url: getFinanceDetailUrl,
 					cache: false, //禁用缓存
-					contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+//					contentType: "application/json",
+						data: param, //传入组装的参数
 					dataType: "json",
 					async: false,
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 					success: function(result) {
 
 						getLendTypeOption(result.lendTypeItem);
@@ -1380,7 +1418,7 @@
 						$('#financeSerialsDetail').val(result.financeSerials);
 						$('#projectSerialDetail').val(result.projectSerial);
 						$('#projectNameDetail').val(result.projectName);
-						$('#contracSerialDetail').val(result.contractSerisal);
+						$('#contracSerialDetail').val(result.contractSerial);
 						$('#contractNameDetail').val(result.contractName);
 
 						$('#dateDetail').val(result.financeDate);
@@ -1420,6 +1458,9 @@
 					dataType: "json",
 					async: false,
 					crossDomain: true,
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
 					success: function(result) {
 						//console.log(result);
 						//						$('#modal-body').html("成功");
@@ -1476,7 +1517,8 @@
 		</script>
 <script>
 			$(document).ready(function(){
-				getNotice() 
+				getNotice();
+				$.fn.dataTable.ext.errMode = 'none'; 
 			})
 		</script>
 		<script>
