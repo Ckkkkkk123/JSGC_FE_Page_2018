@@ -15,7 +15,25 @@
 		<!-- Page level plugin CSS-->
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 		<!-- Custom styles for this template-->
+		<link rel="stylesheet" href="css/chosen.min.css">
 		<link href="css/sb-admin.css" rel="stylesheet">
+		<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="js/chosen.jquery.min.js"></script>
+		
+		<script src="js/jsxm.js"></script>
+		<script>
+			$(function(){
+				$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				$('#financeUpdate').on('show.bs.modal', function(e) {
+					$("#BorrowTypeUpdt").trigger("chosen:updated");
+					$('.chosen-select', this).chosen({
+						width: "inherit"
+					});
+				})
+			})
+		</script>
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -90,26 +108,7 @@
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
 							<h6 class="dropdown-header">最近通知:</h6>
-							<!--<div class="dropdown-divider"></div>
-							<a class="dropdown-item">
-								<span class="text-success" id="noticeTitle">
-                					<strong>通知1</strong>
-              					</span>
-								<span class="small float-right text-muted" id="noticeTime">11:21 AM</span>
-								<div class="dropdown-message small" id="noticeContent">通知内容 通知内容 通知内容 通知内容</div>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#" data-toggle="modal" on data-target="#addProject">
-								<span class="text-danger" id="noticeTitle2">
-                <strong>
-                  通知2</strong>
-              </span>
-								<span class="small float-right text-muted" id="noticeTime2">11:21 AM</span>
-								<div class="dropdown-message small" id="noticeContent2">This is an automated server response message. All systems are online.</div>
-							</a>
-							<div class="dropdown-divider"></div>
-
-							<a class="dropdown-item small" href="#">查看全部</a>-->
+							
 						</div>
 					</li>
 
@@ -252,17 +251,21 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="lendType">
+									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="lendType">
+
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
+									
 								</div>
 							</div>
 							<div class="col-md-1"></div>
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="borrowType">
+
+									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType"> 
+										
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -313,7 +316,7 @@
 							</div>
 
 						</div><br />
-						<script src="js/jsxm.js"></script>
+
 						<div class="form-inline">
 							<div class="col-md-4">
 								<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
@@ -323,6 +326,10 @@
 						</div>
 					</div>
 				</div>
+				<!--填充下拉框-->
+				<script>
+					$(document).ready(getBorrowTypeOption());
+				</script>
 
 				<div class="card mb-3">
 					<div class="card-header">
@@ -406,7 +413,7 @@
 				</div>
 			</div>
 			<!-- Bootstrap core JavaScript-->
-			<script src="vendor/jquery/jquery.min.js"></script>
+
 			<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 			<!-- Core plugin JavaScript-->
 			<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -1494,7 +1501,8 @@ var param = {};
 		</script>
 <script>
 			$(document).ready(function(){
-				getNotice() 
+				getNotice();
+				$.fn.dataTable.ext.errMode = 'none'; 
 			})
 		</script>
 		<script>

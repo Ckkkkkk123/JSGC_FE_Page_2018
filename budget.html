@@ -642,6 +642,7 @@
 	<script>
 		$('#usernameLable').text(localStorage.getItem("username"));
 		$(document).ready(function() {
-			getNotice()
+			getNotice();
+			$.fn.dataTable.ext.errMode = 'none'; 
 		})
 	</script>

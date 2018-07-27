@@ -623,11 +623,11 @@
 							//url: getProjectListUrl,
 							url: "http://127.0.0.1:8080/getProjectList",
 							cache: false, //禁用缓存
-							contentType: "application/json",
+							
 							data: JSON.stringify(param), //传入组装的参数
 							contentType: "application/json",
 							dataType: "json",
-//							async: false,
+							//							async: false,
 							beforeSend: function(xhr) {
 								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 							},
@@ -666,14 +666,27 @@
 					//列表表头字段
 
 					columns: [{
+
 						"data": "projectSerial"
 					}, {
 						"data": "projectName"
 					}, {
 						"data": "projectStartTime",
+<<<<<<< HEAD
 //						"render":function(data, type, full, callback) {
 //							return(ti)
 //						}
+=======
+						"render": function(data, type, full, callback) {
+							if(data != null) {
+								return(timestampToDate(data));
+
+							} else {
+								return("无记录");
+
+							}
+						}
+>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 					}, {
 						"data": "projectDepartment.departmentName"
 					}, {
@@ -704,6 +717,14 @@
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 			});
 		</script>
+		<script>
+			$.fn.dataTable.ext.errMode = 'none';
+			//			$('#example').on('error.dt', function(e, settings, techNote, message) {
+			//				//这里可以接管错误处理，也可以不做任何处理
+			//				
+			//				console.log('An error has been reported by DataTables: ', message);
+			//			}).DataTable();
+		</script>
 		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 		<script>
 			//刷新列表
@@ -728,7 +749,7 @@
 					contentType: "application/json",
 					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
-//					async: false,
+					//					async: false,
 					//					Content-Type: "application/json",
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -783,7 +804,7 @@
 					contentType: "application/json",
 					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
-//					async: false,
+					//					async: false,
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
@@ -830,7 +851,7 @@
 					contentType: "application/json",
 					data: JSON.stringify(param), //传入组装的参数
 					dataType: "json",
-//					async: false,
+					//					async: false,
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
@@ -870,7 +891,17 @@
 					//					contentType: "application/json",
 					data: param, //传入组装的参数
 					dataType: "json",
-//					async: false,
+					<<
+					<<
+					<< < HEAD
+					async: false,
+					===
+					===
+					=
+					//					async: false,
+					>>>
+					>>>
+					> 3 babe4835cd97139957d595e6cde5a6b768ffbdc
 					crossDomain: true,
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -935,7 +966,7 @@
 					contentType: "application/json,charset=utf-8",
 					data: null, //传入组装的参数
 					dataType: "json",
-//					async: false,
+					//					async: false,
 					crossDomain: true,
 					scriptCharset: 'utf-8',
 					beforeSend: function(xhr) {

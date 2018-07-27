@@ -175,6 +175,7 @@
 								<div class="input-group">
 									<span class="input-group-addon	">审核状态：&nbsp;&nbsp;</span>
 									<select id="assetStatus">
+										<option>请选择</option>
 										<option value="0">未通过</option>
 										<option value="1">通过</option>
 										<option value="2">进行中</option>
@@ -911,7 +912,7 @@
 					param.departmentName = $('#departmentName').val();
 					param.projectSerial = $('#projectSerial').val();
 					param.projectName = $('#projectName').val();
-					param.assetStatus = $('#assetStatus :selected').val();
+					// param.assetStatus = $('#assetStatus :selected').val();
 					console.log(param);
 
 					//ajax请求数T
@@ -962,13 +963,13 @@
 				},
 
 				columns: [{
-					"data": "assetID"
+					"data": "assetId"
 				}, {
 					"data": "assetName"
 				}, {
 					"data": "assetSpec"
 				}, {
-					"data": "assetModex"
+					"data": "assetModel"
 				}, {
 					"data": "assetAmount"
 				}, {
@@ -1318,6 +1319,7 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			getNotice()
+			getNotice();
+			$.fn.dataTable.ext.errMode = 'none'; 	
 		})
 	</script>
