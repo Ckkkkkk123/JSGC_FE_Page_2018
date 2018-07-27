@@ -101,20 +101,20 @@ function getLendTypeOption(lendTypeList) {
 	}
 }
 
-<<<<<<< HEAD
-function getBorrowTypeOption(borrowTypeList) {
-//	$.each(borrowTypeList, function(index, el) {
-//		//alert(el);
-//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
-//	});
-for(i in borrowTypeList) {
-
-		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-		$('#borrowType').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-	}
-=======
+//<<<<<<< HEAD
+//function getBorrowTypeOption(borrowTypeList) {
+////	$.each(borrowTypeList, function(index, el) {
+////		//alert(el);
+////		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
+////	});
+//for(i in borrowTypeList) {
+//
+//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowType').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
+//	}
+//=======
 function getBorrowTypeOption() {
 	//	$.each(borrowTypeList, function(index, el) {
 	//		//alert(el);
@@ -140,7 +140,7 @@ function getBorrowTypeOption() {
 			console.log(result)
 		}
 	})
->>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
+//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 }
 
 function getPayWayOption(payWayList) {
