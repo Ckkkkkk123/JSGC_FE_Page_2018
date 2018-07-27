@@ -670,11 +670,14 @@
 					}, {
 						"data": "projectName"
 					}, {
-						"data": "projectStartTime"
+						"data": "projectStartTime",
+//						"render":function(data, type, full, callback) {
+//							return(ti)
+//						}
 					}, {
-						"data": "departmentName"
+						"data": "projectDepartment.departmentName"
 					}, {
-						"data": "username"
+						"data": "projectCharger.username"
 					}, {
 						"data": "projectBudgetSum"
 					}, {
@@ -684,7 +687,7 @@
 						//								return(row.projectID+data)
 						//							}
 					}, {
-						"data": "projectID", //json
+						"data": "projectId", //json
 						"render": function(data, type, full, callback) {
 							//data 就是上面传入的参数，projectID
 							//拼接字符串（懒得处理引号转义）
