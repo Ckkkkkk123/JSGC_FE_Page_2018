@@ -36,10 +36,11 @@ var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
 var getUserListUrl = testUrl + "/getUserList";
-var getUserDetailUrl = baseUrl + "/initUserUpdate";
-var updateUserUrl = baseUrl + "/updateUser";
+var getUserDetailUrl = testUrl + "/initUserUpdate";
+var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
+var deleteUserUrl = testUrl + "/deleteUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
