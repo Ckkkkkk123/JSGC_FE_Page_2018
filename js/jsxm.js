@@ -39,11 +39,12 @@ var deleteAssetUrl = testUrl + "/deleteAsset";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
-var getUserListUrl = baseUrl + "/getUserList";
-var getUserDetailUrl = baseUrl + "/initUserUpdate";
-var updateUserUrl = baseUrl + "/updateUser";
+var getUserListUrl = testUrl + "/getUserList";
+var getUserDetailUrl = testUrl + "/initUserUpdate";
+var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
-var addUserUrl = baseUrl + "/addUser";
+var addUserUrl = testUrl + "/addUser";
+var deleteUserUrl = testUrl + "/deleteUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
@@ -87,23 +88,64 @@ function getBuildContentOption(buildContentList) {
 	}
 }
 
-function getLendTypeOption(lendTypeList) {
 
-	//	$.each(lendTypeList, function(index, el) {
+
+function getLendTypeOption() {
+	//	$.each(borrowTypeList, function(index, el) {
 	//		//alert(el);
-	//		$('#lendType').append('<option value=' + index + '>' + el + '</option>');
+	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
 	//	});
-
-	for(i in lendTypeList) {
-
-		$('#lendTypeUpdt').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendType').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendTypeDetail').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		$('#lendTypeAdd').append('<option value=' + lendTypeList[i]["lendTypeID"] + '>' + lendTypeList[i]["lendTypeValue"] + '</option>');
-		
-		
-	}
+	var param = {};
+	param.baseDataType = "LendType";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#lendType').append(result);
+			$('#lendTypeUpdt').append(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
 }
+
+function getDepartmentOption() {
+	//	$.each(borrowTypeList, function(index, el) {
+	//		//alert(el);
+	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
+	//	});
+	var param = {};
+	param.baseDataType = "Department";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#projectDepartment').append(result);
+			// $('#projectDepartmentEdit').append(result);
+		},
+		error: function(result, status) {			
+			console.log(result)
+		}
+	})
+}
+
 
 //<<<<<<< HEAD
 //function getBorrowTypeOption(borrowTypeList) {
@@ -119,6 +161,7 @@ function getLendTypeOption(lendTypeList) {
 //		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
 //	}
 //=======
+
 function getBorrowTypeOption() {
 	//	$.each(borrowTypeList, function(index, el) {
 	//		//alert(el);
@@ -133,13 +176,12 @@ function getBorrowTypeOption() {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async:true,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
 		success: function(result, status) {
 			$('#BorrowType').append(result);
-			$('#borrowTypeUpdt').html(result);
+			$('#borrowTypeUpdt').append(result);
 		},
 		error: function(result, status) {			
 			console.log(result)

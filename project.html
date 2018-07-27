@@ -18,6 +18,22 @@
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/chosen.min.css">
 		<link rel="stylesheet" href="css/fileinput/fileinput.min.css" />
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="js/chosen.jquery.min.js"></script>
+		<script src="js/jsxm.js"></script>
+		<script>
+			$(function(){
+				$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				$('#detail').on('show.bs.modal', function(e) {
+					$("#projectDepartment").trigger("chosen:updated");
+					$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+				})
+			})
+		</script>
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -183,7 +199,7 @@
 							<div class="col-md-3 ">
 								<div class="input-group">
 									<span class="input-group-addon ">所属部门：&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="projectDepartment">
+									<select data-placeholder="选择借方信息部门名称" data-live-search="true" class="chosen-select form-control" tabindex="5" id="projectDepartment">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -1000,6 +1016,9 @@
 			$(document).ready(function() {
 				getNotice()
 			})
+		</script>
+		<script>
+			$(document).ready(getDepartmentOption());
 		</script>
 		</div>
 	</body>
