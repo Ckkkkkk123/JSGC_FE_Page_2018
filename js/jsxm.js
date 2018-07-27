@@ -1,5 +1,8 @@
 function resetInput() {
-	$(" input").val("")
+	$("#chooseCard input").val("");
+	$("#chooseCard select").val("");
+	$('#chooseCard .chosen-select').val("")
+	$('#chooseCard .chosen-select').trigger("chosen:updated");
 }
 
 var baseUrl = "http://localhost:8080";
@@ -31,16 +34,17 @@ var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
-var deleteFinanceUrl=baseUrl+"/deleteFinance";
+var deleteFinanceUrl = baseUrl + "/deleteFinance";
 var deleteAssetUrl = testUrl + "/deleteAsset";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
-var getUserListUrl = baseUrl + "/getUserList";
-var getUserDetailUrl = baseUrl + "/initUserUpdate";
-var updateUserUrl = baseUrl + "/updateUser";
+var getUserListUrl = testUrl + "/getUserList";
+var getUserDetailUrl = testUrl + "/initUserUpdate";
+var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
-var addUserUrl = baseUrl + "/addUser";
+var addUserUrl = testUrl + "/addUser";
+var deleteUserUrl = testUrl + "/deleteUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
@@ -62,20 +66,20 @@ function getDepartmentOption() {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
 		success: function(result, status) {
-//			$('#lendType').html(result)
+			//			$('#lendType').html(result)
 		},
 		error: function(result, status) {
 			console.log(result)
 		}
 	});
-//
-//<<<<<<< HEAD
-//		$('#projectDepartmentEdit').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
-//		$('#projectDepartment').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
-//		
-//	}
-//=======
-//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
+	//
+	//<<<<<<< HEAD
+	//		$('#projectDepartmentEdit').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
+	//		$('#projectDepartment').append('<option value=' + departmentList[i]["departmentID"] + '>' + departmentList[i]["departmentName"] + '</option>');
+	//		
+	//	}
+	//=======
+	//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 }
 
 function getBuildContentOption(buildContentList) {
@@ -85,7 +89,7 @@ function getBuildContentOption(buildContentList) {
 }
 
 function getLendTypeOption(lendTypeList) {
-var param = {};
+	var param = {};
 	param.baseDataType = "LendType";
 	$.ajax({
 		type: "post",
@@ -102,7 +106,35 @@ var param = {};
 			$('#lendTypeUpdt').html(result);
 			$('#lendTypeAdd').html(result);
 		},
-		error: function(result, status) {			
+		error: function(result, status) {
+			console.log(result)
+		}
+	})
+}
+
+function getDepartmentOption() {
+	//	$.each(borrowTypeList, function(index, el) {
+	//		//alert(el);
+	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
+	//	});
+	var param = {};
+	param.baseDataType = "Department";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#projectDepartment').append(result);
+			// $('#projectDepartmentEdit').append(result);
+		},
+		error: function(result, status) {
 			console.log(result)
 		}
 	})
@@ -123,6 +155,7 @@ var param = {};
 //		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
 //	}
 //=======
+
 function getBorrowTypeOption() {
 	//	$.each(borrowTypeList, function(index, el) {
 	//		//alert(el);
@@ -131,24 +164,24 @@ function getBorrowTypeOption() {
 	var param = {};
 	param.baseDataType = "BorrowType";
 	$.ajax({
-		type: "post",
-		url: 'http://127.0.0.1:8080/getBaseDate',
-		cache: false, //禁用缓存
-		contentType: "application/json",
-		data: JSON.stringify(param), //传入组装的参数
-		dataType: "text",
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-		},
-		success: function(result, status) {
-			$('#BorrowType').append(result);
-			$('#borrowTypeUpdt').html(result);
-		},
-		error: function(result, status) {			
-			console.log(result)
-		}
-	})
-//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
+			type: "post",
+			url: 'http://127.0.0.1:8080/getBaseDate',
+			cache: false, //禁用缓存
+			contentType: "application/json",
+			data: JSON.stringify(param), //传入组装的参数
+			dataType: "text",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+			},
+			success: function(result, status) {
+				$('#BorrowType').append(result);
+				$('#borrowTypeUpdt').append(result);
+			},
+			error: function(result, status) {
+				console.log(result)
+			}
+		})
+		//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
 }
 
 function getPayWayOption(payWayList) {
@@ -169,7 +202,7 @@ function getPayWayOption(payWayList) {
 			$('#payWayUpdt').html(result);
 			$('#payWayAdd').html(result);
 		},
-		error: function(result, status) {			
+		error: function(result, status) {
 			console.log(result)
 		}
 	})
@@ -193,12 +226,11 @@ function getPurchaseWayOption(purchaseWayList) {
 			$('#purchaseWayUpdt').html(result);
 			$('#purchaseWayAdd').append(result);
 		},
-		error: function(result, status) {			
+		error: function(result, status) {
 			console.log(result)
 		}
 	})
 
-	
 }
 
 function getOrgWayOption(orgWayList) {
@@ -219,18 +251,18 @@ function getOrgWayOption(orgWayList) {
 			$('#orgWayUpdt').html(result);
 			$('#orgWayAdd').append(result);
 		},
-		error: function(result, status) {			
+		error: function(result, status) {
 			console.log(result)
 		}
 	})
 
-//	for(i in orgWayList) {
-//
-//		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-//		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-//		$('#orgWayDetail').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-//		$('#orgWayAdd').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
-//	}
+	//	for(i in orgWayList) {
+	//
+	//		$('#orgWayUpdt').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+	//		$('#orgWay').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+	//		$('#orgWayDetail').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+	//		$('#orgWayAdd').append('<option value=' + orgWayList[i]["orgWayID"] + '>' + orgWayList[i]["orgWayValue"] + '</option>');
+	//	}
 }
 
 function getPurchaseTypeOption(purchaseTypeList) {
@@ -251,18 +283,18 @@ function getPurchaseTypeOption(purchaseTypeList) {
 			$('#purchaseTypeUpdt').html(result);
 			$('#purchaseTypeAdd').append(result);
 		},
-		error: function(result, status) {			
+		error: function(result, status) {
 			console.log(result)
 		}
 	})
 
-//	for(i in purchaseTypeList) {
-//
-//		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-//		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-//		$('#purchaseTypeDetail').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-//		$('#purchaseTypeAdd').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
-//	}
+	//	for(i in purchaseTypeList) {
+	//
+	//		$('#purchaseTypeUpdt').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+	//		$('#purchaseType').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+	//		$('#purchaseTypeDetail').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+	//		$('#purchaseTypeAdd').append('<option value=' + purchaseTypeList[i]["purchaseTypeID"] + '>' + purchaseTypeList[i]["purchaseTypeValue"] + '</option>');
+	//	}
 }
 
 function getLevelOption(levelList) {
