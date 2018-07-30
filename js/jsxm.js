@@ -77,12 +77,55 @@ function getDepartmentOption() {
 		}
 	});
 }
+function getDepartmentOptionInAsset() {
+	var param = {};
+	param.baseDataType = "Department";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async:false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#departmentName').append(result);
+			$('#assetDepIDEdit').append(result);
+			$('#assetDepIDAdd').append(result);		
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	});
+}
 
 
 function getBuildContentOption(buildContentList) {
-	for(i in buildContentList) {
-		$('#buildContentEdit').append('<option value=' + buildContentList[i]["buildContentID"] + '>' + buildContnetList[i]["buildInfo"] + '</option>');
-	}
+	var param={}
+	param.baseDataType="BuildContent"
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async:false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#buildContent').append(result);
+			$('#buildContentEdit').append(result);
+			$('#buildContentAdd').append(result);
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	});
 }
 
 function getLendTypeOption(lendTypeList) {
