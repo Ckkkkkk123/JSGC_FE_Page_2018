@@ -21,11 +21,11 @@ var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
-var getContractListUrl = baseUrl + "/getContractList";
-var getContractDetailUrl = baseUrl + "/getContractDetail";
+var getContractListUrl = testUrl + "/getContractList";
+var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
-var addContractDetailUrl = baseUrl + "/addContract";
-var deleteContractUrl = baseUrl + "/deleteContract";
+var addContractDetailUrl = testUrl + "/addContract";
+var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
 
@@ -53,10 +53,6 @@ var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 var getNoticeUrl = testUrl + "/getNotification";
 
 function getDepartmentOption() {
-	//	$.each(borrowTypeList, function(index, el) {
-	//		//alert(el);
-	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
-	//	});
 	var param = {};
 	param.baseDataType = "Department";
 	$.ajax({
@@ -66,7 +62,7 @@ function getDepartmentOption() {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
@@ -74,13 +70,15 @@ function getDepartmentOption() {
 			$('#projectDepartment').append(result);
 			$('#projectDepartmentEdit').append(result);
 			$('#projectDepartmentAdd').append(result);
+
 		},
 		error: function(result, status) {
 			console.log(result)
 		}
-	})
-
+	});
 }
+
+
 function getBuildContentOption(buildContentList) {
 	for(i in buildContentList) {
 		$('#buildContentEdit').append('<option value=' + buildContentList[i]["buildContentID"] + '>' + buildContnetList[i]["buildInfo"] + '</option>');
@@ -97,7 +95,7 @@ function getLendTypeOption(lendTypeList) {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
@@ -113,50 +111,30 @@ function getLendTypeOption(lendTypeList) {
 }
 
 
-
-//<<<<<<< HEAD
-//function getBorrowTypeOption(borrowTypeList) {
-////	$.each(borrowTypeList, function(index, el) {
-////		//alert(el);
-////		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
-////	});
-//for(i in borrowTypeList) {
-//
-//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-//		$('#borrowType').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-//		$('#borrowTypeDetail').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-//		$('#borrowTypeAdd').append('<option value=' + borrowTypeList[i]["borrowTypeID"] + '>' + borrowTypeList[i]["borrowTypeValue"] + '</option>');
-//	}
-//=======
-
 function getBorrowTypeOption() {
-	//	$.each(borrowTypeList, function(index, el) {
-	//		//alert(el);
-	//		$('#borrowType').append('<option value=' + index + '>' + el + '</option>');
-	//	});
 	var param = {};
 	param.baseDataType = "BorrowType";
 	$.ajax({
-			type: "post",
-			url: 'http://127.0.0.1:8080/getBaseDate',
-			cache: false, //禁用缓存
-			contentType: "application/json",
-			data: JSON.stringify(param), //传入组装的参数
-			dataType: "text",
-			async: false,
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-			},
-			success: function(result, status) {
-				$('#BorrowType').append(result);
-				$('#borrowTypeAdd').append(result);
-				$('#borrowTypeUpdt').append(result);
-			},
-			error: function(result, status) {
-				console.log(result)
-			}
-		})
-		//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async:false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#BorrowType').append(result);
+			$('#borrowTypeAdd').append(result);
+			$('#borrowTypeUpdt').append(result);
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	})
+
 }
 
 function getPayWayOption(payWayList) {
@@ -169,7 +147,7 @@ function getPayWayOption(payWayList) {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
@@ -194,7 +172,7 @@ function getPurchaseWayOption(purchaseWayList) {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
@@ -220,7 +198,7 @@ function getOrgWayOption(orgWayList) {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},
@@ -253,7 +231,7 @@ function getPurchaseTypeOption(purchaseTypeList) {
 		contentType: "application/json",
 		data: JSON.stringify(param), //传入组装的参数
 		dataType: "text",
-		async: false,
+		async:false,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 		},

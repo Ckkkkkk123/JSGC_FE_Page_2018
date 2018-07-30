@@ -317,7 +317,8 @@
 						</div>
 					</div>
 				</div>
-				
+
+
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i> 财务列表
@@ -522,10 +523,8 @@
 									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 								},
 								success: function(result) {
-									//console.log(result);
-									//setTimeout仅为测试延迟效果							
-									//封装返回数据
-									
+									//console.log(result);				
+									//封装返回数据									
 									var returnData = {};
 									
 									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
@@ -536,9 +535,6 @@
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									callback(returnData);
-									
-
-								
 								},
 								error: function(result, status) {
 									console.log(result)
@@ -1196,7 +1192,7 @@
 						$('#paidUpdt').val(result.financeStatus);
 						$('#financeNameUpdt').val(result.financeName);
 						$('#financeMoneyUpdt').val(result.financeMoney);
-						
+					
 						$('#lendTypeUpdt').val(result.financeLenderID);
 						$('#borrowTypeUpdt').val(result.financeBorrowerID);
 						$('#payWayUpdt').val(result.payMethodID);
@@ -1294,7 +1290,6 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-						
 						$('#closeModelAdd').click();
 						$('#successModalAdd').modal('show');
 						//						sleep(1);
