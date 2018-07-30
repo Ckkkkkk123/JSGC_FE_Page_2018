@@ -477,7 +477,7 @@
 								<div class="col-md-2">所属部门:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-7">
-									<select class="form-control chosen-select" name="projectDepartmentEdit" id="projectDepartmentAdd">
+									<select data-placeholder="选择借方信息部门名称"  class="form-control chosen-select" name="projectDepartmentEdit" id="projectDepartmentAdd">
 										<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 									</select>
@@ -649,11 +649,10 @@
 							},
 							success: function(result) {
 								//console.log(result);
-								getDepartmentOption(result.departmentList);
+								//getDepartmentOption(result.departmentList);
 								//setTimeout仅为测试延迟效果
 								setTimeout(function() {
 									//封装返回数据
-									//									getDepartmentOption(
 									var returnData = {};
 									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
 									returnData.recordsTotal = result.total; //返回数据全部记录
@@ -755,6 +754,7 @@
 					cache: false, //禁用缓存
 //					contentType: "application/json",
 					data: param, //传入组装的参数
+					async:false,
 					dataType: "json",
 					//					async: false,
 					//					Content-Type: "application/json",
@@ -767,7 +767,7 @@
 						$('#projectIDEdit').val(result.projectID);
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
-						$('#projectDepartmentEdit').val(result.projectDepartmentID);
+						$('#projectDepartmentEdit').val(result.projectDepartmentID); //外键id
 						//$("#projectDepartmentEdit").val(result.departmentID); 原来关闭摸态框再次加载select不显示后台值.
 						//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
 						//						$('#projectDepartmentEdit').val(result.departmentName);

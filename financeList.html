@@ -19,36 +19,9 @@
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="js/chosen.jquery.min.js"></script>
-
 		<script src="js/jsxm.js"></script>
-		<script>
-			$(function() {
-				$('.chosen-select', this).chosen({
-					width: "190px"
-				});
-				$('#financeUpdate').on('show.bs.modal', function(e) {
-					$("#lendTypeUpdt").trigger("chosen:updated");
-					$('.chosen-select', this).chosen({
-						width: "190px"
-					});
-				})
-			})
-		</script>
-		<script>
-			$(function(){
-				$('.chosen-select', this).chosen({
-						width: "190px"
-					});
-				$('#financeUpdate').on('show.bs.modal', function(e) {
-					$("#BorrowTypeUpdt").trigger("chosen:updated");
-					$('.chosen-select', this).chosen({
-						width: "190px"
-					});
-				})
-			})
-		</script>
 	</head>
-
+	
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -344,26 +317,8 @@
 						</div>
 					</div>
 				</div>
-				<!--填充下拉框-->
-				<script>
-					$(document).ready(getBorrowTypeOption()
-					);
-					$(document).ready(getPayWayOption()
-					);
-					$(document).ready(getLendTypeOption()
-					);
-					$(document).ready(getPurchaseWayOption()
-					);
-					$(document).ready(getOrgWayOption()
-					);
-					$(document).ready(getPurchaseTypeOption()
-					);
-					
-					
-				</script>
-				<script>
-					$(document).ready(getLendTypeOption());
-				</script>
+
+
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i> 财务列表
@@ -460,6 +415,33 @@
 
 			<script type="text/javascript">
 				$(function() {
+					getLendTypeOption();
+					
+					getBorrowTypeOption();
+					
+					getPayWayOption();
+					
+					getPurchaseWayOption();
+					
+					getOrgWayOption();
+					
+					getPurchaseTypeOption();
+					
+					$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+					$('#financeUpdate').on('show.bs.modal', function(e) {
+						$("#financeUpdate .chosen-select").trigger("chosen:updated");
+						$('#financeUpdate .chosen-select', this).chosen({
+							width:"500px"
+						});
+					})
+					$('#financeAdd').on('show.bs.modal', function(e) {
+						$("#financeAdd .chosen-select").trigger("chosen:updated");
+						$('#financeAdd .chosen-select', this).chosen({
+							width:"500px"
+						});
+					})
 					//提示信息
 					var lang = {
 						"sProcessing": "处理中...",
@@ -541,28 +523,18 @@
 									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 								},
 								success: function(result) {
-									//console.log(result);
-									//setTimeout仅为测试延迟效果
-//									getLendTypeOption(result.lendTypeItem);
-//									getBorrowTypeOption(result.borrowTypeItem);
-//									getPayWayOption(result.payWayItem);
-//									getPurchaseWayOption(result.purchaseWayItem);
-//									getOrgWayOption(result.orgWayItem);
-//									getPurchaseTypeOption(result.purchaseTypeItem);
-
-									setTimeout(function() {
-										//封装返回数据
-										var returnData = {};
-										returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
-										returnData.recordsTotal = result.total; //返回数据全部记录
-										returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-										returnData.data = result.data; //返回的数据列表
-										//console.log(returnData);
-										//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-										//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-										callback(returnData);
-
-									}, 200);
+									//console.log(result);				
+									//封装返回数据									
+									var returnData = {};
+									
+									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
+									returnData.recordsTotal = result.total; //返回数据全部记录
+									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+									returnData.data = result.data; //返回的数据列表
+									//console.log(returnData);
+									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+									callback(returnData);
 								},
 								error: function(result, status) {
 									console.log(result)
@@ -735,7 +707,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="lendTypeUpdt">
+							<select class="form-control chosen-select" name="checkStatus" id="lendTypeUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -744,7 +716,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="borrowTypeUpdt">
+							<select class="form-control chosen-select" name="checkStatus" id="borrowTypeUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -753,7 +725,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="payWayUpdt">
+							<select class="form-control chosen-select" name="checkStatus" id="payWayUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -762,7 +734,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseWayUpdt">
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseWayUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -771,7 +743,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="orgWayUpdt">
+							<select class="form-control chosen-select" name="checkStatus" id="orgWayUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -780,7 +752,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseTypeUpdt">
+							<select  class="form-control chosen-select" name="checkStatus" id="purchaseTypeUpdt">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -911,7 +883,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="lendTypeAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="lendTypeAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -920,7 +892,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="borrowTypeAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="borrowTypeAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -929,7 +901,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="payWayAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="payWayAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -938,7 +910,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseWayAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseWayAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -947,7 +919,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="orgWayAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="orgWayAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -956,7 +928,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseTypeAdd">
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseTypeAdd">
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1046,7 +1018,7 @@
 							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<input class="form-control" type="date" id="dateDetail">
 						</div>
-						<br />
+						<br/>
 
 						<div class="input-group">
 							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
@@ -1202,13 +1174,13 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-
-						getLendTypeOption(result.lendTypeItem);
-						getBorrowTypeOption(result.borrowTypeItem);
-						getPayWayOption(result.payWayItem);
-						getPurchaseWayOption(result.purchaseWayItem);
-						getOrgWayOption(result.orgWayItem);
-						getPurchaseTypeOption(result.purchaseTypeItem);
+						console.log(result);
+//						getLendTypeOption(result.lendTypeItem);
+//						getBorrowTypeOption(result.borrowTypeItem);
+//						getPayWayOption(result.payWayItem);
+//						getPurchaseWayOption(result.purchaseWayItem);
+//						getOrgWayOption(result.orgWayItem);
+//						getPurchaseTypeOption(result.purchaseTypeItem);
 						$('#financeIDUpdt').val(result.financeID);
 						$('#financeSerialsUpdt').val(result.financeSerials);
 						$('#projectSerialUpdt').val(result.projectSerial);
@@ -1220,13 +1192,14 @@
 						$('#paidUpdt').val(result.financeStatus);
 						$('#financeNameUpdt').val(result.financeName);
 						$('#financeMoneyUpdt').val(result.financeMoney);
-						$('#lendTypeUpdt').val(4);
-						$('#borrowTypeUpdt').html(result.borrowName);
-						$('#payWayUpdt').val(result.payMethodInfo);
-						$('#purchaseWayUpdt').val(result.buyMethodInfo);
-						$('#orgWayUpdt').val(result.buyOrgFormInfo);
-						$('#purchaseTypeUpdt').val(result.buyTypeInfo);
-						reRenderTable();
+					
+						$('#lendTypeUpdt').val(result.financeLenderID);
+						$('#borrowTypeUpdt').val(result.financeBorrowerID);
+						$('#payWayUpdt').val(result.payMethodID);
+						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
+						$('#orgWayUpdt').val(result.financeBuyOrgID);
+						$('#purchaseTypeUpdt').val(result.financeTypeID);
+						
 					}
 				});
 
@@ -1270,13 +1243,13 @@
 						$('#closeModel').click();
 						$('#successModal').modal('show');
 						//						sleep(1);
-
+						reRenderTable();
 					},
 					error: function(result, status) {
 						console.log(result)
 					},
 					statusCode: {
-						401: function() {
+						401: function() { 
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
 						}
@@ -1317,12 +1290,6 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-						getLendTypeOption(result.lendTypeItem);
-						getBorrowTypeOption(result.borrowTypeItem);
-						getPayWayOption(result.payWayItem);
-						getPurchaseWayOption(result.purchaseWayItem);
-						getOrgWayOption(result.orgWayItem);
-						getPurchaseTypeOption(result.purchaseTypeItem);
 						$('#closeModelAdd').click();
 						$('#successModalAdd').modal('show');
 						//						sleep(1);
@@ -1339,6 +1306,7 @@
 
 				});
 			}
+			
 
 			function logout() {
 
@@ -1380,12 +1348,12 @@
 					},
 					success: function(result) {
 
-						getLendTypeOption(result.lendTypeItem);
-						getBorrowTypeOption(result.borrowTypeItem);
-						getPayWayOption(result.payWayItem);
-						getPurchaseWayOption(result.purchaseWayItem);
-						getOrgWayOption(result.orgWayItem);
-						getPurchaseTypeOption(result.purchaseTypeItem);
+//						getLendTypeOption(result.lendTypeItem);
+//						getBorrowTypeOption(result.borrowTypeItem);
+//						getPayWayOption(result.payWayItem);
+//						getPurchaseWayOption(result.purchaseWayItem);
+//						getOrgWayOption(result.orgWayItem);
+//						getPurchaseTypeOption(result.purchaseTypeItem);
 						$('#financeIDDetail').val(result.financeID);
 						$('#financeSerialsDetail').val(result.financeSerials);
 						$('#projectSerialDetail').val(result.projectSerial);

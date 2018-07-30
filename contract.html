@@ -634,7 +634,7 @@
 							<div class="container" style="width: 90%;">
 								<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
 
-								<div class="row" style="display: none;">
+								<div class="row" >
 									<div class="col-md-2">合同ID:</div>
 									<div class="col-md-7"><input type="text" id="contractIdDelete" class="form-control"></input>
 									</div>
@@ -774,22 +774,26 @@
 
 					});
 				},
-				columns: [{
+				columns: [
+				{
 					"data": "contractSerial"
 				}, {
 					"data": "contractName"
 				}, {
 					"data": "contractPartner"
 				}, {
-					"data": "contractSignedTime"
+					"data": "contractSignedTime",
+					"render": function(data, type, row, callback) {
+						return(timestampToDate(data));
+					}
 				}, {
 					"data": "contractMoney"
 				}, {
-					"data": "projectName",
+					"data": "projectSerial",
 					"render": function(data, type, row, callback) {
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
-						projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+						projectUrl = "'project.html?projectSerial=" + row.projectSerial + "'";
 						return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 					}
 				}, {
@@ -799,11 +803,13 @@
 				}, {
 					"data": "contractComment"
 				}, {
-					"data": "contractID", //json
+
+					"data": "contractId", //json
 					"render": function(data, type, row, callback) {
+
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
-						financeUrl = "'finance.html?contractSerial=" + row.contractSerial + "'";
+						financeUrl = "'financeList.html?contractSerial=" + row.contractSerial + "'";
 						detailUrl = "'/contractDetail.html?contractID=" + data + "'";
 						return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + financeUrl + ')">查看财务</button>&nbsp;&nbsp;' +
 							'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
@@ -830,8 +836,8 @@
 				type: "POST",
 				url: getContractDetailUrl,
 				cache: false,
-				contentType: "application/json",
-				data: JSON.stringify(param), //传入组装的参数
+//				contentType: "application/json",
+				data: param, //传入组装的参数
 				dataType: "json",
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
@@ -846,6 +852,8 @@
 					$('#buildContentEdit').val(result.buildContentID);
 					$('#contractContentEdit').val(result.contractContent);
 					$('#contractCommentEdit').val(result.contractComment);
+					$('#projectSerialEdit').val(result.projectSerial);
+					
 				},
 				error: function(result, status) {
 					console.log(result)
@@ -863,15 +871,16 @@
 		function updateContract() {
 			//				ajax
 			var param = {};
-			param.contractIDEdit = $('#contractIDEdit').val();
-			param.contractSerialEdit = $('#contractSerialEdit').val();
-			param.contractNameEdit = $('#contractNameEdit').val();
-			param.contractPartnerEdit = $('#contractPartnerEdit').val();
-			param.contractSignedTimeEdit = $('#contractSignedTimeEdit').val();
-			param.contractMoneyEdit = $('#contractMoneyEdit').val();
-			param.buildContentEdit = $('#buildContentEdit').val();
-			param.contractContentEdit = $('#contractContentEdit').val();
-			param.contractCommentEdit = $('#contractCommentEdit').val();
+			param.contractId = $('#contractIDEdit').val();
+			param.contractSerial = $('#contractSerialEdit').val();
+			param.contractName = $('#contractNameEdit').val();
+			param.contractPartner = $('#contractPartnerEdit').val();
+			param.contractSignedTime = $('#contractSignedTimeEdit').val();
+			param.contractMoney = $('#contractMoneyEdit').val();
+			param.buildContent = $('#buildContentEdit').val();
+			param.contractContent = $('#contractContentEdit').val();
+			param.contractComment = $('#contractCommentEdit').val();
+			param.projectSerial = $('#projectSerialEdit').val();
 
 			//				alert(JSON.stringify(param))
 			//						console.log(param);
@@ -946,6 +955,7 @@
 			param.buildContent = $('#buildContentAdd').val();
 			param.contractContent = $('#contractContentAdd').val();
 			param.contractComment = $('#contractCommentAdd').val();
+			param.projectSerial = $('#projectSerialAdd').val();
 
 			//				alert(JSON.stringify(param))
 			//						console.log(param);
@@ -989,7 +999,7 @@
 			$('#deleteModal').modal('show');
 		}
 
-		function deleteContract(contractId) {
+		function deleteContract() {
 			var param = {};
 			param.contractID = $('#contractIdDelete').val();
 			console.log(JSON.stringify(param));
@@ -1186,7 +1196,8 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			getNotice()
+			getNotice();
+			$.fn.dataTable.ext.errMode = 'none'; 
 		})
 	</script>
 
