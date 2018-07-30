@@ -18,11 +18,11 @@ var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
-var getContractListUrl = baseUrl + "/getContractList";
-var getContractDetailUrl = baseUrl + "/getContractDetail";
+var getContractListUrl = testUrl + "/getContractList";
+var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
-var addContractDetailUrl = baseUrl + "/addContract";
-var deleteContractUrl = baseUrl + "/deleteContract";
+var addContractDetailUrl = testUrl + "/addContract";
+var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
 
