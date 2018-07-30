@@ -800,10 +800,10 @@
 					"data": "contractComment"
 				}, {
 					"data": "contractID", //json
-					"render": function(data, type, full, callback) {
+					"render": function(data, type, row, callback) {
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
-						financeUrl = "'/finance.html?contractID=" + data + "'";
+						financeUrl = "'finance.html?contractSerial=" + row.contractSerial + "'";
 						detailUrl = "'/contractDetail.html?contractID=" + data + "'";
 						return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + financeUrl + ')">查看财务</button>&nbsp;&nbsp;' +
 							'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
@@ -1172,6 +1172,17 @@
 			}
 			return oFile;
 		};
+		
+		$(document).ready(function() {
+				var qs = getQueryString();
+				var contractSerialUrl = qs["contractSerial"];
+				var projectSerialUrl = qs["projectSerial"];
+				$('#contractSerial').val(contractSerialUrl);
+				$('#projectSerial').val(projectSerialUrl);
+				reRenderTable();
+				
+
+			})
 	</script>
 	<script>
 		$(document).ready(function() {

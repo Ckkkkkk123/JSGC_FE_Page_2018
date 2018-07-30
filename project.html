@@ -712,10 +712,10 @@
 						//							}
 					}, {
 						"data": "projectId", //json
-						"render": function(data, type, full, callback) {
+						"render": function(data, type, row, callback) {
 							//data 就是上面传入的参数，projectID
 							//拼接字符串（懒得处理引号转义）
-							contractUrl = "'/contract.html?projectID=" + data + "'";
+							contractUrl = "'contract.html?projectSerial=" + row.projectSerial + "'";
 							//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
 							return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;' +
@@ -1009,6 +1009,15 @@
 					}
 				});
 			}
+			
+			$(document).ready(function() {
+				var qs = getQueryString();
+				var projectSerialUrl = qs["projectSerial"];
+				$('#projectSerial').val(projectSerialUrl);
+				reRenderTable();
+				
+
+			})
 		</script>
 		<script>
 			$('#usernameLable').text(localStorage.getItem("username"));

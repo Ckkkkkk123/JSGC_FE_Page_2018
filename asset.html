@@ -447,7 +447,7 @@
 								<div class="col-md-2">备注:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-10">
-									<textarea class="form-control" rows="5" id="assetCommentEdit">在w3school，你可以找到你所需要的所有的网站建设教程。
+									<textarea class="form-control" rows="5" id="assetCommentEdit">
 										</textarea>
 
 								</div>
@@ -605,7 +605,7 @@
 								<div class="col-md-2">备注:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-10">
-									<textarea class="form-control" rows="5" id="assetCommentDetail">在w3school，你可以找到你所需要的所有的网站建设教程。
+									<textarea class="form-control" rows="5" id="assetCommentDetail">
 										</textarea>
 
 								</div>
@@ -754,7 +754,7 @@
 								<div class="col-md-2">备注:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-10">
-									<textarea class="form-control" rows="5" id="assetCommentAdd">在w3school，你可以找到你所需要的所有的网站建设教程。
+									<textarea class="form-control" rows="5" id="assetCommentAdd">
 										</textarea>
 
 								</div>
@@ -1011,7 +1011,7 @@
 						"render": function(data, type, row, callback) {
 							//data 就是上面传入的参数，projectID
 							//拼接字符串（懒得处理引号转义）
-							projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+							projectUrl = "'project.html?projectSerial=" + row.projectSerial+ "'";
 							return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 						}
 					}, {
