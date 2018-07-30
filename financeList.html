@@ -184,7 +184,7 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
-									<input class="form-control" type="text" placeholder="" value="" id="contracSerial">
+									<input class="form-control" type="text" placeholder="" value="" id="contractSerial">
 								</div>
 							</div>
 							<div class="col-md-1"></div>
@@ -569,7 +569,7 @@
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
 //								projectUrl = "'http://localhost:8080//projectDetial.html?projectID=" + row.projectId + "'";
-								projectUrl = "'"+baseUrl + "//projectDetial.html?projectID=" + row.projectId + "'";
+								projectUrl = "'" + "project.html?projectSerial=" + row.projectSerial + "'";
 								return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 							}
 						}, {
@@ -577,7 +577,7 @@
 							"render": function(data, type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								contractUrl = "'"+baseUrl + "//contractDetial.html?contractID=" + row.contractId + "'";
+								contractUrl = "'" + "contract.html?contractSerial=" + row.contractSerial + "'";
 //								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractId + "'";
 								return('<a target="_blank" href=' + contractUrl + '>' + data + '</a>')
 							}
@@ -1473,6 +1473,17 @@
 					}
 				});
 			}
+			
+			$(document).ready(function() {
+				var qs = getQueryString();
+				var contractSerialUrl = qs["contractSerial"];
+				var projectSerialUrl = qs["projectSerial"];
+				$('#contractSerial').val(contractSerialUrl);
+				$('#projectSerial').val(projectSerialUrl);
+				reRenderTable();
+				
+
+			})
 		</script>
 		<script>
 			$(document).ready(function() {

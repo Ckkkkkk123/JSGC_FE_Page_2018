@@ -422,7 +422,6 @@
 			</div>
 		</div>
 
-
 		<!--添加信息-->
 		<div class="modal fade bs-example-modal-lg" id="addAsset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-lg" role="document">
@@ -811,7 +810,7 @@
 						"render": function(data, type, row, callback) {
 							//data 就是上面传入的参数，projectID
 							//拼接字符串（懒得处理引号转义）
-							projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+							projectUrl = "'project.html?projectSerial=" + row.projectSerial+ "'";
 							return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 						}
 					}, {

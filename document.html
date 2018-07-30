@@ -538,14 +538,14 @@
 						{
 							"data": "projectName",
 							"render": function(data, type, row, meta) {
-								return('<a href="projectDetail.html?projectID='+ row.projectID +'"> '+ data+'</a>')
+								return('<a href="project.html?projectSerial='+ row.projectSerial +'"> '+ data+'</a>')
 							}
 						},
 						{
 							"data": "contractName",
 							"render": function(data, type, row, meta) {
 								if(data != 'null'){
-									return('<a href="contractDetail.html?contractID='+ row.contractID +'"> '+ data+'</a>')
+									return('<a href="contract.html?contractSerial='+ row.contractSerial +'"> '+ data+'</a>')
 									
 								}else{
 									return('-')
