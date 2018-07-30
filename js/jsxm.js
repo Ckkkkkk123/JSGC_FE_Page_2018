@@ -175,13 +175,14 @@ function getBorrowTypeOption() {
 			},
 			success: function(result, status) {
 				$('#BorrowType').append(result);
+				$('#borrowTypeAdd').html(result);
 				$('#borrowTypeUpdt').append(result);
 			},
 			error: function(result, status) {
 				console.log(result)
 			}
 		})
-		//>>>>>>> c7615c0d8b5107e7b3cc9161242bf7b87b45cc58
+		
 }
 
 function getPayWayOption(payWayList) {
@@ -224,7 +225,7 @@ function getPurchaseWayOption(purchaseWayList) {
 		success: function(result, status) {
 			$('#purchaseWay').append(result);
 			$('#purchaseWayUpdt').html(result);
-			$('#purchaseWayAdd').append(result);
+			$('#purchaseWayAdd').html(result);
 		},
 		error: function(result, status) {
 			console.log(result)
@@ -249,7 +250,7 @@ function getOrgWayOption(orgWayList) {
 		success: function(result, status) {
 			$('#orgWay').append(result);
 			$('#orgWayUpdt').html(result);
-			$('#orgWayAdd').append(result);
+			$('#orgWayAdd').html(result);
 		},
 		error: function(result, status) {
 			console.log(result)
@@ -281,7 +282,7 @@ function getPurchaseTypeOption(purchaseTypeList) {
 		success: function(result, status) {
 			$('#purchaseType').append(result);
 			$('#purchaseTypeUpdt').html(result);
-			$('#purchaseTypeAdd').append(result);
+			$('#purchaseTypeAdd').html(result);
 		},
 		error: function(result, status) {
 			console.log(result)

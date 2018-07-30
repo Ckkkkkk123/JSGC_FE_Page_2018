@@ -856,7 +856,7 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
-							<input class="form-control" type="text" placeholder="" value="" id="contracSerialAdd">
+							<input class="form-control" type="text" placeholder="" value="" id="contractSerialAdd">
 						</div>
 						<br />
 
@@ -1087,7 +1087,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="lendTypeDetail">
+							<input class="form-control" type="text" id="lendTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="lendTypeDetail">-->
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1096,7 +1097,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="borrowTypeDetail">
+							<input class="form-control" type="text" id="borrowTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="borrowTypeDetail">-->
 								
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
@@ -1106,7 +1108,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="payWayDetail">
+							<input class="form-control" type="text" id="payWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="payWayDetail">-->
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1115,7 +1118,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseWayDetail">
+							<input class="form-control" type="text" id="purchaseWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="purchaseWayDetail">-->
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1124,7 +1128,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="orgWayDetail">
+							<input class="form-control" type="text" id="orgWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="orgWayDetail">-->
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1133,7 +1138,8 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="purchaseTypeDetail">
+							<input class="form-control" type="text" id="purchaseTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="purchaseTypeDetail">-->
 								<!--<option value="0">技术部</option>
 									<option value="1">背锅部</option>-->
 							</select>
@@ -1209,17 +1215,17 @@
 						$('#projectNameUpdt').val(result.projectName);
 						$('#contracSerialUpdt').val(result.contractSerial);
 						$('#contractNameUpdt').val(result.contractName);
-
+	
 						$('#dateUpdt').val(result.financeDate);
 						$('#paidUpdt').val(result.financeStatus);
 						$('#financeNameUpdt').val(result.financeName);
 						$('#financeMoneyUpdt').val(result.financeMoney);
-						$('#lendTypeUpdt').val(result.financeLenderID);
-						$('#borrowTypeUpdt').val(result.financeBorrowerID);
-						$('#payWayUpdt').val(result.payMethodID);
-						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
-						$('#orgWayUpdt').val(result.financeOrgID);
-						$('#purchaseTypeUpdt').val(result.financeTypeID);
+						$('#lendTypeUpdt').val(4);
+						$('#borrowTypeUpdt').html(result.borrowName);
+						$('#payWayUpdt').val(result.payMethodInfo);
+						$('#purchaseWayUpdt').val(result.buyMethodInfo);
+						$('#orgWayUpdt').val(result.buyOrgFormInfo);
+						$('#purchaseTypeUpdt').val(result.buyTypeInfo);
 						reRenderTable();
 					}
 				});
@@ -1281,20 +1287,20 @@
 
 			function addFinance() {
 				var param = {};
-				//				param.financeID = $('#financeIDUpdt').val();
-				param.financeSerials = $('#financeSerialsUpdt').val();
-				param.projectSerial = $('#projectSerialUpdt').val();
-				param.contracSerial = $('#contracSerialUpdt').val();
-				param.financeData = $('#dateUpdt').val();
-				param.financeName = $('#financeNameUpdt').val();
-				param.financeMoney = $('#financeMoneyUpdt').val();
-				param.financeLenderID = $('#lendTypeUpdt').val();
-				param.financeBorrowerID = $('#borrowTypeUpdt').val();
-				param.payMethodID = $('#payWayUpdt').val();
-				param.financeBuyMethodID = $('#purchaseWayUpdt').val();
-				param.financeOrgID = $('#orgWayUpdt').val();
-				param.financeTypeID = $('#purchaseTypeUpdt').val();
-				param.financeStatus = $('#paidUpdt').val();
+				//				param.financeID = $('#financeIDAdd').val();
+				param.financeSerials = $('#financeSerialsAdd').val();
+				param.projectSerial = $('#projectSerialAdd').val();
+				param.contractSerial = $('#contractSerialAdd').val();
+				param.financeData = $('#dateAdd').val();
+				param.financeName = $('#financeNameAdd').val();
+				param.financeMoney = $('#financeMoneyAdd').val();
+				param.financeLenderId = $('#lendTypeAdd').val();
+				param.financeBorrowerId = $('#borrowTypeAdd').val();
+				param.payMethodId = $('#payWayAdd').val();
+				param.financeBuyMethodId = $('#purchaseWayAdd').val();
+				param.financeBuyOrgId = $('#orgWayAdd').val();
+				param.financeTypeId = $('#purchaseTypeAdd').val();
+				param.financeStatus = $('#paidAdd').val();
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
 				console.log(JSON.stringify(param));
@@ -1391,12 +1397,12 @@
 						$('#paidDetail').val(result.financeStatus);
 						$('#financeNameDetail').val(result.financeName);
 						$('#financeMoneyDetail').val(result.financeMoney);
-						$('#lendTypeDetail').val(result.financeLenderID);
-						$('#borrowTypeDetail').val(result.financeBorrowerID);
-						$('#payWayDetail').val(result.payMethodID);
-						$('#purchaseWayDetail').val(result.financeBuyMethodID);
-						$('#orgWayDetail').val(result.financeOrgID);
-						$('#purchaseTypeDetail').val(result.financeTypeID);
+						$('#lendTypeDetail').val(result.lendName);
+						$('#borrowTypeDetail').val(result.borrowName);
+						$('#payWayDetail').val(result.payMethodInfo);
+						$('#purchaseWayDetail').val(result.buyMethodInfo);
+						$('#orgWayDetail').val(result.buyOrgFormInfo);
+						$('#purchaseTypeDetail').val(result.buyTypeInfo);
 
 					},
 					error: function(result, status) {
