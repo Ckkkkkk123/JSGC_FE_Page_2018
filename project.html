@@ -808,7 +808,7 @@
 				param.projectID = $('#projectIDEdit').val();
 				param.projectSerial = $('#projectSerialEdit').val();
 				param.projectName = $('#projectNameEdit').val();
-				param.departmentName = $('#projectDepartmentEdit').val();
+				param.projectDepartmentId = $('#projectDepartmentEdit').val();
 				param.username = $('#projectOwnerEdit').val();
 				param.projectBudgetSum = $('#projectBudgetEdit').val();
 				param.projectComment = $('#projectCommentEdit').val();
@@ -831,8 +831,15 @@
 						//console.log(result);
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
-						$('#closeModel').click();
-						$('#successModal').modal('show');
+						if(result==1){
+							$('#closeModel').click();
+							$('#successModal').modal('show');
+						}else if(result==99){
+							alert('项目编号重复');
+						}
+						else if(result==100){
+							alert('项目负责人不存在');
+						}
 						//						sleep(1);
 
 					},
@@ -855,7 +862,7 @@
 				//				param.projectID = $('#projectIDEdit').val();
 				param.projectSerial = $('#projectSerialAdd').val();
 				param.projectName = $('#projectNameAdd').val();
-				param.departmentName = $('#projectDepartmentAdd').val();
+				param.projectDepartmentId = $('#projectDepartmentAdd').val();
 				param.username = $('#projectOwnerAdd').val();
 				param.projectBudgetSum = $('#projectBudgetAdd').val();
 				param.projectComment = $('#projectCommentAdd').val();
@@ -878,8 +885,15 @@
 						//console.log(result);
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
-						$('#closeModelAdd').click();
-						$('#successModalAdd').modal('show');
+						if(result==1){
+							$('#closeModelAdd').click();
+							$('#successModalAdd').modal('show');
+						}else if(result==99){
+							alert('项目编号重复');
+						}
+						else if(result==100){
+							alert('项目负责人不存在');
+						}
 						//						sleep(1);
 
 					},
