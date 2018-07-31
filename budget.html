@@ -442,7 +442,7 @@
 					//ajax请求数T
 					$.ajax({
 						type: "POST",
-						url: "http://123.206.254.42:2333/getBudgetList",
+						url: getBudgetListUrl,
 						cache: false, //禁用缓存
 						contentType: "application/json",
 						data: JSON.stringify(param), //传入组装的参数
