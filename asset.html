@@ -330,7 +330,7 @@
 							<div class="clearfix"><br /></div>
 							
 							<div class="row">
-								<div class="col-md-2">所属项目编号:</div>
+								<div class="col-md-2">项目编号:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-7"><input type="text" class="form-control" id="assetProjectSerialEdit"></input>
 								</div>
@@ -469,7 +469,7 @@
 							<div class="clearfix"><br /></div>
 							
 							<div class="row">
-								<div class="col-md-2">所属项目编号:</div>
+								<div class="col-md-2">项目编号:</div>
 								<!--<div class="col-1"></div>-->
 								<div class="col-md-7"><input type="text" class="form-control" id="assetProjectSerialAdd"></input>
 								</div>
@@ -972,7 +972,7 @@
 				});
 			}
 
-			function updateAsset(id) {
+			function updateAsset() {
 				var param = {};
 				param.assetId = $('#assetIDEdit').val();
 				param.assetSerial = $('#assetSerailEdit').val();
@@ -1031,7 +1031,7 @@
 			function addAsset() {
 				var param = {};
 				//				param.assetID = $('#assetIDEdit').val();
-				param.assetSerial = $('#assetSerailAdd').val();
+				param.assetSerial = $('#assetSerialAdd').val();
 				param.assetName = $('#assetNameAdd').val();
 				param.projectSerial = $('#assetProjectSerialAdd').val();
 				param.assetDate = $('#assetDateAdd').val();
@@ -1060,8 +1060,8 @@
 					},
 					success: function(result) {
 						if(result == 1) {
-						$('#closeModel').click();
-						$('#successModal').modal('show');
+						$('#closeModelAdd').click();
+						$('#successModalAdd').modal('show');
 						reRenderTable();
 					} else if(result == 99) {
 						alert('资产编号重复');
