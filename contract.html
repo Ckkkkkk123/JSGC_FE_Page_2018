@@ -586,7 +586,7 @@
 		$(function() {
 			getBuildContentOption();
 			$('.chosen-select', this).chosen({
-						width: "190px"
+				width: "190px"
 			});
 			$('#myModal').on('show.bs.modal', function(e) {
 				$("#myModal .chosen-select").trigger("chosen:updated");
@@ -663,7 +663,7 @@
 					param.contractSignedTime = $('#contractSignedTime').val();
 					param.projectSerial = $('#projectSerial').val();
 					param.projectName = $('#projectName').val();
-					param.allFinancePayed = $('#allFinancePayed :selected').val();
+					param.buildContentId=$('#buildContent').val();
 					console.log(param);
 
 					//ajax请求数T    
@@ -772,6 +772,7 @@
 //				contentType: "application/json",
 				data: param, //传入组装的参数
 				dataType: "json",
+				async:false,
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 				},
@@ -810,10 +811,10 @@
 			param.contractPartner = $('#contractPartnerEdit').val();
 			param.contractSignedTime = $('#contractSignedTimeEdit').val();
 			param.contractMoney = $('#contractMoneyEdit').val();
-			param.buildContent = $('#buildContentEdit').val();
+			param.buildContentId = $('#buildContentEdit').val();
 			param.contractContent = $('#contractContentEdit').val();
 			param.contractComment = $('#contractCommentEdit').val();
-			param.projectSerial = $('#projectSerialEdit').val();
+			param.projectSerial = $('#projectSerialEdit').val();	
 
 			//				alert(JSON.stringify(param))
 			//						console.log(param);
@@ -837,6 +838,7 @@
 					$('#closeModel').click();
 					$('#successModal').modal('show');
 					//						sleep(1);
+					reRenderTable();
 
 				},
 				error: function(result, status) {
@@ -885,7 +887,7 @@
 			param.contractPartner = $('#contractPartnerAdd').val();
 			param.contractSignedTime = $('#contractSignedTimeAdd').val();
 			param.contractMoney = $('#contractMoneyAdd').val();
-			param.buildContent = $('#buildContentAdd').val();
+			param.buildContentId = $('#buildContentAdd').val();
 			param.contractContent = $('#contractContentAdd').val();
 			param.contractComment = $('#contractCommentAdd').val();
 			param.projectSerial = $('#projectSerialAdd').val();
