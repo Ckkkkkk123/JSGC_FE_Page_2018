@@ -679,13 +679,12 @@
 
 						<div class="input-group">
 							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
-							<select class="form-control" name="checkStatus" id="financePaid">
+							<select class="form-control" name="checkStatus" id="paidUpdt">
 								<option value="0">是</option>
 								<option value="1">否</option>
 							</select>
 						</div>
 						<br />
-
 						<div class="input-group">
 							<span class="input-group-addon	">摘要：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<input class="form-control" type="text" placeholder="" value="" id="financeNameUpdt">
@@ -1181,7 +1180,6 @@
 						$('#projectNameUpdt').val(result.projectName);
 						$('#contractSerialUpdt').val(result.contractSerial);
 						$('#contractNameUpdt').val(result.contractName);
-
 						$('#dateUpdt').val(result.financeDate);
 						$('#paidUpdt').val(result.financeStatus);
 						$('#financeNameUpdt').val(result.financeName);
@@ -1205,7 +1203,7 @@
 				param.financeSerials = $('#financeSerialsUpdt').val();
 				param.projectSerial = $('#projectSerialUpdt').val();
 				param.contractSerial = $('#contractSerialUpdt').val();
-				param.financeData = $('#dateUpdt').val();
+				param.financeDate = $('#dateUpdt').val();
 				param.financeName = $('#financeNameUpdt').val();
 				param.financeMoney = $('#financeMoneyUpdt').val();
 				param.financeLenderID = $('#lendTypeUpdt').val();
@@ -1264,7 +1262,7 @@
 				param.financeSerials = $('#financeSerialsAdd').val();
 				param.projectSerial = $('#projectSerialAdd').val();
 				param.contractSerial = $('#contractSerialAdd').val();
-				param.financeData = $('#dateAdd').val();
+				param.financeDate = $('#dateAdd').val();
 				param.financeName = $('#financeNameAdd').val();
 				param.financeMoney = $('#financeMoneyAdd').val();
 				param.financeLenderId = $('#lendTypeAdd').val();
