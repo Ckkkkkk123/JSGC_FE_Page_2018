@@ -768,9 +768,6 @@
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
 						$('#projectDepartmentEdit').val(result.projectDepartmentID); //外键id
-						//$("#projectDepartmentEdit").val(result.departmentID); 原来关闭摸态框再次加载select不显示后台值.
-						//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
-						//						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val(result.username);
 						$('#projectBudgetEdit').val(result.projectBudgetSum);
 						$('#projectCommentEdit').val(result.projectComment);
@@ -812,8 +809,6 @@
 				param.username = $('#projectOwnerEdit').val();
 				param.projectBudgetSum = $('#projectBudgetEdit').val();
 				param.projectComment = $('#projectCommentEdit').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
 				console.log(JSON.stringify(param));
 				//			
 				$.ajax({
@@ -834,6 +829,7 @@
 						if(result==1){
 							$('#closeModel').click();
 							$('#successModal').modal('show');
+							reRenderTable();
 						}else if(result==99){
 							alert('项目编号重复');
 						}
@@ -888,6 +884,7 @@
 						if(result==1){
 							$('#closeModelAdd').click();
 							$('#successModalAdd').modal('show');
+							reRenderTable();
 						}else if(result==99){
 							alert('项目编号重复');
 						}
@@ -934,9 +931,7 @@
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
 						$('#closeModelDelete').click();
-
-						//						sleep(1);
-
+						reRenderTable();
 					},
 					error: function(result, status) {
 						console.log(result)
@@ -948,7 +943,7 @@
 						}
 					}
 				});
-				reRenderTable();
+				
 			}
 
 			function addToProjectID(id) {
