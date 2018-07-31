@@ -28,6 +28,8 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
+var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
+var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
 
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
