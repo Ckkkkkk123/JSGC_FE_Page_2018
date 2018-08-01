@@ -705,10 +705,10 @@
 						"data": "projectBudgetSum"
 					}, {
 						"data": "projectComment",
-						//							"render":function (data,type,row,meta) {
-						//								console.log(row) 
-						//								return(row.projectID+data)
-						//							}
+						"render": function(data, type, full, callback) {
+							return(cutString(data, 20));
+						}
+
 					}, {
 						"data": "projectId", //json
 						"render": function(data, type, row, callback) {

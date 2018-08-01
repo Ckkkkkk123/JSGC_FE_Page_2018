@@ -29,10 +29,11 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
+
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
 
-var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+var getBudgetListUrl = baseUrl + "/getBudgetList";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
@@ -41,7 +42,7 @@ var deleteFinanceUrl = baseUrl + "/deleteFinance";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
 
-var getBudgetListUrl = baseUrl + "/getBudgetListUrl";
+var getBudgetListUrl = baseUrl + "/getBudgetList";
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
 
 var loginUrl = baseUrl + "/login";
@@ -364,4 +365,13 @@ function timestampToDate(timestamp) {
 	D = date.getDate() + ' ';
 
 	return Y + M + D;
+}
+
+function cutString(String, number){
+	
+	var s = String;//要展示的字符串
+	if(String.length>number){
+	s=String.substring(0,number)+"...";
+	}
+	return(s);
 }
