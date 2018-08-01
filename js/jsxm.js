@@ -21,6 +21,7 @@ var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
+
 var getContractListUrl = testUrl + "/getContractList";
 var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
@@ -37,8 +38,12 @@ var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
 var deleteFinanceUrl = baseUrl + "/deleteFinance";
-var deleteAssetUrl = testUrl + "/deleteAsset";
+var addFinanceDetailUrl = baseUrl + "/addFinance";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
+
+var getBudgetListUrl = baseUrl + "/getBudgetListUrl";
+var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
 var getUserListUrl = testUrl + "/getUserList";
@@ -47,13 +52,15 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
-var addFinanceDetailUrl = baseUrl + "/addFinance";
 
-var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+
+
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
 
+var updatePermissionUrl = baseUrl + "/updatePermission";
+var getPermissionDetailUrl = baseUrl + "/getPermissionList";
 function getDepartmentOption() {
 	var param = {};
 	param.baseDataType = "Department";
