@@ -580,7 +580,18 @@
 						}, {
 							"data": "financeMoney"
 						}, {
-							"data": "financeStatus"
+							"data": "financeStatus",
+							"render": function(data, type, row, callback) {
+								if(data == 0 || data == "0"){
+									return ("已付款");
+								} 
+								else if(data == 1 || data == "1"){
+									return("未付款");
+								} else{
+									return("无记录");
+								}
+								
+							}
 						}, {
 							"data": "financeName"
 						}, {

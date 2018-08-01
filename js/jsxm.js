@@ -32,7 +32,7 @@ var getDocListUrl = testUrl + "/getDocList";
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
 
-var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+var getBudgetListUrl = baseUrl + "/getBudgetList";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
@@ -358,4 +358,13 @@ function timestampToDate(timestamp) {
 	D = date.getDate() + ' ';
 
 	return Y + M + D;
+}
+
+function cutString(String, number){
+	
+	var s = String;//要展示的字符串
+	if(String.length>number){
+	s=String.substring(0,number)+"...";
+	}
+	return(s);
 }
