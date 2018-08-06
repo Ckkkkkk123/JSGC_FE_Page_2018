@@ -105,7 +105,7 @@
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-							
+
 							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
 								<i class="fa fa-fw fa-cogs"></i>个人信息
 							</a>
@@ -432,12 +432,12 @@
 						});
 					})
 					$('#financeAdd').on('show.bs.modal', function(e) {
-							$("#financeAdd .chosen-select").trigger("chosen:updated");
-							$('#financeAdd .chosen-select', this).chosen({
-								width: "500px"
-							});
-						})
-						//提示信息
+						$("#financeAdd .chosen-select").trigger("chosen:updated");
+						$('#financeAdd .chosen-select', this).chosen({
+							width: "500px"
+						});
+					})
+					//提示信息
 					var lang = {
 						"sProcessing": "处理中...",
 						"sLengthMenu": "每页 _MENU_ 项",
@@ -538,6 +538,9 @@
 									401: function() {
 										alert("登录状态错误，请重新登录后再尝试");
 										window.open('login.html?type=1');
+									},
+									405: function() {
+										alert("您无权进行此操作");
 									}
 								}
 
@@ -581,15 +584,14 @@
 						}, {
 							"data": "financeStatus",
 							"render": function(data, type, row, callback) {
-								if(data == 0 || data == "0"){
-									return ("已付款");
-								} 
-								else if(data == 1 || data == "1"){
+								if(data == 0 || data == "0") {
+									return("已付款");
+								} else if(data == 1 || data == "1") {
 									return("未付款");
-								} else{
+								} else {
 									return("无记录");
 								}
-								
+
 							}
 						}, {
 							"data": "financeName"
@@ -1260,6 +1262,9 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
 						}
 					}
 
@@ -1316,6 +1321,9 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
 						}
 					}
 
@@ -1394,6 +1402,9 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
 						}
 					}
 				});
@@ -1441,6 +1452,9 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
 						}
 					}
 				});
@@ -1483,6 +1497,9 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
 						}
 					}
 				});

@@ -111,7 +111,7 @@
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-							
+
 							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
 								<i class="fa fa-fw fa-cogs"></i>个人信息
 							</a>
@@ -469,6 +469,9 @@
 					401: function() {
 						alert("登录状态错误，请重新登录后再尝试 ");
 						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
 					}
 				}
 			});
@@ -545,11 +548,11 @@
 					console.log(result);
 					resultHtml = '</br>';
 					for(var item in result["departments"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["departments"][item]["departmentId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["departments"][item]["departmentName"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["departments"][item]["departmentId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["departments"][item]["departmentName"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
-//					resultHtml+='</div>';
+					//					resultHtml+='</div>';
 					$('#Department').html(resultHtml);
 					resultHtml = "</br>";
 					for(var item in result["payMethods"]) {
@@ -608,7 +611,6 @@
 		//		$(".btn-danger").click(function(){
 		//			$(this).parent().parent().remove();
 		//		})
-		
 
 		$("#addInputBtn").click(function() {
 			var inputHtml = '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value=""></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
