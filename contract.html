@@ -823,11 +823,17 @@
 			param.contractContent = $('#contractContentEdit').val();
 			param.contractComment = $('#contractCommentEdit').val();
 			param.projectSerial = $('#projectSerialEdit').val();
-
-			//				alert(JSON.stringify(param))
-			//						console.log(param);
-			console.log(JSON.stringify(param));
-			//			
+var date = $('#contractSignedTimeAdd').val();
+			var money = $('#contractMoneyAdd').val();
+			if(date == ''){
+				alert('请输入日期');
+			}else{
+			
+			
+			if(money<0){
+				alert('请输入正数合同金额');
+			}else{
+			
 			$.ajax({
 				type: "post",
 				url: updateContractDetailUrl,
@@ -849,7 +855,9 @@
 						alert('合同编号重复');
 					} else if(result == 100) {
 						alert('项目编号不存在');
-					}
+					} else if(result==77){
+							alert('合同编号不能为空');
+						}
 
 				},
 				error: function(result, status) {
@@ -862,7 +870,7 @@
 					}
 				}
 
-			});
+			});}}
 		}
 
 		function logout() {
@@ -902,6 +910,16 @@
 			param.contractContent = $('#contractContentAdd').val();
 			param.contractComment = $('#contractCommentAdd').val();
 			param.projectSerial = $('#projectSerialAdd').val();
+			var date = $('#contractSignedTimeAdd').val();
+			var money = $('#contractMoneyAdd').val();
+			if(date == ''){
+				alert('请输入日期');
+			}else{
+			
+			
+			if(money<0){
+				alert('请输入正数合同金额');
+			}else{
 
 			//				alert(JSON.stringify(param))
 			//						console.log(param);
@@ -928,7 +946,9 @@
 						alert('合同编号重复');
 					} else if(result == 100) {
 						alert('项目编号不存在');
-					}
+					}  else if(result==77){
+							alert('合同编号不能为空');
+						}
 
 				},
 				error: function(result, status) {
@@ -941,7 +961,7 @@
 					}
 				}
 
-			});
+			});}}
 		}
 
 		function deleteContractId(contractId) {
