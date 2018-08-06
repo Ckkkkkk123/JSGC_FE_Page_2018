@@ -178,7 +178,7 @@
 				<div class="card mb-1" id="chooseCard">
 					<div class="card-header mycardheader">
 						<i class="fa fa-filter"></i>
-						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black'>筛选栏</a>
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black' id="SearchConditions">筛选栏</a>
 					</div>
 					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
 						<div class="form-inline">
@@ -1009,12 +1009,6 @@
 					},
 					error: function(result, status) {
 						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						}
 					}
 				});
 			}
@@ -1038,6 +1032,10 @@
 		</script>
 		<script>
 			$(document).ready(getDepartmentOption());
+			$(document).ready(function(){
+				$("#SearchConditions").click();
+				$("#SearchConditions").click();
+			})
 		</script>
 		</div>
 	</body>

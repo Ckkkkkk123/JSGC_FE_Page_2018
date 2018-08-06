@@ -53,8 +53,8 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
-
-
+var getVersionListUrl = testUrl +'/getVersionList';
+var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
 
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
@@ -375,3 +375,9 @@ function cutString(String, number){
 	}
 	return(s);
 }
+
+
+function IsInArray(arr,val){
+　　var testStr=','+arr.join(",")+",";
+　　return testStr.indexOf(","+val+",")!=-1;
+} 
