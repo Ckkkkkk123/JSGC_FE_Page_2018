@@ -442,7 +442,7 @@
 					//ajax请求数T
 					$.ajax({
 						type: "POST",
-						url: "http://123.206.254.42:2333/getBudgetList",
+						url: getBudgetListUrl,
 						cache: false, //禁用缓存
 						contentType: "application/json",
 						data: JSON.stringify(param), //传入组装的参数
@@ -485,7 +485,7 @@
 				},
 
 				columns: [{
-					"data": "budgetID"
+					"data": "budgetId"
 				}, {
 					"data": "projectName",
 					"render": function(data, type, row, callback) {
@@ -505,7 +505,7 @@
 				}, {
 					"data": "projectBudgetLeft"
 				}, {
-					"data": "budgetID", //json
+					"data": "budgetId", //json
 					"render": function(data, type, row, callback) {
 						//data 就是上面传入的参数，projectID
 						//拼接字符串（懒得处理引号转义）
@@ -554,8 +554,8 @@
 				type: "post",
 				url: getBudgetDetailUrl,
 				cache: false, //禁用缓存
-				contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+//				contentType: "application/json",
+				data: param, //传入组装的参数
 				dataType: "json",
 				async: false,
 				//					Content-Type: "application/json",

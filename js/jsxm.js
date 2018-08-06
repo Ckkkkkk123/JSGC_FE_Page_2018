@@ -28,7 +28,7 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
-
+var getBudgetListUrl = testUrl + "/getBudgetList";
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
@@ -47,7 +47,7 @@ var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 
-var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+var getBudgetDetailUrl = testUrl + "/getBudgetDetail";
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
