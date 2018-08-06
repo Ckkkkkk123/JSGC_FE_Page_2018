@@ -21,6 +21,7 @@ var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
+
 var getContractListUrl = testUrl + "/getContractList";
 var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
@@ -28,15 +29,24 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
+
 var getBudgetListUrl = testUrl + "/getBudgetList";
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+
+
+var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
+var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
 var deleteFinanceUrl = baseUrl + "/deleteFinance";
-var deleteAssetUrl = testUrl + "/deleteAsset";
+var addFinanceDetailUrl = baseUrl + "/addFinance";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
+
+var getBudgetListUrl = baseUrl + "/getBudgetList";
+var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
 var getUserListUrl = testUrl + "/getUserList";
@@ -45,13 +55,18 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
-var addFinanceDetailUrl = baseUrl + "/addFinance";
+var getVersionListUrl = testUrl +'/getVersionList';
+var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
+
 
 var getBudgetDetailUrl = testUrl + "/getBudgetDetail";
+
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
 
+var updatePermissionUrl = baseUrl + "/updatePermission";
+var getPermissionDetailUrl = baseUrl + "/getPermissionList";
 function getDepartmentOption() {
 	var param = {};
 	param.baseDataType = "Department";
@@ -77,12 +92,55 @@ function getDepartmentOption() {
 		}
 	});
 }
+function getDepartmentOptionInAsset() {
+	var param = {};
+	param.baseDataType = "Department";
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async:false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#departmentName').append(result);
+			$('#assetDepIDEdit').append(result);
+			$('#assetDepIDAdd').append(result);		
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	});
+}
 
 
 function getBuildContentOption(buildContentList) {
-	for(i in buildContentList) {
-		$('#buildContentEdit').append('<option value=' + buildContentList[i]["buildContentID"] + '>' + buildContnetList[i]["buildInfo"] + '</option>');
-	}
+	var param={}
+	param.baseDataType="BuildContent"
+	$.ajax({
+		type: "post",
+		url: 'http://127.0.0.1:8080/getBaseDate',
+		cache: false, //禁用缓存
+		contentType: "application/json",
+		data: JSON.stringify(param), //传入组装的参数
+		dataType: "text",
+		async:false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+		},
+		success: function(result, status) {
+			$('#buildContent').append(result);
+			$('#buildContentEdit').append(result);
+			$('#buildContentAdd').append(result);
+		},
+		error: function(result, status) {
+			console.log(result)
+		}
+	});
 }
 
 function getLendTypeOption(lendTypeList) {
@@ -313,3 +371,18 @@ function timestampToDate(timestamp) {
 
 	return Y + M + D;
 }
+
+function cutString(String, number){
+	
+	var s = String;//要展示的字符串
+	if(String.length>number){
+	s=String.substring(0,number)+"...";
+	}
+	return(s);
+}
+
+
+function IsInArray(arr,val){
+　　var testStr=','+arr.join(",")+",";
+　　return testStr.indexOf(","+val+",")!=-1;
+} 

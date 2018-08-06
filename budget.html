@@ -442,7 +442,9 @@
 					//ajax请求数T
 					$.ajax({
 						type: "POST",
+
 						url: getBudgetListUrl,
+
 						cache: false, //禁用缓存
 						contentType: "application/json",
 						data: JSON.stringify(param), //传入组装的参数
@@ -485,36 +487,48 @@
 				},
 
 				columns: [{
-					"data": "budgetId"
-				}, {
-					"data": "projectName",
-					"render": function(data, type, row, callback) {
-						//data 就是上面传入的参数，projectID
-						//拼接字符串（懒得处理引号转义）
-						projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
-						return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
+						"data": "budgetSerial",
+						"render": function(data, type, full, callback) {
+							return(cutString(data, 24));
+						}
+
+					},
+					{
+						"data": "projectName",
+						"render": function(data, type, row, callback) {
+							//data 就是上面传入的参数，projectID
+							//拼接字符串（懒得处理引号转义）
+							projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
+							return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
+						}
+					},
+					{
+						"data": "projectBudgetSum"
+					},
+					{
+						"data": "projectContractsSum"
+					},
+					{
+						"data": "projectContractsPayed"
+					},
+					{
+						"data": "projectContractsNotPayed"
+					},
+					{
+						"data": "projectBudgetLeft"
+					},
+					{
+						"data": "budgetID", //json
+						"render": function(data, type, row, callback) {
+							//data 就是上面传入的参数，projectID
+							//拼接字符串（懒得处理引号转义）
+							detailUrl = "'" + baseUrl + '/budget_detail.html?bugdetID=' + row.budgetID + "'";
+							tempUrl = "'" + 'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID=' + row.budgetID + "'";
+							//						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
+							return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#budgeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;');
+						}
 					}
-				}, {
-					"data": "projectBudgetSum"
-				}, {
-					"data": "projectContractsSum"
-				}, {
-					"data": "projectContractsPayed"
-				}, {
-					"data": "projectContractsNotPayed"
-				}, {
-					"data": "projectBudgetLeft"
-				}, {
-					"data": "budgetId", //json
-					"render": function(data, type, row, callback) {
-						//data 就是上面传入的参数，projectID
-						//拼接字符串（懒得处理引号转义）
-						detailUrl = "'" + baseUrl + '/budget_detail.html?bugdetID=' + row.budgetID + "'";
-						tempUrl = "'" + 'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID=' + row.budgetID + "'";
-						//						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
-						return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#budgeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;');
-					}
-				}]
+				]
 			}).api();
 
 			//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
@@ -554,8 +568,8 @@
 				type: "post",
 				url: getBudgetDetailUrl,
 				cache: false, //禁用缓存
-//				contentType: "application/json",
-				data: param, //传入组装的参数
+				contentType: "application/json",
+				data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				//					Content-Type: "application/json",
@@ -643,6 +657,6 @@
 		$('#usernameLable').text(localStorage.getItem("username"));
 		$(document).ready(function() {
 			getNotice();
-			$.fn.dataTable.ext.errMode = 'none'; 
+			$.fn.dataTable.ext.errMode = 'none';
 		})
 	</script>

@@ -17,7 +17,7 @@
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
 		<script src="vendor/jquery/jquery.min.js"></script>
-		
+
 	</head>
 
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -48,7 +48,7 @@
 							<i class="fa fa-fw fa-table"></i>
 							<span class="nav-link-text">财务管理</span>
 						</a>
-						
+
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
 						<a class="nav-link" href="budget.html">
@@ -119,7 +119,6 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
-
 
 						</a>
 						<!--拉到左边dropdown-menu-right-->
@@ -266,119 +265,128 @@
 							</table>
 						</div>
 					</div>
-					
-					
-					
-			</div>
 
-			<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">修改某信息</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 				 <span aria-hidden="true">×</span>
-                			</button>
-						</div>
-						<div class="modal-body">
-							<div class="container" style="width: 90%;">
-								<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">文档编号:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7"><input type="text" class="form-control" id="documentSerialEdit"></input>
-									</div>
-								</div>
-								<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">文档名:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7"><input type="text" class="form-control" id="documentNameEdit"></input>
-									</div>
-								</div>
-
-								<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">所属项目:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7">
-										<select class="form-control" name="checkStatus" id="projectNameEdit">
-											<option value="2">背锅部</option>
-											<option value="0">技术部</option>
-											<option value="1">背锅部</option>
-										</select>
-									</div>
-								</div>
-									<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">所属合同:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7">
-										<select class="form-control" name="checkStatus" id="contractNameEdit">
-											<option value="2">背锅部</option>
-											<option value="0">技术部</option>
-											<option value="1">背锅部</option>
-										</select>
-									</div>
-								</div>
-								<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">归档人:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7"><input type="text" class="form-control" id="documentOwnerEdit"></input>
-									</div>
-								</div>
-
-									<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">归档日期:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-7">
-										<select class="form-control" name="checkStatus" id="documentUploadTimeEdit">
-											<option value="2">背锅部</option>
-											<option value="0">技术部</option>
-											<option value="1">背锅部</option>
-										</select>
-									</div>
-								</div>
-								<div class="clearfix"><br /></div>
-
-								<div class="row">
-									<div class="col-md-2">备注:</div>
-									<!--<div class="col-1"></div>-->
-									<div class="col-md-10">
-										<textarea class="form-control" rows="5" id="documentCommentEdit">在w3school，你可以找到你所需要的所有的网站建设教程。
-										</textarea>
-
-									</div>
-								</div>
-								<div class="clearfix"><br /></div>
+				</div>
+				<!--更新成功-->
+				<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">修改成功</h4>
 
 							</div>
+							<!--<div class="modal-body"></div>-->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-								<button type="button" class="btn btn-primary">提交</button>
+
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal -->
+				</div>
+				<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">修改信息</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+							</div>
+							<div class="modal-body">
+								<div class="container" style="width: 90%;">
+									<div class="clearfix"><br /></div>
+									<div class="row" style="display: none;">
+										<div class="col-md-2">文档id:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentIdEdit"></input>
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">文档编号:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentSerialEdit"></input>
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">文档名:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentNameEdit"></input>
+										</div>
+									</div>
+
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">所属项目:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="text" class="form-control" id="projectSerialEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">所属合同:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="text" class="form-control" id="contractSerialEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">归档人:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentOwnerEdit"></input>
+										</div>
+									</div>
+
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">归档日期:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="date" class="form-control" id="documentUploadTimeEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">备注:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-10">
+											<textarea class="form-control" rows="5" id="documentCommentEdit">
+										</textarea>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+									<button type="button" class="btn btn-primary" onclick="updateDocument()">提交</button>
+
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 			</div>
 
-					
-					
-					
-					
-					
-					<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-				</div>
-
-			</div>
+		</div>
 		</div>
 		<!-- /.container-fluid-->
 		<!-- /.content-wrapper-->
@@ -492,11 +500,11 @@
 							url: getDocListUrl,
 							cache: false, //禁用缓存
 							contentType: "application/json",
-						data: JSON.stringify(param), //传入组装的参数
+							data: JSON.stringify(param), //传入组装的参数
 							dataType: "json",
 							beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
 							success: function(result) {
 								//console.log(result);
 								//setTimeout仅为测试延迟效果
@@ -515,15 +523,14 @@
 								}, 200);
 							},
 							error: function(result, status) {
-						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						}
-					}
-
+								console.log(result)
+							},
+							statusCode: {
+								401: function() {
+									alert("登录状态错误，请重新登录后再尝试");
+									window.open('login.html?type=1');
+								}
+							}
 
 						});
 					},
@@ -538,45 +545,51 @@
 						{
 							"data": "projectName",
 							"render": function(data, type, row, meta) {
-								return('<a href="projectDetail.html?projectID='+ row.projectID +'"> '+ data+'</a>')
+								return('<a href="project.html?projectSerial=' + row.projectSerial + '"> ' + data + '</a>')
 							}
 						},
 						{
 							"data": "contractName",
 							"render": function(data, type, row, meta) {
-								if(data != 'null'){
-									return('<a href="contractDetail.html?contractID='+ row.contractID +'"> '+ data+'</a>')
-									
-								}else{
-									return('-')
+								if(data != 'null' && data != null) {
+									return('<a href="contract.html?contractSerial=' + row.contractSerial + '"> ' + data + '</a>')
+
+								} else {
+									return('无')
 								}
 
 							}
 						},
-						
+
 						{
 							"data": "documentOwner"
 						},
 						{
-							"data": "documentUploadTime"
+							"data": "documentUploadTime",
+							"render": function(data, type, full, callback) {
+								return(timestampToDate(data));
+							}
 						},
 						{
-							"data": "documentComment"
+							"data": "documentComment",
+							"render": function(data, type, full, callback) {
+								return(cutString(data, 20));
+							}
 						},
 						{
-							"data": "documentUrl", //json
+							"data": "documentId", //json
 							"render": function(data) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
 
-								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(23333)"">编辑</button><button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + data + ')">下载</button>');
+								return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="getDocumentUpdate(' + data + ')"">编辑</button><button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + data + ')">下载</button>');
 							}
 						}
 					]
 				}).api();
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 			});
-			
+
 			function logout() {
 
 				$.ajax({
@@ -600,34 +613,34 @@
 					}
 				});
 			}
-			
+
 			function getNotice() {
 				$.ajax({
-						type: "post",
-						url: getNoticeUrl,
-						cache: false, //禁用缓存
-						contentType: "application/json,charset=utf-8",
-						data: null, //传入组装的参数
-						dataType: "json",
-						async: false,
-						crossDomain: true,
-						scriptCharset: 'utf-8',
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-						},
-						success: function(result) {
-							var NotiData = "";
-							for(i in result) {
-								console.log(i);
-								NotiData += '<div class="dropdown-divider"></div>' +
-									'<a class="dropdown-item">' +
-									'<span class="text-success">' +
-									'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
-									'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
-									'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+					type: "post",
+					url: getNoticeUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json,charset=utf-8",
+					data: null, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					scriptCharset: 'utf-8',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						var NotiData = "";
+						for(i in result) {
+							console.log(i);
+							NotiData += '<div class="dropdown-divider"></div>' +
+								'<a class="dropdown-item">' +
+								'<span class="text-success">' +
+								'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+								'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+								'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
 
 						}
-							console.log(NotiData);
+						console.log(NotiData);
 						$('#notice').append(NotiData);
 
 					},
@@ -643,14 +656,103 @@
 				});
 			}
 
+			function getDocumentUpdate(id) {
+				var param = {};
+				param.documentId = id;
+
+				$.ajax({
+					type: "post",
+					url: getDocumentDetailUrl,
+					cache: false, //禁用缓存
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+
+						$('#documentIdEdit').val(result.documentID);
+						$('#documentSerialEdit').val(result.documentSerial);
+						$('#documentNameEdit').val(result.documentName);
+						$('#projectSerialEdit').val(result.projectSerial);
+						$('#contractSerialEdit').val(result.contractSerial);
+						$('#documentOwnerEdit').val(result.documentOwner);
+						$('#documentUploadTimeEdit').val(result.documentUploadTime);
+						$('#documentCommentEdit').val(result.documentComment);
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+				});
+			}
+
+			function updateDocument() {
+				var param = {};
+				param.documentId = $('#documentIdEdit').val();
+				param.documentSerial = $('#documentSerialEdit').val();
+				param.documentName = $('#documentNameEdit').val();
+				param.projectSerial = $('#projectSerialEdit').val();
+				param.contractSerial = $('#contractSerialEdit').val();
+				param.documentOwner = $('#documentOwnerEdit').val();
+				param.documentUploadTime = $('#documentUploadTimeEdit').val();
+				param.documentComment = $('#documentCommentEdit').val();
+
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: updateDocumentDetailUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+
+						if(result == 1) {
+							$('#closeModel').click();
+							$('#successModal').modal('show');
+							reRenderTable();
+						} else if(result == 99) {
+							alert('文档编号重复');
+						} else if(result == 100) {
+							alert('项目编号不存在');
+						} else if(result == 88) {
+							alert('该项目下没有此合同');
+						}
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						}
+					}
+				});
+			}
 		</script>
 		<script>
 			$('#usernameLable').text(localStorage.getItem("username"));
 		</script>
 		<script>
-			$(document).ready(function(){
+			$(document).ready(function() {
 				getNotice();
-				$.fn.dataTable.ext.errMode = 'none'; 
+				$.fn.dataTable.ext.errMode = 'none';
 			})
 		</script>
 		<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>

@@ -178,7 +178,7 @@
 				<div class="card mb-1" id="chooseCard">
 					<div class="card-header mycardheader">
 						<i class="fa fa-filter"></i>
-						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black'>筛选栏</a>
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black' id="SearchConditions">筛选栏</a>
 					</div>
 					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
 						<div class="form-inline">
@@ -705,16 +705,16 @@
 						"data": "projectBudgetSum"
 					}, {
 						"data": "projectComment",
-						//							"render":function (data,type,row,meta) {
-						//								console.log(row) 
-						//								return(row.projectID+data)
-						//							}
+						"render": function(data, type, full, callback) {
+							return(cutString(data, 20));
+						}
+
 					}, {
 						"data": "projectId", //json
-						"render": function(data, type, full, callback) {
+						"render": function(data, type, row, callback) {
 							//data 就是上面传入的参数，projectID
 							//拼接字符串（懒得处理引号转义）
-							contractUrl = "'/contract.html?projectID=" + data + "'";
+							contractUrl = "'contract.html?projectSerial=" + row.projectSerial + "'";
 							//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
 							return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;' +
@@ -768,9 +768,6 @@
 						$('#projectSerialEdit').val(result.projectSerial);
 						$('#projectNameEdit').val(result.projectName);
 						$('#projectDepartmentEdit').val(result.projectDepartmentID); //外键id
-						//$("#projectDepartmentEdit").val(result.departmentID); 原来关闭摸态框再次加载select不显示后台值.
-						//						$("#projectDepartmentEdit").find("option[value = '"+result.departmentID+"']").attr("selected", "true");
-						//						$('#projectDepartmentEdit').val(result.departmentName);
 						$('#projectOwnerEdit').val(result.username);
 						$('#projectBudgetEdit').val(result.projectBudgetSum);
 						$('#projectCommentEdit').val(result.projectComment);
@@ -808,12 +805,10 @@
 				param.projectID = $('#projectIDEdit').val();
 				param.projectSerial = $('#projectSerialEdit').val();
 				param.projectName = $('#projectNameEdit').val();
-				param.departmentName = $('#projectDepartmentEdit').val();
+				param.projectDepartmentId = $('#projectDepartmentEdit').val();
 				param.username = $('#projectOwnerEdit').val();
 				param.projectBudgetSum = $('#projectBudgetEdit').val();
 				param.projectComment = $('#projectCommentEdit').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
 				console.log(JSON.stringify(param));
 				//			
 				$.ajax({
@@ -831,8 +826,16 @@
 						//console.log(result);
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
-						$('#closeModel').click();
-						$('#successModal').modal('show');
+						if(result==1){
+							$('#closeModel').click();
+							$('#successModal').modal('show');
+							reRenderTable();
+						}else if(result==99){
+							alert('项目编号重复');
+						}
+						else if(result==100){
+							alert('项目负责人不存在');
+						}
 						//						sleep(1);
 
 					},
@@ -855,7 +858,7 @@
 				//				param.projectID = $('#projectIDEdit').val();
 				param.projectSerial = $('#projectSerialAdd').val();
 				param.projectName = $('#projectNameAdd').val();
-				param.departmentName = $('#projectDepartmentAdd').val();
+				param.projectDepartmentId = $('#projectDepartmentAdd').val();
 				param.username = $('#projectOwnerAdd').val();
 				param.projectBudgetSum = $('#projectBudgetAdd').val();
 				param.projectComment = $('#projectCommentAdd').val();
@@ -878,8 +881,16 @@
 						//console.log(result);
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
-						$('#closeModelAdd').click();
-						$('#successModalAdd').modal('show');
+						if(result==1){
+							$('#closeModelAdd').click();
+							$('#successModalAdd').modal('show');
+							reRenderTable();
+						}else if(result==99){
+							alert('项目编号重复');
+						}
+						else if(result==100){
+							alert('项目负责人不存在');
+						}
 						//						sleep(1);
 
 					},
@@ -920,9 +931,7 @@
 						//						$('#modal-body').html("成功");
 						//						alert("成功")
 						$('#closeModelDelete').click();
-
-						//						sleep(1);
-
+						reRenderTable();
 					},
 					error: function(result, status) {
 						console.log(result)
@@ -934,7 +943,7 @@
 						}
 					}
 				});
-				reRenderTable();
+				
 			}
 
 			function addToProjectID(id) {
@@ -1000,15 +1009,18 @@
 					},
 					error: function(result, status) {
 						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						}
 					}
 				});
 			}
+			
+			$(document).ready(function() {
+				var qs = getQueryString();
+				var projectSerialUrl = qs["projectSerial"];
+				$('#projectSerial').val(projectSerialUrl);
+				reRenderTable();
+				
+
+			})
 		</script>
 		<script>
 			$('#usernameLable').text(localStorage.getItem("username"));
@@ -1020,6 +1032,10 @@
 		</script>
 		<script>
 			$(document).ready(getDepartmentOption());
+			$(document).ready(function(){
+				$("#SearchConditions").click();
+				$("#SearchConditions").click();
+			})
 		</script>
 		</div>
 	</body>
