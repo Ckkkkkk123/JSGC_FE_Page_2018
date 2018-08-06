@@ -21,59 +21,33 @@
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-			<a class="navbar-brand" href="index.html">金审项目后台管理</a>
+			<a class="navbar-brand" href="index.html">金审平台后台管理</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-					<!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-							<i class="fa fa-fw fa-wrench"></i>
-							<span class="nav-link-text">用户管理</span>
-						</a>
-						<ul class="sidenav-second-level collapse" id="collapseComponents">
-							<li>
-								<a href="project.html">项目列表</a>
-							</li>
-							<li>
-								<a href="contract.html">合同列表</a>
-							</li>
-						</ul>
-					</li>-->
+
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
 						<a class="nav-link" href="userManagement.html">
-							<i class="fa fa-fw fa-table"></i>
+							<i class="fa fa-fw fa-user"></i>
 							<span class="nav-link-text">用户管理</span>
 						</a>
 
 					</li>
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
 						<a class="nav-link" href="permission.html">
-							<i class="fa fa-fw fa-table"></i>
+							<i class="fa fa-fw fa-lock"></i>
 							<span class="nav-link-text">权限管理</span>
 						</a>
 					</li>
-					<!--
 					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="asset.html">
-							<i class="fa fa-fw fa-table"></i>
-							<span class="nav-link-text">资产管理</span>
-						</a>
-					</li>
-					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-						<a class="nav-link" href="document.html">
-							<i class="fa fa-fw fa-table"></i>
-							<span class="nav-link-text">档案管理</span>
+						<a class="nav-link" href="baseData.html">
+							<i class="fa fa-fw fa-database"></i>
+							<span class="nav-link-text">基础数据维护</span>
 						</a>
 					</li>
 
-					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-						<a class="nav-link" href="#">
-							<i class="fa fa-fw fa-link"></i>
-							<span class="nav-link-text">审核</span>
-						</a>
-					</li>-->
 				</ul>
 				<ul class="navbar-nav sidenav-toggler">
 					<li class="nav-item">
@@ -122,14 +96,13 @@
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-							<!--<h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>-->
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
 								<i class="fa fa-fw fa-cogs"></i>个人信息
 							</a>
 
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black" onclick="logout()">
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="logout()">
 								<i class="fa fa-fw fa-sign-out"></i>退出登录
 							</a>
 
@@ -198,6 +171,7 @@
 										<option value=3>决策领导</option>
 										<option value=4>大领导</option>
 									</select>
+
 								</div>
 							</div>
 
@@ -331,6 +305,9 @@
 											<option value=3>决策领导</option>
 											<option value=4>大领导</option>
 										</select>
+										</br>
+										</br>
+
 										<!--<input type="text" id="projectDepartmentEdit" class="form-control"></input>-->
 									</div>
 								</div>
@@ -613,6 +590,9 @@
 									401: function() {
 										alert("登录状态错误，请重新登录后再尝试");
 										window.open('login.html?type=1');
+									},
+									405: function() {
+										alert("您无权进行此操作");
 									}
 								}
 
@@ -627,7 +607,18 @@
 							}, {
 								"data": "phone"
 							}, {
-								"data": "permissionLevel"
+								"data": "permissionLevel",
+								"render": function(data, type, full, callback) {
+									if(data == 1 || data == "1") {
+										return('管理员')
+									} else if(data == 2 || data == "2") {
+										return('负责人')
+									} else if(data == 3 || data == "3") {
+										return('决策人')
+									} else if(data == 4 || data == "4") {
+										return('大领导')
+									}
+								}
 							},
 
 							{
@@ -684,6 +675,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 
@@ -731,6 +725,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 
@@ -768,6 +765,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 
@@ -820,6 +820,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 					});
@@ -870,6 +873,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 					});
@@ -936,6 +942,9 @@
 							401: function() {
 								alert("登录状态错误，请重新登录后再尝试");
 								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
 							}
 						}
 					});

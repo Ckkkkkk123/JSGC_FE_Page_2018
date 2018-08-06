@@ -30,10 +30,12 @@ var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
 
+var getBudgetListUrl = testUrl + "/getBudgetList";
+var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+
+
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
-
-var getBudgetListUrl = baseUrl + "/getBudgetList";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
@@ -53,8 +55,11 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
+var getVersionListUrl = testUrl +'/getVersionList';
+var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
 
 
+var getBudgetDetailUrl = testUrl + "/getBudgetDetail";
 
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
@@ -375,3 +380,9 @@ function cutString(String, number){
 	}
 	return(s);
 }
+
+
+function IsInArray(arr,val){
+　　var testStr=','+arr.join(",")+",";
+　　return testStr.indexOf(","+val+",")!=-1;
+} 
