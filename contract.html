@@ -29,7 +29,7 @@
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-			<a class="navbar-brand" href="index.html">金审项目管理</a>
+			<a id="userLevelText" class="navbar-brand" href="index.html">金审项目管理</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -215,7 +215,7 @@
 				<div class="card mb-3">
 					<div class="card-header ">
 						<i class="fa fa-table"></i> 合同列表
-						<div style="position: relative;">
+						<div class="3button" style="position: relative;display: none;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
 							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addContract">添加信息</button>
@@ -586,6 +586,25 @@
 	<script src="js/fileinput/fileinput.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			var userLevel=localStorage.getItem('level');
+			switch(userLevel){
+				case '1':
+					$('.3button').show();
+					$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+					break;
+				case '2':
+					$('.3button').show();
+					$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+					break;
+				case '3':
+					$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+					break;
+				case '4':						
+					$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+					break;
+				default:
+				   alert('不存在角色');
+			}	
 			getBuildContentOption();
 			$('.chosen-select', this).chosen({
 				width: "190px"
@@ -682,20 +701,23 @@
 						success: function(result) {
 							//console.log(result);
 							//setTimeout仅为测试延迟效果
-							setTimeout(function() {
-								//封装返回数据
-								var returnData = {};
-								returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
-								returnData.recordsTotal = result.total; //返回数据全部记录
-								returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-								returnData.data = result.data; //返回的数据列表
-								//console.log(returnData);
-								//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+							//封装返回数据
+							var returnData = {};
+							returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+							returnData.recordsTotal = result.total; //返回数据全部记录
+							returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+							returnData.data = result.data; //返回的数据列表
+							//console.log(returnData);
+							//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+							//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 
-								callback(returnData);
-								//隐藏									
-							}, 200);
+							callback(returnData);
+							//隐藏									
+							//前端接口不可见性
+							if(localStorage.getItem('level')==3||localStorage.getItem('level')==4){
+								$('.editMessage').hide();
+								$('.deleteMessage').hide();
+							}
 						},
 						error: function(result, status) {
 							console.log(result)
@@ -755,8 +777,8 @@
 						financeUrl = "'financeList.html?contractSerial=" + row.contractSerial + "'";
 						detailUrl = "'/contractDetail.html?contractID=" + data + "'";
 						return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + financeUrl + ')">查看财务</button>&nbsp;&nbsp;' +
-							'<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
-							'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm" onclick="deleteContractId(' + data + ')">删除</button>');
+							'<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
+							'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm deleteMessage" onclick="deleteContractId(' + data + ')">删除</button>');
 					}
 				}]
 			}).api();
