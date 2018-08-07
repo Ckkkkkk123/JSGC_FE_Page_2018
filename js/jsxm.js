@@ -1,6 +1,6 @@
 function resetInput() {
 	$("#chooseCard input").val("");
-	$("#chooseCard select").val("");
+	$("#chooseCard .chose2").val("2");
 	$('#chooseCard .chosen-select').val("")
 	$('#chooseCard .chosen-select').trigger("chosen:updated");
 }
@@ -48,12 +48,12 @@ var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
 var addFinanceDetailUrl = baseUrl + "/addFinance";
-
+var getBudgetListUrl=baseUrl+"/getBudgetList";
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
 var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
-
+var getContractUseMoneyUrl=testUrl+"/getContractUseMoney";
 function getDepartmentOption() {
 	var param = {};
 	param.baseDataType = "Department";

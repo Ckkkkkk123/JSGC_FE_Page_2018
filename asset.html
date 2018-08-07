@@ -224,7 +224,7 @@
 				<div class="card mb-3">
 					<div class="card-header ">
 						<i class="fa fa-table"></i> 资产列表
-						<div style="position: relative;">
+						<div class="3button" style="position: relative;display: none;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addAsset">添加信息</button>
@@ -247,7 +247,7 @@
 										<th>经手人</th>
 										<th>使用部门</th>
 										<th>所属项目</th>
-										<th>操作 </th>
+										<th class="willHide">操作 </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -660,6 +660,24 @@
 
 		<script type="text/javascript">
 			$(function() {
+				var userLevel=localStorage.getItem('level');
+				switch(userLevel){
+					case '1':						
+						$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+						break;
+					case '2':
+						$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+						break;
+					case '3':
+						$('.3button').show();
+						$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+						break;
+					case '4':						
+						$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+						break;
+					default:
+					   alert('不存在角色');
+				}
 				getDepartmentOptionInAsset();
 				$('.chosen-select', this).chosen({
 					width: "190px"
@@ -754,24 +772,27 @@
 							success: function(result) {
 
 								//console.log(result);
-								//setTimeout仅为测试延迟效果
-								setTimeout(function() {
-									//封装返回数据
-									var returnData = {};
-									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
-									returnData.recordsTotal = result.total; //返回数据全部记录
-									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-									returnData.data = result.data; //返回的数据列表
-									//console.log(returnData);
-									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+								//setTimeout仅为测试延迟效果								
+								//封装返回数据
+								var returnData = {};
+								returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+								returnData.recordsTotal = result.total; //返回数据全部记录
+								returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+								returnData.data = result.data; //返回的数据列表
+								//console.log(returnData);
+								//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 
-									callback(returnData);
-									getDepartmentOption();
-									//								//隐藏
-									//								$('.will-hide').hide();
-									//								$('#example tr').find('td:eq(1)').hide();
-								}, 200);
+								callback(returnData);
+								getDepartmentOption();
+								//前端接口不可见性				
+								if(localStorage.getItem('level')==2||localStorage.getItem('level')==4){
+									$('.editMessage').hide();
+									$('.deleteMessage').hide();
+//									$('#example tr').find('td:eq(12)').hide();
+//									$('.willHide').hide();
+								}
+								
 							},
 							error: function(result, status) {
 								console.log(result)
@@ -836,8 +857,8 @@
 							//拼接字符串（懒得处理引号转义）
 
 							//						return('<button type="button" class="btn btn-outline btn-warning btn-sm" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(23333)"">编辑</button>' );
-							return('<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#update" onclick="getAssetUpdate(' + data + ')">编辑</button>&nbsp;' +
-								'<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteAssetID(' + data + ')">删除</button>');
+							return('<button type="button" class="btn btn-outline btn-primary btn-sm editMessage" data-toggle="modal" on data-target="#update" onclick="getAssetUpdate(' + data + ')">编辑</button>&nbsp;' +
+								'<button type="button" class="btn btn-outline btn-warning btn-sm deleteMessage" onclick="deleteAssetID(' + data + ')">删除</button>');
 
 						}
 					}]
