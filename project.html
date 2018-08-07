@@ -39,7 +39,7 @@
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-			<a class="navbar-brand" href="index.html">金审项目管理</a>
+			<a id="userLevelText" class="navbar-brand"  href="index.html">金审项目管理</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -246,7 +246,7 @@
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i> 项目列表
-						<div style="position: relative;">
+						<div class="3button" style="position: relative;display: none;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addProject">添加信息</button>
@@ -565,6 +565,25 @@
 			//				for(var t = Date.now(); Date.now() - t <= d;);
 			//			}
 			$(function() {
+				var userLevel=localStorage.getItem('level');
+				switch(userLevel){
+					case '1':
+						$('.3button').show();
+						$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+						break;
+					case '2':
+						$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+						break;
+					case '3':
+						$('.3button').show();
+						$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+						break;
+					case '4':						
+						$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+						break;
+					default:
+					   alert('不存在角色');
+				}	
 				$('#detail').on('show.bs.modal', function(e) {
 					$("#projectDepartmentEdit").trigger("chosen:updated");
 					$('.chosen-select', this).chosen({
@@ -650,20 +669,21 @@
 								//console.log(result);
 								//getDepartmentOption(result.departmentList);
 								//setTimeout仅为测试延迟效果
-								setTimeout(function() {
-									//封装返回数据
-									var returnData = {};
-									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
-									returnData.recordsTotal = result.total; //返回数据全部记录
-									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-									returnData.data = result.data; //返回的数据列表
-									//console.log(returnData);
-									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-
-									callback(returnData);
-
-								}, 200);
+								//封装返回数据
+								var returnData = {};
+								returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
+								returnData.recordsTotal = result.total; //返回数据全部记录
+								returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+								returnData.data = result.data; //返回的数据列表
+								//console.log(returnData);
+								//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+								callback(returnData);
+								//前端接口不可见性
+								if(localStorage.getItem('level')==2||localStorage.getItem('level')==4){
+									$('.editMessage').hide();
+									$('.deleteMessage').hide();
+								}	
 							},
 							error: function(result, status) {
 								console.log(result)
@@ -719,14 +739,17 @@
 							contractUrl = "'contract.html?projectSerial=" + row.projectSerial + "'";
 							//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
+								
 							return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;' +
-								'<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#detail" onclick="showDetail(' + data + ')">编辑信息</button>	&nbsp;&nbsp;' +
-								'<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="addToProjectID(' + data + ')">删除</button>');
+								'<button type="button" class="btn btn-outline btn-primary btn-sm editMessage" data-toggle="modal" on data-target="#detail" onclick="showDetail(' + data + ')">编辑信息</button>	&nbsp;&nbsp;' +
+								'<button type="button" class="btn btn-outline btn-warning btn-sm deleteMessage" onclick="addToProjectID(' + data + ')">删除</button>');
 
 						}
 					}]
+					
 				}).api();
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
+				
 			});
 		</script>
 		<script>
@@ -815,7 +838,10 @@
 				param.projectBudgetSum = $('#projectBudgetEdit').val();
 				param.projectComment = $('#projectCommentEdit').val();
 				console.log(JSON.stringify(param));
-				//			
+				var department = $('#projectDepartmentEdit').val();
+				if(department==''){
+					alert('请选择部门');
+				}		
 				$.ajax({
 					type: "post",
 					url: updateProjectDetailUrl,
@@ -839,6 +865,8 @@
 							alert('项目编号重复');
 						} else if(result == 100) {
 							alert('项目负责人不存在');
+						}else if(result==77){
+							alert('项目编号不能为空');
 						}
 						//						sleep(1);
 
@@ -871,6 +899,10 @@
 				param.projectComment = $('#projectCommentAdd').val();
 				//				alert(JSON.stringify(param))
 				//						console.log(param);
+				var department = $('#projectDepartmentAdd').val();
+				if(department==''){
+					alert('请选择部门');
+				}
 				console.log(JSON.stringify(param));
 				//			
 				$.ajax({
@@ -896,6 +928,8 @@
 							alert('项目编号重复');
 						} else if(result == 100) {
 							alert('项目负责人不存在');
+						}else if(result==77){
+							alert('项目编号不能为空');
 						}
 						//						sleep(1);
 

@@ -25,7 +25,7 @@
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-			<a class="navbar-brand" href="index.html">金审项目管理</a>
+			<a id="userLevelText" class="navbar-brand" href="index.html">金审项目管理</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -125,7 +125,7 @@
 			/*设置第八列,也就是按钮居中*/
 			
 			.table th,
-			.table td:nth-children(14) {
+			.table td:nth-children(13) {
 				text-align: center;
 				vertical-align: middle!important;
 			}
@@ -208,7 +208,7 @@
 							<div class="col-md-3">
 								<div class="input-group">
 									<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
-									<select class="form-control" name="checkStatus" id="financePaid">
+									<select class="form-control chose2" name="checkStatus" id="financePaid">
 										<option value="2"></option>
 										<option value="0">是</option>
 										<option value="1">否</option>
@@ -317,7 +317,7 @@
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i> 财务列表
-						<div style="position: relative;">
+						<div class="3button" style="position: relative;display: none;">
 							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 							<!--<button type="button" class="btn btn-default" style="position: absolute; right: 200; top:50%;margin-top:-32px">添加财物</button>-->
@@ -327,10 +327,10 @@
 
 					<div class="card-body" class="collapse show" id="collapseOne" data-parent="#chooseCard">
 						<div class="table-responsive">
-							<table class="table table-bordered" id="financeTable" width="100%" cellspacing="0">
+							<table id="financeTable" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
 								<thead>
 									<tr>
-										<th>凭证号</th>
+										<th class="nosort">凭证号</th>
 										<th>日期</th>
 										<th class="nosort">所属项目</th>
 										<th class="nosort">所属合同</th>
@@ -342,11 +342,12 @@
 										<th class="nosort">支付方式</th>
 										<th class="nosort">采购方式</th>
 										<th class="nosort">采购组织方式</th>
-										<th class="nosort">采购项目分类</th>
-										<th class="nosort">操作</th>
-
+										<th class="nosort">采购分类</th>
+										<th class="nosort willHide">操作</th>
 									</tr>
 								</thead>
+								<tbody>
+								</tbody>
 								<!--<tfoot>
 									<tr>
 										<th>Name</th>
@@ -410,6 +411,25 @@
 
 			<script type="text/javascript">
 				$(function() {
+					var userLevel=localStorage.getItem('level');
+					switch(userLevel){
+						case '1':
+							$('.3button').show();
+							$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+							break;
+						case '2':
+							$('.3button').show();
+							$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+							break;
+						case '3':
+							$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+							break;
+						case '4':						
+							$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+							break;
+						default:
+						   alert('不存在角色');
+					}
 					getLendTypeOption();
 
 					getBorrowTypeOption();
@@ -530,6 +550,11 @@
 									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									callback(returnData);
+									//前端接口不可见性
+									if(localStorage.getItem('level')==3||localStorage.getItem('level')==4){
+										$('.editMessage').hide();
+										$('.deleteMessage').hide();
+									}
 								},
 								error: function(result, status) {
 									console.log(result)
@@ -616,8 +641,8 @@
 							"data": "financeId", //json
 							"render": function(data, type, full, callback) {
 								//								'<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;'
-								return('<button type="button" class="btn btn-outline btn-primary btn-sm" data-toggle="modal" on data-target="#financeUpdate" onclick="getFinanceUpdate(' + data + ')">编辑信息</button>&nbsp;' +
-									'<button type="button" class="btn btn-outline btn-warning btn-sm" onclick="deleteFinanceID(' + data + ')">删除</button>');
+								return('<button type="button" class="btn btn-outline btn-primary btn-sm editMessage" data-toggle="modal" on data-target="#financeUpdate" onclick="getFinanceUpdate(' + data + ')">编辑信息</button>&nbsp;' +
+									'<button type="button" class="btn btn-outline btn-warning btn-sm deleteMessage" onclick="deleteFinanceID(' + data + ')">删除</button>');
 
 							}
 						}]
