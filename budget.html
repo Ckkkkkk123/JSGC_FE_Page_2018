@@ -121,14 +121,13 @@
 						</a>
 						<!--拉到左边dropdown-menu-right-->
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-							<!--<h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>-->
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black">
+
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
 								<i class="fa fa-fw fa-cogs"></i>个人信息
 							</a>
 
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" style="color:black" onclick="logout()">
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="logout()">
 								<i class="fa fa-fw fa-sign-out"></i>退出登录
 							</a>
 
@@ -186,20 +185,6 @@
 							</div>
 						</div>
 						<br />
-						<div class="form-inline">
-							<div class="col-md-3">
-								<div class="input-group">
-									<span class="input-group-addon	">所有合同已付完：&nbsp;</span>
-									<select class="form-control" id="allContractPayed">
-										<option value="">请选择</option>
-										<option value="0">未付完</option>
-										<option value="1">已付完</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-						<br />
 						<script src="js/jsxm.js"></script>
 						<div class="form-inline">
 							<div class="col-md-4">
@@ -215,7 +200,6 @@
 					<div class="card-header ">
 						<i class="fa fa-table"></i> 预算列表
 						<div style="position: relative;">
-							<button type="button" class="btn btn-primary" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
 							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
 						</div>
 					</div>
@@ -228,10 +212,10 @@
 										<th>项目名称</th>
 										<th>项目总预算</th>
 										<th>所有合同额</th>
-										<th>所有合同已付</th>
-										<th>所有合同未付</th>
+										<th class="nosort">所有合同已付</th>
+										<th class="nosort">所有合同未付</th>
 										<th>项目余款</th>
-										<th>操作</th>
+										<th class="willHide nosort">操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -435,16 +419,13 @@
 					param.projectSerial = $('#projectSerial').val();
 					param.projectName = $('#projectName').val();
 					param.projectStartTime = $('#projectStartTime').val();
-					param.allContractPayed = $('#allContractPayed :selected').val();
 
 					console.log(param);
 
 					//ajax请求数T
 					$.ajax({
 						type: "POST",
-
 						url: getBudgetListUrl,
-
 						cache: false, //禁用缓存
 						contentType: "application/json",
 						data: JSON.stringify(param), //传入组装的参数
@@ -487,48 +468,37 @@
 				},
 
 				columns: [{
-						"data": "budgetSerial",
-						"render": function(data, type, full, callback) {
-							return(cutString(data, 24));
-						}
-
-					},
-					{
-						"data": "projectName",
-						"render": function(data, type, row, callback) {
-							//data 就是上面传入的参数，projectID
-							//拼接字符串（懒得处理引号转义）
-							projectUrl = "'http://123.206.254.42:2333/projectDetial.html?projectID=" + row.projectID + "'";
-							return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
-						}
-					},
-					{
-						"data": "projectBudgetSum"
-					},
-					{
-						"data": "projectContractsSum"
-					},
-					{
-						"data": "projectContractsPayed"
-					},
-					{
-						"data": "projectContractsNotPayed"
-					},
-					{
-						"data": "projectBudgetLeft"
-					},
-					{
-						"data": "budgetID", //json
-						"render": function(data, type, row, callback) {
-							//data 就是上面传入的参数，projectID
-							//拼接字符串（懒得处理引号转义）
-							detailUrl = "'" + baseUrl + '/budget_detail.html?bugdetID=' + row.budgetID + "'";
-							tempUrl = "'" + 'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID=' + row.budgetID + "'";
-							//						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
-							return('<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#budgeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;');
-						}
+					"data": "budgetSerial"
+				}, {
+					"data": "projectName",
+					"render": function(data, type, row, callback) {
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						projectUrl = "project.html?projectName=" + data;
+						return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
 					}
-				]
+				}, {
+					"data": "projectBudgetSum"
+				}, {
+					"data": "projectContractsSum"
+				}, {
+					"data": "projectContractsPayed"
+				}, {
+					"data": "projectContractsNotPayed"
+				}, {
+					"data": "projectBudgetLeft"
+				}, {
+					"data": "budgetId", //json
+					"render": function(data, type, row, callback) {
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						detailUrl = "'budget_detail.html?budgetID=" + row.budgetId + "'";
+						contractUrl = "'contract.html?projectSerial=" + row.projectSerial + "'";
+						tempUrl = "'" + 'http://127.0.0.1:8020/JSGC-Pages/budget_detail.html?budgetID=' + row.budgetID + "'";
+						//						return('<button type="button" class="btn btn-outline btn-warning btn-sm"  onclick="window.open('+tempUrl+')">查看详情</button>' );
+						return('<button type="button" class="btn  btn-info btn-sm" onclick="window.open(' + detailUrl + ')">查看信息</button>&nbsp;');
+					}
+				}]
 			}).api();
 
 			//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
@@ -569,7 +539,7 @@
 				url: getBudgetDetailUrl,
 				cache: false, //禁用缓存
 				contentType: "application/json",
-				data: JSON.stringify(param), //传入组装的参数
+						data: JSON.stringify(param), //传入组装的参数
 				dataType: "json",
 				async: false,
 				//					Content-Type: "application/json",
@@ -657,6 +627,6 @@
 		$('#usernameLable').text(localStorage.getItem("username"));
 		$(document).ready(function() {
 			getNotice();
-			$.fn.dataTable.ext.errMode = 'none';
+			$.fn.dataTable.ext.errMode = 'none'; 
 		})
 	</script>

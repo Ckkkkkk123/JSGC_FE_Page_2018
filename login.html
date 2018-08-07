@@ -30,6 +30,7 @@
 							<label for="exampleInputPassword1">密码</label>
 							<input class="form-control" id="password" type="password" placeholder="Password">
 						</div>
+						<center><span id="loginMsg" style="color: red;">&nbsp;</span></center>
 						<div class="form-group">
 							<div class="form-check">
 								<label class="form-check-label">
@@ -78,12 +79,16 @@
 						},
 					success: function(data) {
 						console.log(status)
+						if(data["loginMsg"]!=null){
+							$('#loginMsg').text(data["loginMsg"]);
+						}
 						if(data["Token"] != null){
 //							console.log(data["username"]);
 							localStorage.setItem("Token",data["Token"]);
 							localStorage.setItem("username", data["username"]);
 							localStorage.setItem("userID",data["userID"])
-							alert("登陆成功");
+							localStorage.setItem("level",data["level"])
+//							alert("登陆成功");
 							if (type == 1){
 								window.opener=null;
 								window.open('','_self');
@@ -92,8 +97,6 @@
 								window.location.href="index.html";
 							}
 							
-						}else{
-							alter("用户名或密码错误");
 						}
 					},
 					error: function(result, status) {
@@ -103,7 +106,10 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.location.href='login.html';
-						}
+						},
+						405: function() {
+								alert("您无权进行此操作");
+							}
 					}
 
 				});
