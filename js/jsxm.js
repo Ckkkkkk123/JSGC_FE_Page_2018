@@ -2,6 +2,7 @@ function resetInput() {
 	$("#chooseCard input").val("");
 	$("#chooseCard select").val("");
 	$('#chooseCard .chosen-select').val("")
+	$('#financePaid').val(2)
 	$('#chooseCard .chosen-select').trigger("chosen:updated");
 }
 

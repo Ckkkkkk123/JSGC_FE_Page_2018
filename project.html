@@ -1028,7 +1028,9 @@
 			$(document).ready(function() {
 				var qs = getQueryString();
 				var projectSerialUrl = qs["projectSerial"];
+				var projectNameUrl = qs["projectName"];
 				$('#projectSerial').val(projectSerialUrl);
+				$('#projectName').val(projectNameUrl);
 				reRenderTable();
 
 			})
