@@ -104,7 +104,10 @@
 						401: function() {
 							alert("登录状态错误，请重新登录后再尝试");
 							window.location.href='login.html';
-						}
+						},
+						405: function() {
+								alert("您无权进行此操作");
+							}
 					}
 
 				});

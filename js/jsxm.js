@@ -21,6 +21,7 @@ var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
 
+
 var getContractListUrl = testUrl + "/getContractList";
 var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
@@ -28,17 +29,24 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 
 var getDocListUrl = testUrl + "/getDocList";
+
+var getBudgetListUrl = testUrl + "/getBudgetList";
+var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
+
+
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
-
-var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 
 var getFinanceListUrl = testUrl + "/getFinanceList";
 var getFinanceUpdateUrl = baseUrl + "/getFinanceUpdate";
 var getFinanceDetailUrl = baseUrl + "/getFinanceDetail";
 var deleteFinanceUrl = baseUrl + "/deleteFinance";
-var deleteAssetUrl = testUrl + "/deleteAsset";
+var addFinanceDetailUrl = baseUrl + "/addFinance";
 var updateFinanceDetailUrl = baseUrl + "/updateFinance";
+
+var getBudgetListUrl = baseUrl + "/getBudgetList";
+var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
+
 var loginUrl = baseUrl + "/login";
 var logoutUrl = testUrl + '/logout';
 var getUserListUrl = testUrl + "/getUserList";
@@ -47,6 +55,7 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
+<<<<<<< HEAD
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 var getBudgetListUrl=baseUrl+"/getBudgetList";
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
@@ -54,6 +63,20 @@ var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
 var getContractUseMoneyUrl=testUrl+"/getContractUseMoney";
+=======
+var getVersionListUrl = testUrl +'/getVersionList';
+var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
+
+
+var getBudgetDetailUrl = testUrl + "/getBudgetDetail";
+
+var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
+
+var getNoticeUrl = testUrl + "/getNotification";
+
+var updatePermissionUrl = baseUrl + "/updatePermission";
+var getPermissionDetailUrl = baseUrl + "/getPermissionList";
+>>>>>>> ae75686f4d419aa7fecf81edb469b2e4d3edda05
 function getDepartmentOption() {
 	var param = {};
 	param.baseDataType = "Department";
@@ -358,3 +381,18 @@ function timestampToDate(timestamp) {
 
 	return Y + M + D;
 }
+
+function cutString(String, number){
+	
+	var s = String;//要展示的字符串
+	if(String.length>number){
+	s=String.substring(0,number)+"...";
+	}
+	return(s);
+}
+
+
+function IsInArray(arr,val){
+　　var testStr=','+arr.join(",")+",";
+　　return testStr.indexOf(","+val+",")!=-1;
+} 
