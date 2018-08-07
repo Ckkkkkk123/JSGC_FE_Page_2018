@@ -55,15 +55,11 @@ var updateUserUrl = testUrl + "/updateUser";
 var updateUserInfoUrl = baseUrl + "/updateUserInfo";
 var addUserUrl = testUrl + "/addUser";
 var deleteUserUrl = testUrl + "/deleteUser";
-<<<<<<< HEAD
+
 var addFinanceDetailUrl = baseUrl + "/addFinance";
 var getBudgetListUrl=baseUrl+"/getBudgetList";
 var getBudgetDetailUrl = baseUrl + "/getBudgetDetail";
-var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
-var getNoticeUrl = testUrl + "/getNotification";
-var getContractUseMoneyUrl=testUrl+"/getContractUseMoney";
-=======
 var getVersionListUrl = testUrl +'/getVersionList';
 var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
 
@@ -74,9 +70,15 @@ var getContractUseMoneyUrl = baseUrl + '/getContractUseMoney';
 
 var getNoticeUrl = testUrl + "/getNotification";
 
+var getVersionListUrl = testUrl +'/getVersionList';
+var getBaseDataByVersionUrl = testUrl +'/getBaseDataByVersion';
+
+var getBudgetDetailUrl = testUrl + "/getBudgetDetail";
+
 var updatePermissionUrl = baseUrl + "/updatePermission";
 var getPermissionDetailUrl = baseUrl + "/getPermissionList";
->>>>>>> ae75686f4d419aa7fecf81edb469b2e4d3edda05
+
+
 function getDepartmentOption() {
 	var param = {};
 	param.baseDataType = "Department";
