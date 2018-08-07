@@ -828,8 +828,9 @@
 			param.contractContent = $('#contractContentEdit').val();
 			param.contractComment = $('#contractCommentEdit').val();
 			param.projectSerial = $('#projectSerialEdit').val();
-var date = $('#contractSignedTimeAdd').val();
-			var money = $('#contractMoneyAdd').val();
+var date = $('#contractSignedTimeEdit').val();
+			var money = $('#contractMoneyEdit').val();
+			var build = $('#buildContentEdit').val();
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -837,6 +838,9 @@ var date = $('#contractSignedTimeAdd').val();
 			
 			if(money<0){
 				alert('请输入正数合同金额');
+			}else{
+				if(build == ''){
+				alert('请选择建设内容');
 			}else{
 			
 			$.ajax({
@@ -878,7 +882,7 @@ var date = $('#contractSignedTimeAdd').val();
 					}
 				}
 
-			});}}
+			});}}}
 		}
 
 		function logout() {
@@ -920,6 +924,7 @@ var date = $('#contractSignedTimeAdd').val();
 			param.projectSerial = $('#projectSerialAdd').val();
 			var date = $('#contractSignedTimeAdd').val();
 			var money = $('#contractMoneyAdd').val();
+			var build = $('#buildContentAdd').val();
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -929,10 +934,9 @@ var date = $('#contractSignedTimeAdd').val();
 				alert('请输入正数合同金额');
 			}else{
 
-			//				alert(JSON.stringify(param))
-			//						console.log(param);
-			console.log(JSON.stringify(param));
-			//			
+			if(build == ''){
+				alert('请选择建设内容');
+			}else{		
 			$.ajax({
 				type: "post",
 				url: addContractDetailUrl,
@@ -972,7 +976,7 @@ var date = $('#contractSignedTimeAdd').val();
 					}
 				}
 
-			});}}
+			});}}}
 		}
 
 		function deleteContractId(contractId) {

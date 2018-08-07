@@ -852,6 +852,7 @@
 						<div class="input-group">
 							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
 							<select class="form-control" name="checkStatus" id="paidAdd">
+								<option value=""></option>
 								<option value="0">是</option>
 								<option value="1">否</option>
 							</select>
@@ -1225,10 +1226,40 @@
 				param.financeOrgID = $('#orgWayUpdt').val();
 				param.financeTypeID = $('#purchaseTypeUpdt').val();
 				param.financeStatus = $('#paidUpdt').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
-				console.log(JSON.stringify(param));
-				//			
+				var serial = $('#financeSerialsUpdt').val();
+				var date = $('#dateUpdt').val();
+				var lend = $('#lendTypeUpdt').val();
+				var borrow = $('#borrowTypeUpdt').val();
+				var pay1 = $('#payWayUpdt').val();
+				var pay2= $('#purchaseWayUpdt').val();
+				var org =  $('#orgWayUpdt').val();
+				var type = $('#purchaseTypeUpdt').val();
+				
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+					
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+				if(lend == ''){
+						alert('请选择借方科目')
+				}else{	
+					if(borrow == ''){
+						alert('请选择贷方科目')
+				}else{	
+					if(pay1 == ''){
+						alert('请选择付款方式')
+				}else{	
+					if(pay2 == ''){
+						alert('请选择采购方式')
+				}else{	
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+						}else{
 				$.ajax({
 					type: "post",
 					url: updateFinanceDetailUrl,
@@ -1268,7 +1299,7 @@
 						}
 					}
 
-				});
+				});}}}}}}}}
 			}
 
 			function addFinance() {
@@ -1287,10 +1318,39 @@
 				param.financeBuyOrgId = $('#orgWayAdd').val();
 				param.financeTypeId = $('#purchaseTypeAdd').val();
 				param.financeStatus = $('#paidAdd').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
-				console.log(JSON.stringify(param));
-				//			
+				var serial = $('#financeSerialsAdd').val();
+				var date = $('#dateAdd').val();
+				var lend = $('#lendTypeAdd').val();
+				var borrow = $('#borrowTypeAdd').val();
+				var pay1 = $('#payWayAdd').val();
+				var pay2= $('#purchaseWayAdd').val();
+				var org = $('#orgWayAdd').val();
+				var type = $('#purchaseTypeAdd').val();
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+					if(lend == ''){
+						alert('请选择借方科目')
+					}else{
+					if(borrow == ''){
+						alert('请选择贷方科目')
+					}else{
+					if(pay1 == ''){
+						alert('请选择付款方式')
+					}else{
+					if(pay2 == ''){
+						alert('请选择采购方式')
+					}else{
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+					}else{
+					
 				$.ajax({
 					type: "post",
 					url: addFinanceDetailUrl,
@@ -1327,7 +1387,7 @@
 						}
 					}
 
-				});
+				});}}}}}}}}
 			}
 
 			function logout() {
