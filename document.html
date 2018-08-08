@@ -786,8 +786,7 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-
-						$('#documentIdEdit').val(result.documentID);
+						$('#documentIdEdit').val(result.documentId);
 						$('#documentSerialEdit').val(result.documentSerial);
 						$('#documentNameEdit').val(result.documentName);
 						$('#projectSerialEdit').val(result.projectSerial);
@@ -839,7 +838,6 @@
 					success: function(result) {
 
 						if(result == 1) {
-
 							$('#closeModel').click();
 							$('#successModal').modal('show');
 							reRenderTable();
@@ -848,7 +846,6 @@
 							alert('文档编号重复');
 						} else if(result == 100) {
 							alert('项目编号不存在');
-
 						} else if(result == 88) {
 							alert('该项目下没有此合同');
 						}
