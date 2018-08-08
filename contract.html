@@ -129,9 +129,9 @@
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">项目管理</a>
+						<a href="#">合同管理</a>
 					</li>
-					<li class="breadcrumb-item active">项目总览</li>
+					<li class="breadcrumb-item active">合同总览</li>
 				</ol>
 				<!-- Example DataTables Card-->
 				<div class="card mb-1" id="chooseCard">
@@ -216,9 +216,9 @@
 					<div class="card-header ">
 						<i class="fa fa-table"></i> 合同列表
 						<div class="3button" style="position: relative;display: none;">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
-							<button type="button" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
-							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#addContract">添加信息</button>
+							<button type="button" class="hehe btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+							<button type="button" id="batchOkButton" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="hehe btn btn-outline btn-warning " data-toggle="modal" on data-target="#addContract">添加信息</button>
 
 						</div>
 					</div>
@@ -326,13 +326,12 @@
 								<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeEdit"></input>
 								</div>
 							</div>
-							<div class="clearfix"><br /></div>
+							<!--<div class="clearfix"><br /></div>
 							<div class="row">
-								<div class="col-md-2">合同额:</div>
-								<!--<div class="col-1"></div>-->
+								<div class="col-md-2">合同额:</div>						
 								<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyEdit"></input>
 								</div>
-							</div>
+							</div>-->
 							<div class="clearfix"><br /></div>
 							<div class="row">
 								<div class="col-md-2">所属项目编号:</div>
@@ -466,13 +465,12 @@
 								<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeAdd"></input>
 								</div>
 							</div>
-							<div class="clearfix"><br /></div>
+							<!--<div class="clearfix"><br /></div>
 							<div class="row">
-								<div class="col-md-2">合同额:</div>
-								<!--<div class="col-1"></div>-->
+								<div class="col-md-2">合同额:</div>								
 								<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyAdd"></input>
 								</div>
-							</div>
+							</div>-->
 							<div class="clearfix"><br /></div>
 							<div class="row">
 								<div class="col-md-2">所属项目编号:</div>
@@ -597,6 +595,8 @@
 					$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
 					break;
 				case '3':
+					$('.3button').show();
+					$('.hehe').hide();
 					$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
 					break;
 				case '4':						
@@ -881,7 +881,7 @@ var date = $('#contractSignedTimeAdd').val();
 					} else if(result == 99) {
 						alert('合同编号重复');
 					} else if(result == 100) {
-						alert('项目编号不存在');
+						alert('所辖项目编号不存在');
 					} else if(result==77){
 							alert('合同编号不能为空');
 						}
@@ -975,7 +975,7 @@ var date = $('#contractSignedTimeAdd').val();
 					} else if(result == 99) {
 						alert('合同编号重复');
 					} else if(result == 100) {
-						alert('项目编号不存在');
+						alert('所辖项目编号不存在');
 					}  else if(result==77){
 							alert('合同编号不能为空');
 						}
@@ -1186,8 +1186,10 @@ var date = $('#contractSignedTimeAdd').val();
 						'Excel内部编号冲突行号:' + data.response.rowNumsRepeatInner + '\n' +
 						'与数据库编号冲突行号:' + data.response.rowNumsRepeatDB + '\n' +
 						'所属关系不对行号:' + data.response.rowNumsOutJoinNotExist);
-
+						
+					reRenderTable();	
 				});
+				
 			}
 			return oFile;
 		};
@@ -1230,6 +1232,8 @@ var date = $('#contractSignedTimeAdd').val();
 				param.projectSerial = $('#projectSerial').val();
 			if($('#projectName').val() != "")
 				param.projectName = $('#projectName').val();
+			if($('#buildContent').val() != "")
+				param.buildContentId = $('#buildContent').val();
 			if($('#allFinancePayed :selected').val() != "")
 				param.allFinancePayed = $('#allFinancePayed :selected').val();
 			//伪表单提交
