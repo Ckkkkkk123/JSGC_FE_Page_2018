@@ -1267,6 +1267,7 @@
 				param.financeTypeID = $('#purchaseTypeUpdt').val();
 				param.financeStatus = $('#paidUpdt').val();
 				var serial = $('#financeSerialsUpdt').val();
+				var money = $('#financeMoneyUpdt').val();
 				var date = $('#dateUpdt').val();
 				var lend = $('#lendTypeUpdt').val();
 				var borrow = $('#borrowTypeUpdt').val();
@@ -1278,7 +1279,9 @@
 				if(serial = ''){
 					alert('财务凭证号不能为空')
 				}else{
-					
+					if(money <0){
+						alert('金额不能为负')
+					}else{
 				if(date == ''){
 					alert('请输入日期');
 				}else{
@@ -1339,7 +1342,7 @@
 						}
 					}
 
-				});}}}}}}}}
+				});}}}}}}}}}
 			}
 
 			function addFinance() {
@@ -1358,6 +1361,7 @@
 				param.financeBuyOrgId = $('#orgWayAdd').val();
 				param.financeTypeId = $('#purchaseTypeAdd').val();
 				param.financeStatus = $('#paidAdd').val();
+				var money = $('#financeMoneyAdd').val();
 				var serial = $('#financeSerialsAdd').val();
 				var date = $('#dateAdd').val();
 				var lend = $('#lendTypeAdd').val();
@@ -1369,6 +1373,9 @@
 				if(serial = ''){
 					alert('财务凭证号不能为空')
 				}else{
+					if(money<0){
+						alert('金额不能为负')
+					}else{
 				if(date == ''){
 					alert('请输入日期');
 				}else{
@@ -1427,7 +1434,7 @@
 						}
 					}
 
-				});}}}}}}}}
+				});}}}}}}}}}
 			}
 
 			function logout() {
