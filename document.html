@@ -179,15 +179,6 @@
 								</div>
 							</div>
 							<div class="col-md-1"></div>
-							<!--<div class="col-md-3 ">
-								<div class="input-group">
-									<span class="input-group-addon ">文档类型 &nbsp;</span>
-									<select class="form-control" name="checkStatus" id="documentType">
-										<option value="0">某种</option>
-										<option value="1">合同</option>
-									</select>
-								</div>
-							</div>-->
 
 						</div>
 						<br />
@@ -263,647 +254,447 @@
 							</table>
 						</div>
 					</div>
-					</div>
-						<!--添加档案-->
-						<div class="modal fade bs-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							<div class="modal-dialog modal-lg" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title" id="myModalLabel">输入档案基本信息并添加附件</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				</div>
+				<!--添加档案-->
+				<div class="modal fade bs-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">输入档案基本信息并添加附件</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
              				 <span aria-hidden="true">×</span>
             			</button>
-									</div>
-									<div class="modal-body">
-										<div class="container" style="width: 90%;">
-											<form action="http://localhost:8080/uploadDocument" onsubmit="window.opener=null;" target="_blank" method="post" enctype="multipart/form-data">
-												<div class="clearfix"><br /></div>
-												<div class="row">
-													<div class="col-md-2">文档编号:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7"><input name="documentSerialAdd" type="text" class="form-control" id="documentSerialAdd"></input>
-													</div>
-												</div>
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">文档名:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7">
-														<span id="em"></span>
-													</div>
-												</div>
-
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">所属项目:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7">
-														<input name="projectSerialAdd" type="text" class="form-control" id="projectSerialAdd"></input>
-
-													</div>
-												</div>
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">所属合同:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7">
-														<input name="contractSerialAdd" type="text" class="form-control" id="contractSerialAdd"></input>
-
-													</div>
-												</div>
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">归档人:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7"><input name="documentOwnerAdd" type="text" class="form-control" id="documentOwnerAdd"></input>
-													</div>
-												</div>
-
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">归档日期:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-7">
-														<input name="documentUploadTimeAdd" type="date" class="form-control" id="documentUploadTimeAdd"></input>
-
-													</div>
-												</div>
-												<div class="clearfix"><br /></div>
-
-												<div class="row">
-													<div class="col-md-2">备注:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-10">
-														<textarea name="documentCommentAdd" class="form-control" rows="5" cols="50" id="documentCommentAdd"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-2">档案附件:</div>
-													<!--<div class="col-1"></div>-->
-													<div class="col-md-10">
-														<input name="documentFileAdd" type="file" id="documentFileAdd" />
-														<script>
-															var file = $('#documentFileAdd'),
-																aim = $('#em');
-															file.on('change', function(e) {
-																//e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
-																var name = e.currentTarget.files[0].name;
-																aim.text(name);
-															});
-														</script>
-													</div>
-												</div>
-												<div class="clearfix"><br /></div>
-
+							</div>
+							<div class="modal-body">
+								<div class="container" style="width: 90%;">
+									<form action="http://localhost:8080/uploadDocument" onsubmit="window.opener=null;" target="_blank" method="post" enctype="multipart/form-data">
+										<div class="clearfix"><br /></div>
+										<div class="row">
+											<div class="col-md-2">文档编号:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7"><input name="documentSerialAdd" type="text" class="form-control" id="documentSerialAdd"></input>
+											</div>
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
-											<button type="submit" class="btn btn-primary">提交</button>
+										<div class="clearfix"><br /></div>
 
+										<div class="row">
+											<div class="col-md-2">文档名:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7">
+												<span id="em"></span>
+											</div>
 										</div>
-										</form>
-									</div>
+
+										<div class="clearfix"><br /></div>
+
+										<div class="row">
+											<div class="col-md-2">所属项目:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7">
+												<input name="projectSerialAdd" type="text" class="form-control" id="projectSerialAdd"></input>
+
+											</div>
+										</div>
+										<div class="clearfix"><br /></div>
+
+										<div class="row">
+											<div class="col-md-2">所属合同:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7">
+												<input name="contractSerialAdd" type="text" class="form-control" id="contractSerialAdd"></input>
+
+											</div>
+										</div>
+										<div class="clearfix"><br /></div>
+
+										<div class="row">
+											<div class="col-md-2">归档人:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7"><input name="documentOwnerAdd" type="text" class="form-control" id="documentOwnerAdd"></input>
+											</div>
+										</div>
+
+										<div class="clearfix"><br /></div>
+
+										<div class="row">
+											<div class="col-md-2">归档日期:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-7">
+												<input name="documentUploadTimeAdd" type="date" class="form-control" id="documentUploadTimeAdd"></input>
+
+											</div>
+										</div>
+										<div class="clearfix"><br /></div>
+
+										<div class="row">
+											<div class="col-md-2">备注:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-10">
+												<textarea name="documentCommentAdd" class="form-control" rows="5" cols="50" id="documentCommentAdd"></textarea>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-2">档案附件:</div>
+											<!--<div class="col-1"></div>-->
+											<div class="col-md-10">
+												<input name="documentFileAdd" type="file" id="documentFileAdd" />
+												<script>
+													var file = $('#documentFileAdd'),
+														aim = $('#em');
+													file.on('change', function(e) {
+														//e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
+														var name = e.currentTarget.files[0].name;
+														aim.text(name);
+													});
+												</script>
+											</div>
+										</div>
+										<div class="clearfix"><br /></div>
+
 								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+									<button type="submit" class="btn btn-primary">提交</button>
+
+								</div>
+								</form>
 							</div>
 						</div>
+					</div>
+				</div>
+				<!--更新成功-->
+				<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">修改成功</h4>
 
-						<!--更新成功-->
-						<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title">修改成功</h4> ======= >>>>>>> ae75686f4d419aa7fecf81edb469b2e4d3edda05
+							</div>
+							<!--<div class="modal-body"></div>-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
-									</div>
-									<!--更新成功-->
-									<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title">修改成功</h4>
-
-												</div>
-												<!--<div class="modal-body"></div>-->
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-
-												</div>
-											</div>
-											<!-- /.modal-content -->
-										</div>
-										<!-- /.modal -->
-									</div>
-									<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-										<div class="modal-dialog modal-lg" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">修改信息</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal -->
+				</div>
+				<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">修改信息</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                  				 <span aria-hidden="true">×</span>
                 			</button>
-												</div>
-												<div class="modal-body">
-													<div class="container" style="width: 90%;">
-														<div class="clearfix"><br /></div>
-														<div class="row" style="display: none;">
-															<div class="col-md-2">文档id:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7"><input type="text" class="form-control" id="documentIdEdit"></input>
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
+							</div>
+							<div class="modal-body">
+								<div class="container" style="width: 90%;">
+									<div class="clearfix"><br /></div>
+									<div class="row" style="display: none;">
+										<div class="col-md-2">文档id:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentIdEdit"></input>
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
 
-														<div class="row">
-															<div class="col-md-2">文档编号:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7"><input type="text" class="form-control" id="documentSerialEdit"></input>
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
+									<div class="row">
+										<div class="col-md-2">文档编号:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentSerialEdit"></input>
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
 
-														<div class="row">
-															<div class="col-md-2">文档名:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7"><input type="text" class="form-control" id="documentNameEdit"></input>
-															</div>
-														</div>
-
-														<div class="clearfix"><br /></div>
-
-														<div class="row">
-															<div class="col-md-2">所属项目:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7">
-																<input type="text" class="form-control" id="projectSerialEdit"></input>
-
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
-
-														<div class="row">
-															<div class="col-md-2">所属合同:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7">
-																<input type="text" class="form-control" id="contractSerialEdit"></input>
-
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
-
-														<div class="row">
-															<div class="col-md-2">归档人:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7"><input type="text" class="form-control" id="documentOwnerEdit"></input>
-															</div>
-														</div>
-
-														<div class="clearfix"><br /></div>
-
-														<div class="row">
-															<div class="col-md-2">归档日期:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-7">
-																<input type="date" class="form-control" id="documentUploadTimeEdit"></input>
-
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
-
-														<div class="row">
-															<div class="col-md-2">备注:</div>
-															<!--<div class="col-1"></div>-->
-															<div class="col-md-10">
-																<textarea class="form-control" rows="5" id="documentCommentEdit">
-										</textarea>
-
-															</div>
-														</div>
-														<div class="clearfix"><br /></div>
-
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
-														<button type="button" class="btn btn-primary" onclick="updateDocument()">提交</button>
-
-													</div>
-												</div>
-											</div>
+									<div class="row">
+										<div class="col-md-2">文档名:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentNameEdit"></input>
 										</div>
 									</div>
 
-									<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-								</div>
+									<div class="clearfix"><br /></div>
 
+									<div class="row">
+										<div class="col-md-2">所属项目:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="text" class="form-control" id="projectSerialEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">所属合同:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="text" class="form-control" id="contractSerialEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">归档人:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7"><input type="text" class="form-control" id="documentOwnerEdit"></input>
+										</div>
+									</div>
+
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">归档日期:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-7">
+											<input type="date" class="form-control" id="documentUploadTimeEdit"></input>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+									<div class="row">
+										<div class="col-md-2">备注:</div>
+										<!--<div class="col-1"></div>-->
+										<div class="col-md-10">
+											<textarea class="form-control" rows="5" id="documentCommentEdit">
+										</textarea>
+
+										</div>
+									</div>
+									<div class="clearfix"><br /></div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+									<button type="button" class="btn btn-primary" onclick="updateDocument()">提交</button>
+
+								</div>
 							</div>
 						</div>
-						<!-- /.container-fluid-->
-						<!-- /.content-wrapper-->
-						<footer class="sticky-footer">
-							<div class="container">
-								<div class="text-center">
-									<small>Copyright © Your Website 2018</small>
-								</div>
-							</div>
-						</footer>
-						<!-- Scroll to Top Button-->
-						<a class="scroll-to-top rounded" href="#page-top">
-							<i class="fa fa-angle-up"></i>
-						</a>
-						<!-- Logout Modal-->
-						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-										<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					</div>
+				</div>
+
+				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+			</div>
+
+		</div>
+		</div>
+		<!-- /.container-fluid-->
+		<!-- /.content-wrapper-->
+		<footer class="sticky-footer">
+			<div class="container">
+				<div class="text-center">
+					<small>Copyright © Your Website 2018</small>
+				</div>
+			</div>
+		</footer>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fa fa-angle-up"></i>
+		</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
-									</div>
-									<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-									<div class="modal-footer">
-										<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-										<a class="btn btn-primary" href="login.html">Logout</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Bootstrap core JavaScript-->
+					</div>
+					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Bootstrap core JavaScript-->
 
-						<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-						<!-- Core plugin JavaScript-->
-						<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-						<!-- Page level plugin JavaScript-->
-						<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
-						<script src="vendor/datatables/jquery.dataTables.js"></script>
-						<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-						<!-- Custom scripts for all pages-->
-						<script src="js/sb-admin.min.js"></script>
-						<!-- Custom scripts for this page-->
-						<script src="js/sb-admin-datatables.min.js"></script>
-						<!--<script src="js/sb-admin-charts.min.js"></script>-->
-						<script type="text/javascript">
-							$(function() {
-								var userLevel = localStorage.getItem('level');
-								switch(userLevel) {
-									case '1':
-										$('.3button').show();
-										$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
-										break;
-									case '2':
-										$('.3button').show();
-										$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
-										break;
-									case '3':
-										$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
-										break;
-									case '4':
-										$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
-										break;
-									default:
-										alert('不存在角色');
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Page level plugin JavaScript-->
+		<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
+		<script src="vendor/datatables/jquery.dataTables.js"></script>
+		<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+		<!-- Custom scripts for all pages-->
+		<script src="js/sb-admin.min.js"></script>
+		<!-- Custom scripts for this page-->
+		<script src="js/sb-admin-datatables.min.js"></script>
+		<!--<script src="js/sb-admin-charts.min.js"></script>-->
+		<script type="text/javascript">
+			$(function() {
+				var userLevel = localStorage.getItem('level');
+				switch(userLevel) {
+					case '1':
+						$('.3button').show();
+						$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+						break;
+					case '2':
+						$('.3button').show();
+						$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+						break;
+					case '3':
+						$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+						break;
+					case '4':
+						$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+						break;
+					default:
+						alert('不存在角色');
+				}
+				//提示信息
+				var lang = {
+					"sProcessing": "处理中...",
+					"sLengthMenu": "每页 _MENU_ 项",
+					"sZeroRecords": "没有匹配结果",
+					"sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+					"sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+					"sInfoPostFix": "",
+					"sSearch": "搜索:",
+					"sUrl": "",
+					"sEmptyTable": "表中数据为空",
+					"sLoadingRecords": "载入中...",
+					"sInfoThousands": ",",
+					"oPaginate": {
+						"sFirst": "首页",
+						"sPrevious": "上页",
+						"sNext": "下页",
+						"sLast": "末页",
+						"sJump": "跳转"
+					},
+					"oAria": {
+						"sSortAscending": ": 以升序排列此列",
+						"sSortDescending": ": 以降序排列此列"
+					}
+				};
+
+				//初始化表格
+				var table = $("#documentTable").dataTable({
+					language: lang, //提示信息
+					autoWidth: false, //禁用自动调整列宽
+					stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
+					processing: true, //隐藏加载提示,自行处理
+					serverSide: true, //启用服务器端分页
+					searching: false, //禁用原生搜索
+					orderMulti: false, //启用多列排序
+					order: [], //取消默认排序查询,否则复选框一列会出现小箭头
+					renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
+					pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+					columnDefs: [{
+						"targets": 'nosort', //列的样式名
+						"orderable": false //包含上样式名‘nosort'的禁止排序
+					}],
+					ajax: function(data, callback, settings) {
+						//封装请求参数
+						var param = {};
+						//						console.log(data)
+						param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
+						param.start = data.start; //开始的记录序号
+						param.page = (data.start / data.length) + 1; //当前页码
+						param.order = data.order;
+						param.documentSerial = $('#documentSerial').val();
+						param.documentName = $('#documentName').val();
+						param.documentType = $('#documentType').val();
+						param.documentOwner = $('#documentOwner').val();
+						param.docUploadTimeRange = $('#docUploadTimeRange').val();
+						//						param.projectBudgetUp = $('#projectBudgetUp').val();
+
+						//						console.log(param);
+						//ajax请求数T
+						$.ajax({
+							type: "post",
+							url: getDocListUrl,
+							cache: false, //禁用缓存
+							contentType: "application/json",
+							data: JSON.stringify(param), //传入组装的参数
+							dataType: "json",
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
+							success: function(result) {
+								//console.log(result);
+								//封装返回数据
+								var returnData = {};
+								returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
+								returnData.recordsTotal = result.total; //返回数据全部记录
+								returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+								returnData.data = result.data; //返回的数据列表
+								//console.log(returnData);
+								//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+								callback(returnData);
+								//前端接口不可见性
+								if(localStorage.getItem('level') == 3 || localStorage.getItem('level') == 4) {
+									$('.editMessage').hide();
 								}
-								//提示信息
-								var lang = {
-									"sProcessing": "处理中...",
-									"sLengthMenu": "每页 _MENU_ 项",
-									"sZeroRecords": "没有匹配结果",
-									"sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
-									"sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
-									"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-									"sInfoPostFix": "",
-									"sSearch": "搜索:",
-									"sUrl": "",
-									"sEmptyTable": "表中数据为空",
-									"sLoadingRecords": "载入中...",
-									"sInfoThousands": ",",
-									"oPaginate": {
-										"sFirst": "首页",
-										"sPrevious": "上页",
-										"sNext": "下页",
-										"sLast": "末页",
-										"sJump": "跳转"
-									},
-									"oAria": {
-										"sSortAscending": ": 以升序排列此列",
-										"sSortDescending": ": 以降序排列此列"
-									}
-								};
 
-								//初始化表格
-								var table = $("#documentTable").dataTable({
-									language: lang, //提示信息
-									autoWidth: false, //禁用自动调整列宽
-									stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
-									processing: true, //隐藏加载提示,自行处理
-									serverSide: true, //启用服务器端分页
-									searching: false, //禁用原生搜索
-									orderMulti: false, //启用多列排序
-									order: [], //取消默认排序查询,否则复选框一列会出现小箭头
-									renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
-									pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
-									columnDefs: [{
-										"targets": 'nosort', //列的样式名
-										"orderable": false //包含上样式名‘nosort'的禁止排序
-									}],
-									ajax: function(data, callback, settings) {
-										//封装请求参数
-										var param = {};
-										//						console.log(data)
-										param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
-										param.start = data.start; //开始的记录序号
-										param.page = (data.start / data.length) + 1; //当前页码
-										param.order = data.order;
-										param.documentSerial = $('#documentSerial').val();
-										param.documentName = $('#documentName').val();
-										param.documentType = $('#documentType').val();
-										param.documentOwner = $('#documentOwner').val();
-										param.docUploadTimeRange = $('#docUploadTimeRange').val();
-										//						param.projectBudgetUp = $('#projectBudgetUp').val();
-
-										//						console.log(param);
-										//ajax请求数T
-										$.ajax({
-											type: "post",
-											url: getDocListUrl,
-											cache: false, //禁用缓存
-											contentType: "application/json",
-											data: JSON.stringify(param), //传入组装的参数
-											dataType: "json",
-											beforeSend: function(xhr) {
-												xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-											},
-											success: function(result) {
-												//console.log(result);
-												//封装返回数据
-												var returnData = {};
-												returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
-												returnData.recordsTotal = result.total; //返回数据全部记录
-												returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
-												returnData.data = result.data; //返回的数据列表
-												//console.log(returnData);
-												//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-												//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-												callback(returnData);
-												//前端接口不可见性
-												if(localStorage.getItem('level') == 3 || localStorage.getItem('level') == 4) {
-													$('.editMessage').hide();
-												}
-
-											},
-											error: function(result, status) {
-												console.log(result)
-											},
-											statusCode: {
-												401: function() {
-													alert("登录状态错误，请重新登录后再尝试");
-													window.open('login.html?type=1');
-												},
-												405: function() {
-													alert("您无权进行此操作");
-												}
-											}
-
-										});
-									},
-									//列表表头字段
-
-									columns: [{
-											"data": "documentSerial"
-										}, {
-											"data": "documentName"
-										}, {
-											"data": "projectName",
-											"render": function(data, type, row, meta) {
-												return('<a href="project.html?projectSerial=' + row.projectSerial + '"> ' + data + '</a>')
-											}
-										}, {
-											"data": "contractName",
-											"render": function(data, type, row, meta) {
-												if(data != 'null' && data != null) {
-													return('<a href="contract.html?contractSerial=' + row.contractSerial + '"> ' + data + '</a>')
-
-												} else {
-													return('无')
-												}
-
-											}
-										},
-
-										{
-											"data": "documentOwner"
-										}, {
-											"data": "documentUploadTime",
-											"render": function(data, type, full, callback) {
-												return(timestampToDate(data));
-											}
-										}, {
-											"data": "documentComment",
-											"render": function(data, type, full, callback) {
-												return(cutString(data, 20));
-											}
-										}, {
-											"data": "documentId", //json
-											"render": function(data) {
-												//data 就是上面传入的参数，projectID
-												//拼接字符串（懒得处理引号转义）
-												return('<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="getDocumentUpdate(' + data + ')"">编辑</button>&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm downloadMessage" onclick="window.open(' + data + ')">下载</button>');
-											}
-										}
-									]
-								}).api();
-								//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
-							});
-
-							function logout() {
-
-								$.ajax({
-									type: "post",
-									url: logoutUrl,
-									cache: false, //禁用缓存
-									data: "", //传入组装的参数
-									dataType: "json",
-									async: false,
-									beforeSend: function(xhr) {
-										xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-									},
-									success: function(result) {
-										//								alert("登录状态错误，请重新登录");
-										//							
-										window.open('login.html');
-									},
-									error: function(result, status) {
-										console.log(result)
-										window.location.href = 'login.html';
-									}
-								});
+							},
+							error: function(result, status) {
+								console.log(result)
+							},
+							statusCode: {
+								401: function() {
+									alert("登录状态错误，请重新登录后再尝试");
+									window.open('login.html?type=1');
+								},
+								405: function() {
+									alert("您无权进行此操作");
+								}
 							}
 
-							function getNotice() {
-								$.ajax({
-									type: "post",
-									url: getNoticeUrl,
-									cache: false, //禁用缓存
-									contentType: "application/json,charset=utf-8",
-									data: null, //传入组装的参数
-									dataType: "json",
-									async: false,
-									crossDomain: true,
-									scriptCharset: 'utf-8',
-									beforeSend: function(xhr) {
-										xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-									},
-									success: function(result) {
-										var NotiData = "";
-										for(i in result) {
-											console.log(i);
-											NotiData += '<div class="dropdown-divider"></div>' +
-												'<a class="dropdown-item">' +
-												'<span class="text-success">' +
-												'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
-												'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
-												'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+						});
+					},
+					//列表表头字段
 
-										}
-										console.log(NotiData);
-										$('#notice').append(NotiData);
-
-									},
-									error: function(result, status) {
-										console.log(result)
-									},
-									statusCode: {
-										401: function() {
-											alert("登录状态错误，请重新登录后再尝试");
-											window.open('login.html?type=1');
-										},
-										405: function() {
-											alert("您无权进行此操作");
-										}
-									}
-								});
+					columns: [{
+							"data": "documentSerial"
+						}, {
+							"data": "documentName"
+						}, {
+							"data": "projectName",
+							"render": function(data, type, row, meta) {
+								return('<a href="project.html?projectSerial=' + row.projectSerial + '"> ' + data + '</a>')
 							}
+						}, {
+							"data": "contractName",
+							"render": function(data, type, row, meta) {
+								if(data != 'null' && data != null) {
+									return('<a href="contract.html?contractSerial=' + row.contractSerial + '"> ' + data + '</a>')
 
-							function getDocumentUpdate(id) {
-								var param = {};
-								param.documentId = id;
+								} else {
+									return('无')
+								}
 
-								$.ajax({
-									type: "post",
-									url: getDocumentDetailUrl,
-									cache: false, //禁用缓存
-									//					contentType: "application/json",
-									data: param, //传入组装的参数
-									dataType: "json",
-									async: false,
-									beforeSend: function(xhr) {
-										xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-									},
-									success: function(result) {
-
-										$('#documentIdEdit').val(result.documentID);
-										$('#documentSerialEdit').val(result.documentSerial);
-										$('#documentNameEdit').val(result.documentName);
-										$('#projectSerialEdit').val(result.projectSerial);
-										$('#contractSerialEdit').val(result.contractSerial);
-										$('#documentOwnerEdit').val(result.documentOwner);
-										$('#documentUploadTimeEdit').val(result.documentUploadTime);
-										$('#documentCommentEdit').val(result.documentComment);
-
-									},
-									error: function(result, status) {
-										console.log(result)
-									},
-									statusCode: {
-										401: function() {
-											alert("登录状态错误，请重新登录后再尝试");
-											window.open('login.html?type=1');
-										},
-										405: function() {
-											alert("您无权进行此操作");
-										}
-									}
-								});
 							}
+						},
 
-							function updateDocument() {
-								var param = {};
-								param.documentId = $('#documentIdEdit').val();
-								param.documentSerial = $('#documentSerialEdit').val();
-								param.documentName = $('#documentNameEdit').val();
-								param.projectSerial = $('#projectSerialEdit').val();
-								param.contractSerial = $('#contractSerialEdit').val();
-								param.documentOwner = $('#documentOwnerEdit').val();
-								param.documentUploadTime = $('#documentUploadTimeEdit').val();
-								param.documentComment = $('#documentCommentEdit').val();
-
-								console.log(JSON.stringify(param));
-								//			
-								$.ajax({
-									type: "post",
-									url: updateDocumentDetailUrl,
-									cache: false, //禁用缓存
-									contentType: "application/json",
-									data: JSON.stringify(param), //传入组装的参数
-									dataType: "json",
-									async: false,
-									beforeSend: function(xhr) {
-										xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-									},
-									success: function(result) {
-
-										if(result == 1) {
-
-											$('#closeModel').click();
-											$('#successModal').modal('show');
-											reRenderTable();
-
-										} else if(result == 99) {
-											alert('文档编号重复');
-										} else if(result == 100) {
-											alert('项目编号不存在');
-
-										} else if(result == 88) {
-											alert('该项目下没有此合同');
-										}
-
-									},
-									error: function(result, status) {
-										console.log(result)
-									},
-									statusCode: {
-										401: function() {
-											alert("登录状态错误，请重新登录后再尝试");
-											window.open('login.html?type=1');
-										},
-										405: function() {
-											alert("您无权进行此操作");
-										}
-									}
-								});
+						{
+							"data": "documentOwner"
+						}, {
+							"data": "documentUploadTime",
+							"render": function(data, type, full, callback) {
+								return(timestampToDate(data));
 							}
-						</script>
-						<script>
-							$('#usernameLable').text(localStorage.getItem("username"));
-						</script>
-						<script>
-							$(document).ready(function() {
-								getNotice();
-								$.fn.dataTable.ext.errMode = 'none';
-							})
-						</script>
-						<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-						<script>
-							function reRenderTable() {
-								var table = $('#documentTable').dataTable();
-								table.fnReloadAjax();
+						}, {
+							"data": "documentComment",
+							"render": function(data, type, full, callback) {
+								return(cutString(data, 20));
 							}
-
-
+						}, {
+							"data": "documentId", //json
+							"render": function(data) {
+								//data 就是上面传入的参数，projectID
+								//拼接字符串（懒得处理引号转义）
+								return('<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="getDocumentUpdate(' + data + ')"">编辑</button>&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm downloadMessage" onclick="window.open(' + data + ')">下载</button>');
+							}
 						}
 					]
 				}).api();
@@ -995,7 +786,6 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-
 						$('#documentIdEdit').val(result.documentId);
 						$('#documentSerialEdit').val(result.documentSerial);
 						$('#documentNameEdit').val(result.documentName);
@@ -1051,6 +841,7 @@
 							$('#closeModel').click();
 							$('#successModal').modal('show');
 							reRenderTable();
+
 						} else if(result == 99) {
 							alert('文档编号重复');
 						} else if(result == 100) {
@@ -1092,7 +883,6 @@
 			}
 		</script>
 		</div>
-
 	</body>
 
 </html>
