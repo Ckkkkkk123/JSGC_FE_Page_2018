@@ -8,7 +8,7 @@ function resetInput() {
 
 var baseUrl = "http://localhost:8080";
 var testUrl = "http://localhost:8080";
-
+var pyUrl = "http://localhost:8002";
 var getProjectListUrl = baseUrl + "/getProjectList";
 var getProjectDetailUrl = testUrl + "/getProjectDetail";
 var addProjectUrl = testUrl + "/addProject";
@@ -21,14 +21,15 @@ var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
 var updateAssetDetailUrl = baseUrl + "/updateAssetDetail";
 var addAssetUrl = baseUrl + "/addAsset";
 var deleteAssetUrl = baseUrl + "/deleteAsset";
-
-
+var getTopPersonListUrl = baseUrl +'/getTopPersonList'
+var getExpSumUrl = baseUrl +'/getExpSum' 
+var getDayDataListUrl = baseUrl +'/getDayDataList'
 var getContractListUrl = testUrl + "/getContractList";
 var getContractDetailUrl = testUrl + "/getContractDetail";
 var updateContractDetailUrl = baseUrl + "/updateContractDetail";
 var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
-
+var updateNewVersionUrl = testUrl +'/updateNewVersion'
 var getDocListUrl = testUrl + "/getDocList";
 
 var getBudgetListUrl = testUrl + "/getBudgetList";
