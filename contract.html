@@ -850,9 +850,13 @@
 			param.contractContent = $('#contractContentEdit').val();
 			param.contractComment = $('#contractCommentEdit').val();
 			param.projectSerial = $('#projectSerialEdit').val();
+			var serial = $('#contractSerialEdit').val();
 var date = $('#contractSignedTimeEdit').val();
 			var money = $('#contractMoneyEdit').val();
 			var build = $('#buildContentEdit').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -904,7 +908,7 @@ var date = $('#contractSignedTimeEdit').val();
 					}
 				}
 
-			});}}}
+			});}}}}
 		}
 
 		function logout() {
@@ -944,9 +948,13 @@ var date = $('#contractSignedTimeEdit').val();
 			param.contractContent = $('#contractContentAdd').val();
 			param.contractComment = $('#contractCommentAdd').val();
 			param.projectSerial = $('#projectSerialAdd').val();
+			var serial = $('#contractSerialAdd').val();
 			var date = $('#contractSignedTimeAdd').val();
 			var money = $('#contractMoneyAdd').val();
 			var build = $('#buildContentAdd').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -998,7 +1006,7 @@ var date = $('#contractSignedTimeEdit').val();
 					}
 				}
 
-			});}}}
+			});}}}}
 		}
 
 		function deleteContractId(contractId) {

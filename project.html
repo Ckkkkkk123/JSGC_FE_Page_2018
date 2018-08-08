@@ -39,7 +39,7 @@
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-			<a id="userLevelText" class="navbar-brand"  href="index.html">金审项目管理</a>
+			<a id="userLevelText" class="navbar-brand" href="index.html">金审项目管理</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -565,8 +565,8 @@
 			//				for(var t = Date.now(); Date.now() - t <= d;);
 			//			}
 			$(function() {
-				var userLevel=localStorage.getItem('level');
-				switch(userLevel){
+				var userLevel = localStorage.getItem('level');
+				switch(userLevel) {
 					case '1':
 						$('.3button').show();
 						$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
@@ -578,12 +578,12 @@
 						$('.3button').show();
 						$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
 						break;
-					case '4':						
+					case '4':
 						$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
 						break;
 					default:
-					   alert('不存在角色');
-				}	
+						alert('不存在角色');
+				}
 				$('#detail').on('show.bs.modal', function(e) {
 					$("#projectDepartmentEdit").trigger("chosen:updated");
 					$('.chosen-select', this).chosen({
@@ -680,10 +680,10 @@
 								//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 								callback(returnData);
 								//前端接口不可见性
-								if(localStorage.getItem('level')==2||localStorage.getItem('level')==4){
+								if(localStorage.getItem('level') == 2 || localStorage.getItem('level') == 4) {
 									$('.editMessage').hide();
 									$('.deleteMessage').hide();
-								}	
+								}
 							},
 							error: function(result, status) {
 								console.log(result)
@@ -739,17 +739,16 @@
 							contractUrl = "'contract.html?projectSerial=" + row.projectSerial + "'";
 							//								detailUrl = "'/projectDetail.html?projectID=" + data + "'";
 
-								
 							return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + contractUrl + ')">查看合同</button>&nbsp;&nbsp;' +
 								'<button type="button" class="btn btn-outline btn-primary btn-sm editMessage" data-toggle="modal" on data-target="#detail" onclick="showDetail(' + data + ')">编辑信息</button>	&nbsp;&nbsp;' +
 								'<button type="button" class="btn btn-outline btn-warning btn-sm deleteMessage" onclick="addToProjectID(' + data + ')">删除</button>');
 
 						}
 					}]
-					
+
 				}).api();
 				//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
-				
+
 			});
 		</script>
 		<script>
@@ -839,114 +838,131 @@
 				param.projectComment = $('#projectCommentEdit').val();
 				console.log(JSON.stringify(param));
 				var department = $('#projectDepartmentEdit').val();
-				if(department==''){
-					alert('请选择部门');
-				}		
-				$.ajax({
-					type: "post",
-					url: updateProjectDetailUrl,
-					cache: false, //禁用缓存
-					contentType: "application/json",
-					data: JSON.stringify(param), //传入组装的参数
-					dataType: "json",
-					//					async: false,
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-					},
-					success: function(result) {
-						//console.log(result);
-						//						$('#modal-body').html("成功");
-						//						alert("成功")
-						if(result == 1) {
-							$('#closeModel').click();
-							$('#successModal').modal('show');
-							reRenderTable();
-						} else if(result == 99) {
-							alert('项目编号重复');
-						} else if(result == 100) {
-							alert('项目负责人不存在');
-						}else if(result==77){
-							alert('项目编号不能为空');
-						}
-						//						sleep(1);
+				var serial = $('#projectSerialEdit').val();
+				var budget = $('#projectBudgetEdit').val();
+				if(serial == '') {
+					alert('项目编号不能为空');
+				} else {
+					if(department == '') {
+						alert('请选择部门');
+					} else {
+						if(budget < 0){
+							alert('预算不能为负');
+						}else{
+						$.ajax({
+							type: "post",
+							url: updateProjectDetailUrl,
+							cache: false, //禁用缓存
+							contentType: "application/json",
+							data: JSON.stringify(param), //传入组装的参数
+							dataType: "json",
+							//					async: false,
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
+							success: function(result) {
+								//console.log(result);
+								//						$('#modal-body').html("成功");
+								//						alert("成功")
+								if(result == 1) {
+									$('#closeModel').click();
+									$('#successModal').modal('show');
+									reRenderTable();
+								} else if(result == 99) {
+									alert('项目编号重复');
+								} else if(result == 100) {
+									alert('项目负责人不存在');
+								} else if(result == 77) {
+									alert('项目编号不能为空');
+								}
+								//						sleep(1);
 
-					},
-					error: function(result, status) {
-						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						},
-						405: function() {
-							alert("您无权进行此操作");
-						}
+							},
+							error: function(result, status) {
+								console.log(result)
+							},
+							statusCode: {
+								401: function() {
+									alert("登录状态错误，请重新登录后再尝试");
+									window.open('login.html?type=1');
+								},
+								405: function() {
+									alert("您无权进行此操作");
+								}
+							}
+
+						});}
 					}
-
-				});
+				}
 			}
 
 			function addProject() {
-				//				ajax
+				
 				var param = {};
-				//				param.projectID = $('#projectIDEdit').val();
+				
 				param.projectSerial = $('#projectSerialAdd').val();
 				param.projectName = $('#projectNameAdd').val();
 				param.projectDepartmentId = $('#projectDepartmentAdd').val();
 				param.username = $('#projectOwnerAdd').val();
 				param.projectBudgetSum = $('#projectBudgetAdd').val();
 				param.projectComment = $('#projectCommentAdd').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
 				var department = $('#projectDepartmentAdd').val();
-				if(department==''){
-					alert('请选择部门');
-				}
-				console.log(JSON.stringify(param));
-				//			
-				$.ajax({
-					type: "post",
-					url: addProjectUrl,
-					cache: false, //禁用缓存
-					contentType: "application/json",
-					data: JSON.stringify(param), //传入组装的参数
-					dataType: "json",
-					//					async: false,
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
-					},
-					success: function(result) {
-						//console.log(result);
-						//						$('#modal-body').html("成功");
-						//						alert("成功")
-						if(result == 1) {
-							$('#closeModelAdd').click();
-							$('#successModalAdd').modal('show');
-							reRenderTable();
-						} else if(result == 99) {
-							alert('项目编号重复');
-						} else if(result == 100) {
-							alert('项目负责人不存在');
-						}else if(result==77){
-							alert('项目编号不能为空');
-						}
-						//						sleep(1);
+				var serial = $('#projectSerialAdd').val();
+				var budget = $('#projectBudgetAdd').val();
+				if(serial == '') {
+					alert('项目编号不能为空');
+				} else {
+					if(department == '') {
+						alert('请选择部门');
+					} else {
+						if(budget<0){
+							alert('预算不能为负')
+						}else{
 
-					},
-					error: function(result, status) {
-						console.log(result)
-					},
-					statusCode: {
-						401: function() {
-							alert("登录状态错误，请重新登录后再尝试");
-							window.open('login.html?type=1');
-						},
-						405: function() {
-							alert("您无权进行此操作");
-						}
+						$.ajax({
+							type: "post",
+							url: addProjectUrl,
+							cache: false, //禁用缓存
+							contentType: "application/json",
+							data: JSON.stringify(param), //传入组装的参数
+							dataType: "json",
+							//					async: false,
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+							},
+							success: function(result) {
+								//console.log(result);
+								//						$('#modal-body').html("成功");
+								//						alert("成功")
+								if(result == 1) {
+									$('#closeModelAdd').click();
+									$('#successModalAdd').modal('show');
+									reRenderTable();
+								} else if(result == 99) {
+									alert('项目编号重复');
+								} else if(result == 100) {
+									alert('项目负责人不存在');
+								} else if(result == 77) {
+									alert('项目编号不能为空');
+								}
+								//						sleep(1);
+
+							},
+							error: function(result, status) {
+								console.log(result)
+							},
+							statusCode: {
+								401: function() {
+									alert("登录状态错误，请重新登录后再尝试");
+									window.open('login.html?type=1');
+								},
+								405: function() {
+									alert("您无权进行此操作");
+								}
+							}
+						});}
 					}
-				});
+				}
 			}
 
 			function deleteProject() {

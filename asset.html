@@ -661,7 +661,8 @@
 			$(function() {
 				var userLevel=localStorage.getItem('level');
 				switch(userLevel){
-					case '1':						
+					case '1':
+					$('.3button').show();
 						$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
 						break;
 					case '2':
