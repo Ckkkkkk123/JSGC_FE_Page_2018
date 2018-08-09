@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>财务</title>
+		<!-- Bootstrap core CSS-->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom fonts for this template-->
+		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Page level plugin CSS-->
+		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+		<!-- Custom styles for this template-->
+		<link rel="stylesheet" href="css/chosen.min.css">
+		<link href="css/sb-admin.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/fileinput/fileinput.min.css" />
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="js/chosen.jquery.min.js"></script>
+		<script src="js/jsxm.js"></script>
+	</head>
+
+		<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+		<!-- Navigation-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+			<a id="userLevelText" class="navbar-brand" href="index.html">金审项目管理</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+							<i class="fa fa-fw fa-wrench"></i>
+							<span class="nav-link-text">项目管理</span>
+						</a>
+						<ul class="sidenav-second-level collapse" id="collapseComponents">
+							<li>
+								<a href="project.html">项目列表</a>
+							</li>
+							<li>
+								<a href="contract.html">合同列表</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="financeList.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">财务管理</span>
+						</a>
+
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="budget.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">预算查看</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="asset.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">资产管理</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="document.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">档案管理</span>
+						</a>
+					</li>
+
+					<script>
+						if(localStorage.getItem("level")==3 && localStorage.getItem("level")=="3"){
+							document.write('<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link"><a class="nav-link" href="verifyList.html"><i class="fa fa-fw fa-link"></i><span class="nav-link-text">审核</span></a></li>')
+						}
+					</script>
+				</ul>
+				<ul class="navbar-nav sidenav-toggler">
+					<li class="nav-item">
+						<a class="nav-link text-center" id="sidenavToggler">
+							<i class="fa fa-fw fa-angle-left"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav sidenav-toggler">
+					<li class="nav-item">
+						<a class="nav-link text-center" id="sidenavToggler">
+							<i class="fa fa-fw fa-angle-left"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-bell"></i> 通知
+
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
+							<h6 class="dropdown-header">最近通知:</h6>
+
+						</div>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
+
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
+								<i class="fa fa-fw fa-cogs"></i>个人信息
+							</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="logout()">
+								<i class="fa fa-fw fa-sign-out"></i>退出登录
+							</a>
+
+						</div>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+		<style>
+			/*设置第八列,也就是按钮居中*/
+			
+			.table th,
+			.table td:nth-children(13) {
+				text-align: center;
+				vertical-align: middle!important;
+			}
+			
+			th,
+			td {
+				white-space: nowrap;
+			}
+		</style>
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item active">
+						<a href="financeList.html">财务管理</a>
+					</li>
+					<li class="breadcrumb-item active">财务列表</li>
+				</ol>
+				<!-- Example DataTables Card-->
+				<div class="card mb-1" id="chooseCard">
+					<div class="card-header">
+						<i class="fa fa-filter"></i>
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black'>筛选栏</a>
+
+					</div>
+					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="financeSerials">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	pull-right">项目编号：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="projectSerial">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3 ">
+								<div class="input-group">
+									<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="projectName">
+								</div>
+							</div>
+
+						</div>
+						<br />
+
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="contractSerial">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="contractName">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3 ">
+								<div class="input-group">
+									<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="date" id="date">
+								</div>
+							</div>
+
+						</div>
+						<br />
+
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
+									<select class="form-control chose2" name="checkStatus" id="financePaid">
+										<option value="2"></option>
+										<option value="0">是</option>
+										<option value="1">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMin">
+								</div>
+							</div>
+							<!--<div class="col-md-1"></div>-->
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMax">
+								</div>
+							</div>
+
+						</div>
+						<br />
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
+									<select data-placeholder="选择借方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="lendType">
+
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+									<!--<select  data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType">-->
+
+									<select data-placeholder="选择贷方信息" data-live-search="true" class="chosen-select form-control" tabindex="5" id="BorrowType">
+
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+								</div>
+							</div>
+							<!--<div class="col-md-1"></div>-->
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon">支付方式：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<select data-live-search="true" class="chosen-select form-control" tabindex="5" id="payWay">
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+								</div>
+							</div>
+
+						</div><br />
+
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
+									<select class="form-control chosen-select" name="checkStatus" id="purchaseWay">
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">采购组织方式：&nbsp;</span>
+									<select class="form-control chosen-select" name="checkStatus" id="orgWay">
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+								</div>
+							</div>
+							<!--<div class="col-md-1"></div>-->
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">采购项目分类：&nbsp;</span>
+									<select class="form-control chosen-select" name="checkStatus" id="purchaseType">
+										<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+									</select>
+								</div>
+							</div>
+
+						</div><br />
+
+						<div class="form-inline">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-success" onclick="reRenderTable()">搜索</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="card mb-3">
+					<div class="card-header">
+						<i class="fa fa-table"></i> 财务列表
+						<div class="3button" style="position: relative;display: none;">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+							<button type="button" class="btn btn-success" onclick="batchDownload()" style="position: absolute; right: 0; top:50%;margin-top:-32px">批量导出</button>
+							<!--<button type="button" class="btn btn-default" style="position: absolute; right: 200; top:50%;margin-top:-32px">添加财物</button>-->
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="btn btn-outline btn-warning " data-toggle="modal" on data-target="#financeAdd">添加信息</button>
+						</div>
+					</div>
+
+					<div class="card-body" class="collapse show" id="collapseOne" data-parent="#chooseCard">
+						<div class="table-responsive">
+							<table id="financeTable" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
+								<thead>
+									<tr>
+										<th class="nosort">凭证号</th>
+										<th>日期</th>
+										<th class="nosort">所属项目</th>
+										<th class="nosort">所属合同</th>
+										<th>金额</th>
+										<th class="nosort">是否付款</th>
+										<th class="nosort">摘要</th>
+										<th class="nosort">借方科目</th>
+										<th class="nosort">贷方科目</th>
+										<th class="nosort">支付方式</th>
+										<th class="nosort">采购方式</th>
+										<th class="nosort">采购组织方式</th>
+										<th class="nosort">采购分类</th>
+										<th class="nosort willHide">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<!--<tfoot>
+									<tr>
+										<th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
+										<th>Age</th>
+										<th>Start date</th>
+										<th>Salary</th>
+									</tr>
+								</tfoot>-->
+
+							</table>
+						</div>
+					</div>
+					<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+				</div>
+			</div>
+			<!-- /.container-fluid-->
+			<!-- /.content-wrapper-->
+			<footer class="sticky-footer">
+				<div class="container">
+					<div class="text-center">
+						<small>Copyright © Your Website 2018</small>
+					</div>
+				</div>
+			</footer>
+			<!-- Scroll to Top Button-->
+			<a class="scroll-to-top rounded" href="#page-top">
+				<i class="fa fa-angle-up"></i>
+			</a>
+			<!-- Logout Modal-->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+						</div>
+						<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+							<a class="btn btn-primary" href="login.html">Logout</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Bootstrap core JavaScript-->
+			<script src="vendor/jquery/jquery.min.js"></script>
+			<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- Core plugin JavaScript-->
+			<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+			<!-- Page level plugin JavaScript-->
+			<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
+			<script src="vendor/datatables/jquery.dataTables.js"></script>
+			<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+			<!-- Custom scripts for all pages-->
+			<script src="js/sb-admin.min.js"></script>
+			<!-- Custom scripts for this page-->
+			<!--<script src="js/sb-admin-datatables.min.js"></script>-->
+			<!--<script src="js/sb-admin-charts.min.js"></script>-->
+			<script src="js/jsxm.js"></script>
+			<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+			<script src="js/chosen.jquery.min.js"></script>
+
+		<script src="js/fileinput/fileinput.min.js"></script>
+			<script type="text/javascript">
+				$(function() {
+					var userLevel = localStorage.getItem('level');
+					switch(userLevel) {
+						case '1':
+							$('.3button').show();
+							$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+							break;
+						case '2':
+							$('.3button').show();
+							$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+							break;
+						case '3':
+							$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+							break;
+						case '4':
+							$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+							break;
+						default:
+							alert('不存在角色');
+					}
+					getLendTypeOption();
+
+					getBorrowTypeOption();
+
+					getPayWayOption();
+
+					getPurchaseWayOption();
+
+					getOrgWayOption();
+
+					getPurchaseTypeOption();
+
+					$('.chosen-select', this).chosen({
+						width: "190px"
+					});
+					$('#financeUpdate').on('show.bs.modal', function(e) {
+						$("#financeUpdate .chosen-select").trigger("chosen:updated");
+						$('#financeUpdate .chosen-select', this).chosen({
+							width: "500px"
+						});
+					})
+					$('#financeAdd').on('show.bs.modal', function(e) {
+						$("#financeAdd .chosen-select").trigger("chosen:updated");
+						$('#financeAdd .chosen-select', this).chosen({
+							width: "500px"
+						});
+					})
+					var oFileInput = new FileInput();
+					oFileInput.Init("excel_file", "http://localhost:8080/batchUploadFinances");
+					//提示信息
+					var lang = {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "每页 _MENU_ 项",
+						"sZeroRecords": "没有匹配结果",
+						"sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+						"sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页",
+							"sJump": "跳转"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					};
+
+					//初始化表格
+					var table = $("#financeTable").dataTable({
+						language: lang, //提示信息
+						autoWidth: false, //禁用自动调整列宽
+						stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
+						processing: true, //隐藏加载提示,自行处理
+						serverSide: true, //启用服务器端分页
+						searching: false, //禁用原生搜索
+						orderMulti: false, //启用多列排序
+						scrollX: true,
+						order: [], //取消默认排序查询,否则复选框一列会出现小箭头
+						renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
+						pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+						columnDefs: [{
+							"targets": 'nosort', //列的样式名
+							"orderable": false //包含上样式名‘nosort'的禁止排序
+						}],
+						ajax: function(data, callback, settings) {
+							//封装请求参数
+							var param = {};
+							//						console.log(data)
+							param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
+							param.start = data.start; //开始的记录序号
+							param.page = (data.start / data.length) + 1; //当前页码
+							param.order = data.order;
+							getOrder(data.order);
+							param.financeSerials = $('#financeSerials').val();
+							param.projectSerial = $('#projectSerial').val();
+							param.projectName = $('#projectName').val();
+							param.contractSerial = $('#contractSerial').val();
+							param.contractName = $('#contractName').val();
+							param.financeDate = $('#date').val();
+							param.financePaid = $('#financePaid').val();
+							param.financeMoneyMin = $('#financeMin').val();
+							param.financeMoneyMax = $('#financeMax').val();
+							param.financeLenderID = $('#lendType').val();
+							param.financeBorrowerID = $('#BorrowType').val();
+							param.payMethodID = $('#payWay').val();
+							param.financeBuyMethodID = $('#purchaseWay').val();
+							param.fianceOrgID = $('#orgWay').val();
+							param.financeTypeID = $('#purchaseType').val();
+
+							//						console.log(param);
+							//ajax请求数T
+							$.ajax({
+								type: "post",
+								url: getFinanceListUrl,
+								cache: false, //禁用缓存
+								contentType: "application/json",
+								data: JSON.stringify(param), //传入组装的参数
+								dataType: "json",
+								beforeSend: function(xhr) {
+									xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+								},
+								success: function(result) {
+									//console.log(result);				
+									//封装返回数据									
+									var returnData = {};
+
+									returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回
+									returnData.recordsTotal = result.total; //返回数据全部记录
+									returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+									returnData.data = result.data; //返回的数据列表
+									//console.log(returnData);
+									//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+									callback(returnData);
+									//前端接口不可见性
+									if(localStorage.getItem('level') == 3 || localStorage.getItem('level') == 4) {
+										$('.editMessage').hide();
+										$('.deleteMessage').hide();
+									}
+								},
+								error: function(result, status) {
+									console.log(result)
+								},
+								statusCode: {
+									401: function() {
+										alert("登录状态错误，请重新登录后再尝试");
+										window.open('login.html?type=1');
+									},
+									405: function() {
+										alert("您无权进行此操作");
+									}
+								}
+
+							});
+						},
+						//列表表头字段
+
+						columns: [{
+							"data": "financeSerials"
+						}, {
+							"data": "financeDate",
+							"render": function(data, type, full, callback) {
+								if(data != null) {
+									return(timestampToDate(data));
+
+								} else {
+									return("无记录");
+
+								}
+							}
+						}, {
+							"data": "project.projectName",
+							"render": function(data, type, row, callback) {
+								//data 就是上面传入的参数，projectID
+								//拼接字符串（懒得处理引号转义）
+								//								projectUrl = "'http://localhost:8080//projectDetial.html?projectID=" + row.projectId + "'";
+								projectUrl = "'" + "project.html?projectSerial=" + row.projectSerial + "'";
+								return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
+							}
+						}, {
+							"data": "contract.contractName",
+							"render": function(data, type, row, callback) {
+								//data 就是上面传入的参数，projectID
+								//拼接字符串（懒得处理引号转义）
+								contractUrl = "'" + "contract.html?contractSerial=" + row.contractSerial + "'";
+								//								contractUrl = "'http://123.206.254.42:2333/contractDetial.html?contractID=" + row.contractId + "'";
+								return('<a target="_blank" href=' + contractUrl + '>' + data + '</a>')
+							}
+						}, {
+							"data": "financeMoney"
+						}, {
+							"data": "financeStatus",
+							"render": function(data, type, row, callback) {
+								if(data == 0 || data == "0") {
+									return("已付款");
+								} else if(data == 1 || data == "1") {
+									return("未付款");
+								} else {
+									return("无记录");
+								}
+
+							}
+						}, {
+							"data": "financeName"
+						}, {
+							"data": "lender.accountantName"
+						}, {
+							"data": "borrower.accountantName"
+
+						}, {
+							"data": "payMethod.payMethodInfo"
+
+						}, {
+							"data": "buyMethod.buyMethodInfo"
+
+						}, {
+							"data": "buyOrgForm.buyOrgFormInfo"
+
+						}, {
+							"data": "buyType.buyTypeInfo"
+
+						}, {
+							"data": "financeId", //json
+							"render": function(data, type, full, callback) {
+								//								'<button type="button" class="btn  btn-info btn-sm" data-toggle="modal" on data-target="#financeDetail" onclick="showDetail(' + data + ')">查看信息</button>&nbsp;'
+								return('<button type="button" class="btn btn-outline btn-primary btn-sm editMessage" data-toggle="modal" on data-target="#financeUpdate" onclick="getFinanceUpdate(' + data + ')">编辑信息</button>&nbsp;' +
+									'<button type="button" class="btn btn-outline btn-warning btn-sm deleteMessage" onclick="deleteFinanceID(' + data + ')">删除</button>');
+
+							}
+						}]
+					}).api();
+					//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
+				});
+			</script>
+			<script src="js/fnReloadAjax.js"></script>
+			<script>
+				function reRenderTable() {
+					var table = $('#financeTable').dataTable();
+					table.fnReloadAjax();
+				}
+			</script>
+		</div>
+		<!--摸态框-->
+		<!--上传文件模态框-->
+		<div class="modal fade" id="fileinputModal" tabindex="-1" role="dialog" aria-labelledby="fileinputModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="fileinputModalLabel">选择一个Excel，导入</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+					</div>
+
+					<div class="modal-body">
+						<a download="financesExcelModel.xls" href="http://localhost:8080/financesExcelModel.xls" class="form-control" style="border:none;">下载导入模板</a>
+						<div class="file-loading">
+							<input id="excel_file" name="file" type="file" class="file-loading" />
+						</div>
+						<div id="kartik-file-errors"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--更新信息-->
+		<div class="modal fade" id="financeUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">修改财物信息</h4>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                  
+                  <span aria-hidden="true">×</span>
+                </button>
+
+					</div>
+					<div class="modal-body">
+
+						<div class="input-group" style="display: none;">
+							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeIDUpdt">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeSerialsUpdt">
+						</div>
+						<br />
+						<!--<div class="input-group">
+							<span class="input-group-addon	pull-right">项目编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectSerialUpdt">
+						</div>
+						<br />-->
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractSerialUpdt">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="date" id="dateUpdt">
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="paidUpdt">
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select>
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	">摘要：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeNameUpdt">
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyUpdt">
+						</div>
+
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="lendTypeUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="borrowTypeUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="payWayUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseWayUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="orgWayUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseTypeUpdt">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+						<button type="button" class="btn btn-warning" onclick="exportDoc()">保存</button>
+						<button type="button" class="btn btn-primary" onclick="updateFinance()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--更新成功-->
+		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">修改成功</h4>
+
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		<!--添加信息-->
+		<div class="modal fade" id="financeAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabelAdd">添加财物信息</h4>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                  
+                  <span aria-hidden="true">×</span>
+                </button>
+
+					</div>
+					<div class="modal-body">
+						<!--<p id='222'>One fine body…</p>-->
+						<div class="input-group" style="display: none;">
+							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeIDAdd">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeSerialsAdd">
+						</div>
+						<br />
+						<!--<div class="input-group">
+							<span class="input-group-addon	pull-right">项目编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectSerialAdd">
+						</div>
+						<br />-->
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractSerialAdd">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractNameUpdt">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="date" id="dateAdd">
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="paidAdd">
+								<option value=""></option>
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">摘要：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeNameAdd">
+						</div>
+						<br />
+
+						<!--<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMinUpdt">
+								</div>
+							</div>
+
+							<div class="col-md-1"></div>
+							<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMaxUpdt">
+								</div>
+							</div>-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyAdd">
+						</div>
+
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="lendTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="borrowTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="payWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="orgWayAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
+							<select class="form-control chosen-select" name="checkStatus" id="purchaseTypeAdd">
+								<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">Close</button>
+						<button type="button" class="btn btn-primary" onclick="addFinance()">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--添加成功-->
+		<div class="modal fade" id="successModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">添加成功</h4>
+
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		<!--查看信息-->
+		<div class="modal fade" id="financeDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabelDetail">查看财物信息</h4>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                  
+                  <span aria-hidden="true">×</span>
+                </button>
+
+					</div>
+					<div class="modal-body">
+
+						<div class="input-group" style="display: none;">
+							<span class="input-group-addon">财物ID：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeIDDetail">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	">凭证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeSerialsDetail">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon	pull-right">项目编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectSerialDetail">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">项目名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="projectNameDetail">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractSerialDetail">
+						</div>
+						<br />
+
+						<!--<div class="input-group">
+							<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="contractNameDetail">
+						</div>
+						<br />-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="date" id="dateDetail">
+						</div>
+						<br/>
+
+						<div class="input-group">
+							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
+							<select class="form-control" name="checkStatus" id="paidDetail">
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">摘要：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" placeholder="" value="" id="financeNameDetail">
+						</div>
+						<br />
+
+						<!--<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">资金范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMinDetail">
+								</div>
+							</div>
+
+							<div class="col-md-1"></div>
+							<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon	">--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<input class="form-control" type="number" id="financeMaxDetail">
+								</div>
+							</div>-->
+
+						<div class="input-group">
+							<span class="input-group-addon	">资金：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<input class="form-control" type="number" id="financeMoneyDetail">
+						</div>
+
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">借方科目：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" id="lendTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="lendTypeDetail">-->
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">贷方科目：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" id="borrowTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="borrowTypeDetail">-->
+
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">支付方式：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" id="payWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="payWayDetail">-->
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购方式：&nbsp;&nbsp;</span>
+							<input class="form-control" type="text" id="purchaseWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="purchaseWayDetail">-->
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购组织方式：&nbsp;</span>
+							<input class="form-control" type="text" id="orgWayDetail">
+							<!--<select class="form-control" name="checkStatus" id="orgWayDetail">-->
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+						<div class="input-group">
+							<span class="input-group-addon	">采购项目分类：&nbsp;</span>
+							<input class="form-control" type="text" id="purchaseTypeDetail">
+							<!--<select class="form-control" name="checkStatus" id="purchaseTypeDetail">-->
+							<!--<option value="0">技术部</option>
+									<option value="1">背锅部</option>-->
+							</select>
+						</div>
+						<br />
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">Close</button>
+						<!--<button type="button" class="btn btn-primary" onclick="DetaileFinance()">Save</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="exportWord" style="display: none;">
+			<h1>拨款通知单</h1>
+			<p>凭证号:<span id="financeSerialsUpdt2"></span></p>
+			<p>合同编号:<span id="contractSerialUpdt2"></span></p>
+			<p>日期:<span id="dateUpdt2"></span></p>
+			<p>是否付款:<span id="paidUpdt2"></span></p>
+			<p>摘要:<span id="financeNameUpdt2"></span></p>
+			<p>资金:<span id="financeMoneyUpdt2"></span></p>
+			<p>借方科目:<span id="lendTypeUpdt_chosen2"></span></p>
+			<p>贷方科目:<span id="borrowTypeUpdt_chosen2"></span></p>
+			<p>支付方式:<span id="payWayUpdt_chosen2"></span></p>
+			<p>采购方式:<span id="purchaseWayUpdt_chosen2"></span></p>
+			<p>采购组织方式:<span id="orgWayUpdt_chosen2"></span></p>
+			<p>采购项目分类:<span id="purchaseTypeUpdt_chosen2"></span></p>
+		</div>
+		<!--删除信息-->
+		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
+
+							<div class="row" style="display: none;">
+								<div class="col-md-2">財務ID:</div>
+								<div class="col-md-7"><input type="text" id="financeIdDelete" class="form-control"></input>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="deleteFinance()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			function getFinanceUpdate(financeID) {
+
+				var param = {};
+				param.financeID = financeID;
+				$.ajax({
+					type: "post",
+					url: getFinanceDetailUrl,
+					cache: false, //禁用缓存
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						console.log(result);
+						//						getLendTypeOption(result.lendTypeItem);
+						//						getBorrowTypeOption(result.borrowTypeItem);
+						//						getPayWayOption(result.payWayItem);
+						//						getPurchaseWayOption(result.purchaseWayItem);
+						//						getOrgWayOption(result.orgWayItem);
+						//						getPurchaseTypeOption(result.purchaseTypeItem);
+						$('#financeIDUpdt').val(result.financeID);
+						$('#financeSerialsUpdt').val(result.financeSerials);
+						$('#projectSerialUpdt').val(result.projectSerial);
+						$('#projectNameUpdt').val(result.projectName);
+						$('#contractSerialUpdt').val(result.contractSerial);
+						$('#contractNameUpdt').val(result.contractName);
+						$('#dateUpdt').val(result.financeDate);
+						$('#paidUpdt').val(result.financeStatus);
+						$('#financeNameUpdt').val(result.financeName);
+						$('#financeMoneyUpdt').val(result.financeMoney);
+
+						$('#lendTypeUpdt').val(result.financeLenderID);
+						$('#borrowTypeUpdt').val(result.financeBorrowerID);
+						$('#payWayUpdt').val(result.payMethodID);
+						$('#purchaseWayUpdt').val(result.financeBuyMethodID);
+						$('#orgWayUpdt').val(result.financeBuyOrgID);
+						$('#purchaseTypeUpdt').val(result.financeTypeID);
+
+					}
+				});
+
+			}
+
+			function updateFinance() {
+				var param = {};
+				param.financeID = $('#financeIDUpdt').val();
+				param.financeSerials = $('#financeSerialsUpdt').val();
+				param.projectSerial = $('#projectSerialUpdt').val();
+				param.contractSerial = $('#contractSerialUpdt').val();
+				param.financeDate = $('#dateUpdt').val();
+				param.financeName = $('#financeNameUpdt').val();
+				param.financeMoney = $('#financeMoneyUpdt').val();
+				param.financeLenderID = $('#lendTypeUpdt').val();
+				param.financeBorrowerID = $('#borrowTypeUpdt').val();
+				param.payMethodID = $('#payWayUpdt').val();
+				param.financeBuyMethodID = $('#purchaseWayUpdt').val();
+				param.financeOrgID = $('#orgWayUpdt').val();
+				param.financeTypeID = $('#purchaseTypeUpdt').val();
+				param.financeStatus = $('#paidUpdt').val();
+				var serial = $('#financeSerialsUpdt').val();
+				var money = $('#financeMoneyUpdt').val();
+				var date = $('#dateUpdt').val();
+				var lend = $('#lendTypeUpdt').val();
+				var borrow = $('#borrowTypeUpdt').val();
+				var pay1 = $('#payWayUpdt').val();
+				var pay2= $('#purchaseWayUpdt').val();
+				var org =  $('#orgWayUpdt').val();
+				var type = $('#purchaseTypeUpdt').val();
+				
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+					if(money <0){
+						alert('金额不能为负')
+					}else{
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+				if(lend == ''){
+						alert('请选择借方科目')
+				}else{	
+					if(borrow == ''){
+						alert('请选择贷方科目')
+				}else{	
+					if(pay1 == ''){
+						alert('请选择付款方式')
+				}else{	
+					if(pay2 == ''){
+						alert('请选择采购方式')
+				}else{	
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+						}else{
+				$.ajax({
+					type: "post",
+					url: updateFinanceDetailUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+						//						alert("成功")
+
+						if(result == 1) {
+							$('#closeModel').click();
+							$('#successModal').modal('show');
+							reRenderTable();
+						} else if(result == 99) {
+							alert('财务凭证号重复');
+						} else if(result == 100) {
+							alert('所辖合同编号不存在');
+						} else if(result == -222) {
+							alert('修改目的项目财务余额不足');
+						}
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
+						}
+					}
+
+				});}}}}}}}}}
+			}
+
+			function addFinance() {
+				var param = {};
+				//				param.financeID = $('#financeIDAdd').val();
+				param.financeSerials = $('#financeSerialsAdd').val();
+				param.projectSerial = $('#projectSerialAdd').val();
+				param.contractSerial = $('#contractSerialAdd').val();
+				param.financeDate = $('#dateAdd').val();
+				param.financeName = $('#financeNameAdd').val();
+				param.financeMoney = $('#financeMoneyAdd').val();
+				param.financeLenderId = $('#lendTypeAdd').val();
+				param.financeBorrowerId = $('#borrowTypeAdd').val();
+				param.payMethodId = $('#payWayAdd').val();
+				param.financeBuyMethodId = $('#purchaseWayAdd').val();
+				param.financeBuyOrgId = $('#orgWayAdd').val();
+				param.financeTypeId = $('#purchaseTypeAdd').val();
+				param.financeStatus = $('#paidAdd').val();
+				var money = $('#financeMoneyAdd').val();
+				var serial = $('#financeSerialsAdd').val();
+				var date = $('#dateAdd').val();
+				var lend = $('#lendTypeAdd').val();
+				var borrow = $('#borrowTypeAdd').val();
+				var pay1 = $('#payWayAdd').val();
+				var pay2= $('#purchaseWayAdd').val();
+				var org = $('#orgWayAdd').val();
+				var type = $('#purchaseTypeAdd').val();
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+					if(money<0){
+						alert('金额不能为负')
+					}else{
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+					if(lend == ''){
+						alert('请选择借方科目')
+					}else{
+					if(borrow == ''){
+						alert('请选择贷方科目')
+					}else{
+					if(pay1 == ''){
+						alert('请选择付款方式')
+					}else{
+					if(pay2 == ''){
+						alert('请选择采购方式')
+					}else{
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+					}else{
+					
+				$.ajax({
+					type: "post",
+					url: addFinanceDetailUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						console.log(result);
+						if(result == '1') {
+							$('#closeModelAdd').click();
+							$('#successModalAdd').modal('show');
+							reRenderTable();
+						} else if(result == "99") {
+							alert('财务凭证号重复');
+						} else if(result == "100") {
+							alert('所辖合同编号不存在');
+						}else if(result.toString().substr(0,4)=="-222"){
+							alert('所属项目财务余额不足，请申请财务');
+							window.open("budget_detail.html?budgetID="+result.toString().substring(4));
+						}else{
+							alert('导入失败');
+						}
+					},
+					error: function(result, status) {
+						console.log(result)					
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
+						}
+					}
+
+				});}}}}}}}}}
+			}
+
+			function logout() {
+
+				$.ajax({
+					type: "post",
+					url: logoutUrl,
+					cache: false, //禁用缓存
+					data: "", //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//								alert("登录状态错误，请重新登录");
+						//							
+						window.open('login.html');
+					},
+					error: function(result, status) {
+						console.log(result)
+						window.location.href = 'login.html';
+					}
+				});
+			}
+
+			function showDetail(financeID) {
+				var param = {};
+				param.financeID = financeID;
+				$.ajax({
+					type: "post",
+					url: getFinanceDetailUrl,
+					cache: false, //禁用缓存
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+
+						//						getLendTypeOption(result.lendTypeItem);
+						//						getBorrowTypeOption(result.borrowTypeItem);
+						//						getPayWayOption(result.payWayItem);
+						//						getPurchaseWayOption(result.purchaseWayItem);
+						//						getOrgWayOption(result.orgWayItem);
+						//						getPurchaseTypeOption(result.purchaseTypeItem);
+						$('#financeIDDetail').val(result.financeID);
+						$('#financeSerialsDetail').val(result.financeSerials);
+						$('#projectSerialDetail').val(result.projectSerial);
+						$('#projectNameDetail').val(result.projectName);
+						$('#contractSerialDetail').val(result.contractSerial);
+						$('#contractNameDetail').val(result.contractName);
+
+						$('#dateDetail').val(result.financeDate);
+						$('#paidDetail').val(result.financeStatus);
+						$('#financeNameDetail').val(result.financeName);
+						$('#financeMoneyDetail').val(result.financeMoney);
+						$('#lendTypeDetail').val(result.lendName);
+						$('#borrowTypeDetail').val(result.borrowName);
+						$('#payWayDetail').val(result.payMethodInfo);
+						$('#purchaseWayDetail').val(result.buyMethodInfo);
+						$('#orgWayDetail').val(result.buyOrgFormInfo);
+						$('#purchaseTypeDetail').val(result.buyTypeInfo);
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
+						}
+					}
+				});
+
+			}
+
+			function deleteFinanceID(financeID) {
+				$('#financeIdDelete').val(financeID);
+				$('#deleteModal').modal('show');
+			}
+
+			function deleteFinance() {
+				var param = {};
+				param.financeID = $('#financeIdDelete').val();
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: deleteFinanceUrl,
+					cache: false, //禁用缓存
+					//					contentType: "application/json",
+					data: param, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						//console.log(result);
+						//						$('#modal-body').html("成功");
+						//						alert("成功")
+						$('#closeModelDelete').click();
+						//alert('刪除成功');
+						reRenderTable();
+						//						sleep(1);
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
+						}
+					}
+				});
+			}
+
+			function getNotice() {
+				$.ajax({
+					type: "post",
+					url: getNoticeUrl,
+					cache: false, //禁用缓存
+					contentType: "application/json,charset=utf-8",
+					data: null, //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					scriptCharset: 'utf-8',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+					},
+					success: function(result) {
+						var NotiData = "";	
+						for(i in result) {
+							console.log(i);
+							NotiData += '<div class="dropdown-divider"></div>' +
+								'<a class="dropdown-item">' +
+								'<span class="text-success">' +
+								'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+								'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+								'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+
+						}
+						console.log(NotiData);
+						$('#notice').append(NotiData);
+
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.open('login.html?type=1');
+						},
+						405: function() {
+							alert("您无权进行此操作");
+						}
+					}
+				});
+			}
+
+			$(document).ready(function() {
+				var qs = getQueryString();
+				var contractSerialUrl = qs["contractSerial"];
+				var projectSerialUrl = qs["projectSerial"];
+				$('#contractSerial').val(contractSerialUrl);
+				$('#projectSerial').val(projectSerialUrl);
+				reRenderTable();
+
+			})
+		</script>
+		<script>
+			$(document).ready(function() {
+				getNotice();
+				$.fn.dataTable.ext.errMode = 'none';
+			})
+		</script>
+		<script>
+			$('#usernameLable').text(localStorage.getItem("username"));
+		</script>
+		<script>
+			//初始化fileinput
+			var FileInput = function() {
+	
+				var oFile = new Object();
+	
+				//初始化fileinput控件（第一次初始化）
+				oFile.Init = function(ctrlName, uploadUrl) {
+					var control = $('#' + ctrlName);
+	
+					//初始化上传控件的样式
+					control.fileinput({
+						language: 'zh', //设置语言
+						uploadUrl: uploadUrl, //上传的地址
+						allowedFileExtensions: ['xls', 'xlsx', ''], //接收的文件后缀
+						showUpload: true, //是否显示上传按钮
+						showCaption: true, //是否显示标题
+						browseClass: "btn btn-primary", //按钮样式     
+						dropZoneEnabled: false, //是否显示拖拽区域
+						showPreview: true, //乱码?
+						//minImageWidth: 50, //图片的最小宽度
+						//minImageHeight: 50,//图片的最小高度
+						//maxImageWidth: 1000,//图片的最大宽度
+						//maxImageHeight: 1000,//图片的最大高度
+						//maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+						//minFileCount: 0,
+						maxFileCount: 1, //表示允许同时上传的最大文件个数
+						enctype: 'multipart/form-data',
+						validateInitialCount: true,
+						previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+						msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+						fileSingle: '文件',
+						filePlural: '个文件',
+						browseLabel: '选择 &hellip;',
+						removeLabel: '移除',
+						removeTitle: '清除选中文件',
+						//lzq,7.27文件上传
+						uploadExtraData: function(previewId, index) { //额外参数
+							var obj = {};
+							obj.userID = localStorage.getItem('userID'); // 这里回调方法
+							return obj;
+						},
+						preferIconicPreview: true, // 开启用图标替换预览效果
+						previewFileIconSettings: { // configure your icon file extensions
+							'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+							'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+							'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+							'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+							'txt': '<i class="fa fa-file-text-o text-info"></i>',
+							'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+							'htm': '<i class="fa fa-file-code-o text-info"></i>',
+							'mov': '<i class="fa fa-file-movie-o text-warning"></i>',
+							'mp3': '<i class="fa fa-file-audio-o text-warning"></i>'
+						},
+						previewFileExtSettings: {
+							'doc': function(ext) {
+								return ext.match(/(doc|docx)$/i);
+							},
+							'xls': function(ext) {
+								return ext.match(/(xls|xlsx)$/i);
+							},
+							'ppt': function(ext) {
+								return ext.match(/(ppt|pptx)$/i);
+							},
+							'zip': function(ext) {
+								return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+							},
+							'htm': function(ext) {
+								return ext.match(/(htm|html)$/i);
+							},
+							'mov': function(ext) {
+								return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+							},
+							'mp3': function(ext) {
+								return ext.match(/(mp3|wav)$/i);
+							},
+							'txt': function(ext) {
+								return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+							}
+						},
+						layoutTemplates: { // 预览图片按钮控制，这里屏蔽预览按钮
+							actionZoom: ''
+						}
+	
+					});
+	
+					//导入文件上传完成之后的事件
+					$("#excel_file").on("fileuploaded", function(event, data, previewId, index) {
+						$("#fileinputModal").modal("hide");
+						console.log(data);
+						alert('成功行数->' + data.response.successSize + '\n' +
+							'失败行数->' + data.response.defeatSize + '\n' +
+							'Excel内部编号冲突行号:' + data.response.rowNumsRepeatInner + '\n' +
+							'与数据库编号冲突行号:' + data.response.rowNumsRepeatDB + '\n' +
+							'所属关系不对行号:' + data.response.rowNumsOutJoinNotExist);
+							
+						reRenderTable();	
+					});
+					
+				}
+				return oFile;
+			};
+		</script>
+		<script src="js/FileSaver.js"></script>
+		<script src="vendor/jquery/jquery.wordexport.js"></script>
+		<script src="js/canvas2image.js"></script>
+		<script>
+			function exportDoc() {
+				$('#financeSerialsUpdt2').text($('#financeSerialsUpdt').val());
+				$('#contractSerialUpdt2').text($('#contractSerialUpdt').val());
+				$('#dateUpdt2').text($('#dateUpdt').val());
+				$('#paidUpdt2').text($('#paidUpdt').val());
+				$('#financeNameUpdt2').text($('#financeNameUpdt').val());
+				$('#financeMoneyUpdt2').text($('#financeMoneyUpdt').val());
+				$('#lendTypeUpdt_chosen2').text($('#lendTypeUpdt_chosen span').text());
+				$('#borrowTypeUpdt_chosen2').text($('#borrowTypeUpdt_chosen span').text());
+				$('#payWayUpdt_chosen2').text($('#payWayUpdt_chosen span').text());
+				$('#purchaseWayUpdt_chosen2').text($('#purchaseWayUpdt_chosen span').text());
+				$('#orgWayUpdt_chosen2').text($('#orgWayUpdt_chosen span').text());
+				$('#purchaseTypeUpdt_chosen2').text($('#purchaseTypeUpdt_chosen span').text());
+				
+				
+				$("#exportWord").wordExport("fileName"); //fileName为导出的word文件的命名,content为要导出的html内容容器
+			}
+		</script>
+	</body>
+	<script>
+		var tempOrder;
+		function getOrder(order) {
+			tempOrder = order;
+		}
+		var batchDownload = function() {
+			var param = {};
+			if(tempOrder != '')
+				param.order = tempOrder;
+			param.financeSerials = $('#financeSerials').val();
+			param.projectSerial = $('#projectSerial').val();
+			param.projectName = $('#projectName').val();
+			param.contractSerial = $('#contractSerial').val();
+			param.contractName = $('#contractName').val();
+			param.financeDate = $('#date').val();
+			param.financePaid = $('#financePaid').val();
+			param.financeMoneyMin = $('#financeMin').val();
+			param.financeMoneyMax = $('#financeMax').val();
+			param.financeLenderID = $('#lendType').val();
+			param.financeBorrowerID = $('#BorrowType').val();
+			param.payMethodID = $('#payWay').val();
+			param.financeBuyMethodID = $('#purchaseWay').val();
+			param.fianceOrgID = $('#orgWay').val();
+			param.financeTypeID = $('#purchaseType').val();
+			//伪表单提交
+			var form = $("<form>"); //定义一个form表单
+			form.attr("style", "display:none");
+			form.attr("target", "");
+			form.attr("method", "post");
+			form.attr("action", "http://localhost:8080/batchDownloadFinances"); //请求url
+			var input1 = $("<input>");
+			input1.attr("type", "hidden");
+			input1.attr("name", "param"); //设置属性的名字
+			input1.attr("value", JSON.stringify(param)); //设置属性的值
+			var input2 = $("<input>");
+			input2.attr("type", "hidden");
+			input2.attr("name", "userID"); //设置属性的名字
+			input2.attr("value", localStorage.getItem('userID')); //设置属性的值
+			var input3 = $("<input>");
+			input3.attr("type", "hidden");
+			input3.attr("name", "level"); //设置属性的名字
+			input3.attr("value", localStorage.getItem('level')); //设置属性的值
+			
+			$("body").append(form); //将表单放置在web中
+			form.append(input1);
+			form.append(input2);
+			form.append(input3);
+			form.submit(); //表单提交
+	    }
+	</script>
+</html>

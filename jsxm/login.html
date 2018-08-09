@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>登录</title>
+		<!-- Bootstrap core CSS-->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom fonts for this template-->
+		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Custom styles for this template-->
+		<link href="css/sb-admin.css" rel="stylesheet">
+	</head>
+
+	<body class="bg-dark">
+		<div class="container">
+			<div class="card card-login mx-auto mt-5">
+				<div class="card-header">登录</div>
+				<div class="card-body">
+					<form>
+						<div class="form-group">
+							<label for="exampleInputEmail1">邮箱</label>
+							<input class="form-control" id="email" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">密码</label>
+							<input class="form-control" id="password" type="password" placeholder="Password">
+						</div>
+						<center><span id="loginMsg" style="color: red;">&nbsp;</span></center>
+						<div class="form-group">
+							<div class="form-check">
+								<label class="form-check-label">
+             
+            </div>
+          </div>
+          <a class="btn btn-primary btn-block" href="javascript:void(0);" onclick="login()">登录</a>
+        </form>
+        <div class="text-center">
+        	<br />
+          <a class="d-block small" href="forgot-password.html">忘记密码？</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="js/jsxm.js" ></script>
+  <script>
+  	function login() {
+				//				ajax
+				var param = {};
+				param.email = $('#email').val();
+				param.password = $('#password').val();
+				var qs = getQueryString();
+				var type = qs["type"];
+				
+				//				alert(JSON.stringify(param))
+				//						console.log(param);
+				console.log(JSON.stringify(param));
+				//			
+				$.ajax({
+					type: "post",
+					url: "http://localhost:8080/login",
+					cache: false, //禁用缓存
+					contentType: "application/json",
+					data: JSON.stringify(param), //传入组装的参数
+					dataType: "json",
+					async: false,
+					crossDomain: true,
+					beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
+					success: function(data) {
+						console.log(status)
+						if(data["loginMsg"]!=null){
+							$('#loginMsg').text(data["loginMsg"]);
+						}
+						if(data["Token"] != null){
+//							console.log(data["username"]);
+							localStorage.setItem("Token",data["Token"]);
+							localStorage.setItem("username", data["username"]);
+							localStorage.setItem("userID",data["userID"])
+							localStorage.setItem("level",data["level"])
+//							alert("登陆成功");
+							if (type == 1){
+								window.opener=null;
+								window.open('','_self');
+								window.close();
+							}else{
+								window.location.href="index.html";
+							}
+							
+						}
+					},
+					error: function(result, status) {
+						console.log(result)
+					},
+					statusCode: {
+						401: function() {
+							alert("登录状态错误，请重新登录后再尝试");
+							window.location.href='login.html';
+						},
+						405: function() {
+								alert("您无权进行此操作");
+							}
+					}
+
+				});
+				
+			}
+  </script>
+</body>
+
+</html>
