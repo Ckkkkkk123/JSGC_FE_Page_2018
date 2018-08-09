@@ -1260,9 +1260,18 @@ var date = $('#contractSignedTimeEdit').val();
 			input1.attr("type", "hidden");
 			input1.attr("name", "param"); //设置属性的名字
 			input1.attr("value", JSON.stringify(param)); //设置属性的值
-
+			var input2 = $("<input>");
+			input2.attr("type", "hidden");
+			input2.attr("name", "userID"); //设置属性的名字
+			input2.attr("value", localStorage.getItem('userID')); //设置属性的值
+			var input3 = $("<input>");
+			input3.attr("type", "hidden");
+			input3.attr("name", "level"); //设置属性的名字
+			input3.attr("value", localStorage.getItem('level')); //设置属性的值
 			$("body").append(form); //将表单放置在web中
 			form.append(input1);
+			form.append(input2);
+			form.append(input3);
 			form.submit(); //表单提交
 		}
 	</script>

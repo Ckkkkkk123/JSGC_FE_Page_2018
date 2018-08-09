@@ -595,7 +595,7 @@
 		var param = {};
 		param.projectID=$('#projectID').text();
 		param.applyMoney=$('#applyMoney').val();
-		param.applyReson=$('#applyReason').val();
+		param.applyReason=$('#applyReason').val();
 		$.ajax({
 			type:"post",
 			url:applyMoneyUrl,
@@ -605,7 +605,7 @@
 				xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 			},
 			success: function(result) {
-				
+				alert('已成功发送');
 			},
 			error: function(result, status) {
 				console.log(result)
