@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>预算</title>
+	<title>预算详情</title>
 	<!-- Bootstrap core CSS-->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
@@ -144,10 +144,7 @@
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="index.html">预算查看</a>
-				</li>
-				<li class="breadcrumb-item">
-					<a href="index.html">预算列表</a>
+					<a href="budget.html">预算列表</a>
 				</li>
 				<li class="breadcrumb-item active">预算详情</li>
 			</ol>
@@ -156,8 +153,7 @@
 			<!-- Example DataTables Card-->
 			<div class="card mb-3">
 				<div class="card-body">
-					<div class="container" style="width: 100%;">
-						
+					<div class="container" style="width: 100%;">						
 						<div class="row" style="display: none;">
 							<div class="col-md-2">预算ID:</div>
 							<!--<div class="col-1"></div>-->
@@ -165,14 +161,16 @@
 								<span id="budgetID"></span>
 							</div>
 						</div>
+						
 						<div class="clearfix"><br /></div>
 						<div class="row">
 							<div class="col-md-2">预算编号:</div>
 							<!--<div class="col-1"></div>-->
 							<div class="col-md-7">
 								<span id="budgetSerial"></span>
-							</div>
+							</div>						
 						</div>	
+						
 						<div class="clearfix"><br /></div>
 						<div class="row" style="display: none;">
 							<div class="col-md-2">项目ID:</div>
@@ -228,6 +226,10 @@
 								<span id="projectBudgetLeft"></span>
 							</div>
 						</div>
+						<div class="col-md-3">
+							<div id="main" style="width: 600px;height:400px; margin-left: 150px;"></div>
+						</div>
+						<button class="btn btn-success" style="float: right;" data-toggle="modal" data-target="#applyModal"  type="button" data-dismiss="modal">申请预算</button>
 						<div class="clearfix"><br /></div>
 						<div class="row">
 							<div class="col-md-2">项目下合同用款详情:</div>
@@ -288,6 +290,45 @@
 				</div>
 			</div>
 		</div>
+		<!--申请预算模态框-->
+		<div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">申请预算</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             				 <span aria-hidden="true">×</span>
+            			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="row">
+							<div class="col-md-2">项目:</div>
+							<div class="col-md-7">
+								<span id="projectNameApply"></span>
+							</div>							
+						</div>	
+						<div class="clearfix"><br /></div>
+						<div class="row">
+							<div class="col-md-2">申请钱数:</div>
+							<!--<div class="col-1"></div>-->
+							<div class="col-md-7"><input type="number" id="applyMoney" class="form-control"></input>
+							</div>
+						</div>
+						<div class="clearfix"><br /></div>
+						<div class="row">
+							<div class="col-md-2">申请原因:</div>
+							<!--<div class="col-1"></div>-->
+							<div class="col-md-7"><input type="text" id="applyReason" class="form-control"></input>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+						<button type="button" class="btn btn-primary" onclick="apply()">提交</button>
+					</div>
+				</div>	
+			</div>
+		</div>
 	</div>
 	
 </body>
@@ -304,6 +345,7 @@
 <!-- Custom scripts for this page-->
 <script src="js/sb-admin-datatables.min.js"></script>
 <script src="js/jsxm.js"></script>
+<script type="text/javascript" src="js/echart/echarts.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		var qs=getQueryString();
@@ -326,11 +368,35 @@
 				$('#budgetSerial').text(result.budgetSerial);
 				$('#projectID').text(result.projectId);
 				$('#projectName').text(result.projectName);
+				$('#projectNameApply').text(result.projectName);
 				$('#projectBudgetSum').text(result.projectBudgetSum);
 				$('#projectContractsSum').text(result.projectContractsSum);
 				$('#projectContractsPayed').text(result.projectContractsPayed);
 				$('#projectContractsNotPayed').text(result.projectContractsNotPayed);
-				$('#projectBudgetLeft').text(result.projectBudgetLeft);			
+				$('#projectBudgetLeft').text(result.projectBudgetLeft);	
+				// 绘制图表。
+		        echarts.init(document.getElementById('main')).setOption({
+		        	 tooltip : {
+				        trigger: 'item',
+				        formatter: " {b} : {c} 元"
+				    },
+				    calculable : true,
+		        	title:{
+		                	text: '预算使用情况',
+		                	top:20,
+		                	x: 'center',             			             
+		                },
+		            series: {
+		                type: 'pie',
+		                radius : '55%',//饼图的半径大小
+		            	center: ['50%', '60%'],//饼图的位置
+		                data: [
+		                	{name: '项目余款', value: result.projectBudgetLeft},
+		                    {name: '所有合同已付款', value: result.projectContractsPayed},
+		                    {name: '所有合同未付款', value: result.projectContractsNotPayed}	                    
+		                ]
+		            }
+		        });
 			}		,
 			error: function(result, status) {
 				console.log(result)
@@ -524,10 +590,39 @@
 						window.location.href = 'login.html';
 					}
 				});
-			}
+	}
+	function apply(){
+		var param = {};
+		param.projectID=$('#projectID').text();
+		param.applyMoney=$('#applyMoney').val();
+		param.applyReson=$('#applyReason').val();
+		$.ajax({
+			type:"post",
+			url:applyMoneyUrl,
+			async:true,
+			data:param,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+			},
+			success: function(result) {
+				
+			},
+			error: function(result, status) {
+				console.log(result)
+			},
+			statusCode: {
+				401: function() {
+					alert("登录状态错误，请重新登录后再尝试");
+					window.open('login.html?type=1');
+				},
+				405: function() {
+					alert("您无权进行此操作");
+				}
+			}		
+		});			
+	}
 </script>
 <script>
-			$('#usernameLable').text(localStorage.getItem("username"));
-$.fn.dataTable.ext.errMode = 'none'; 
-			
-		</script>
+	$('#usernameLable').text(localStorage.getItem("username"));
+	$.fn.dataTable.ext.errMode = 'none'; 	
+</script>

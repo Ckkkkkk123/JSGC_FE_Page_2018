@@ -153,9 +153,9 @@
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">档案管理</a>
+						<a href="document.html">档案管理</a>
 					</li>
-					<li class="breadcrumb-item active">文档总览</li>
+					<li class="breadcrumb-item active">档案列表</li>
 				</ol>
 				<!-- Example DataTables Card-->
 				<div class="card mb-1" id="chooseCard">
@@ -231,14 +231,14 @@
 								<thead>
 									<tr>
 										<!--<th style="display: none;">项目ID</th>-->
-										<th>文档编号</th>
-										<th>文档名</th>
-										<th>所属项目</th>
-										<th>所属合同</th>
-										<th>归档人</th>
+										<th class="nosort">文档编号</th>
+										<th class="nosort">文档名</th>
+										<th class="nosort">所属项目</th>
+										<th class="nosort">所属合同</th>
+										<th class="nosort">归档人</th>
 										<th>归档日期</th>
-										<th>备注</th>
-										<th>操作</th>
+										<th class="nosort">备注</th>
+										<th class="nosort">操作</th>
 									</tr>
 								</thead>
 								<!--<tfoot>
@@ -297,12 +297,12 @@
 										</div>
 										<div class="clearfix"><br /></div>
 
+
 										<div class="row">
 											<div class="col-md-2">所属合同:</div>
 											<!--<div class="col-1"></div>-->
 											<div class="col-md-7">
 												<input name="contractSerialAdd" type="text" class="form-control" id="contractSerialAdd"></input>
-
 											</div>
 										</div>
 										<div class="clearfix"><br /></div>
@@ -353,7 +353,7 @@
 
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal" >关闭</button>
 									<button type="submit" class="btn btn-primary">提交</button>
 
 								</div>
@@ -635,7 +635,6 @@
 								if(localStorage.getItem('level') == 3 || localStorage.getItem('level') == 4) {
 									$('.editMessage').hide();
 								}
-
 							},
 							error: function(result, status) {
 								console.log(result)
@@ -690,10 +689,11 @@
 							}
 						}, {
 							"data": "documentId", //json
-							"render": function(data) {
+							"render": function(data,type, row, callback) {
 								//data 就是上面传入的参数，projectID
 								//拼接字符串（懒得处理引号转义）
-								return('<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="getDocumentUpdate(' + data + ')"">编辑</button>&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm downloadMessage" onclick="window.open(' + data + ')">下载</button>');
+								var prefixUrl="http://L0:50070/webhdfs/v1";
+								return('<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="getDocumentUpdate(' +data+ ')"">编辑</button>&nbsp;<button type="button" class="btn btn-outline btn-info btn-sm downloadMessage" onclick="window.open('+"'"+ prefixUrl+row.documentUrl +"?op=OPEN'"+ ')">下载</button>');
 							}
 						}
 					]
@@ -773,7 +773,7 @@
 			function getDocumentUpdate(id) {
 				var param = {};
 				param.documentId = id;
-
+				$('#documentIdEdit').val(id);
 				$.ajax({
 					type: "post",
 					url: getDocumentDetailUrl,
@@ -785,8 +785,8 @@
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
-					success: function(result) {
-						$('#documentIdEdit').val(result.documentId);
+					success: function(result) {	
+						$('#documentIdEdit').val(result.documentID);
 						$('#documentSerialEdit').val(result.documentSerial);
 						$('#documentNameEdit').val(result.documentName);
 						$('#projectSerialEdit').val(result.projectSerial);

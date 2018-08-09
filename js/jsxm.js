@@ -14,7 +14,7 @@ var getProjectDetailUrl = testUrl + "/getProjectDetail";
 var addProjectUrl = testUrl + "/addProject";
 var deleteProjectUrl = testUrl + "/deleteProject";
 var updateProjectDetailUrl = baseUrl + "/updateProjectDetail";
-
+var applyMoneyUrl=baseUrl+"/applyMoney";
 var getAssetListUrl = testUrl + "/getAssetList";
 var getAssetDetailUrl = baseUrl + "/getAssetDetail";
 var getAssetUpdateUrl = baseUrl + "/getAssetUpdate";
