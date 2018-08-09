@@ -35,7 +35,9 @@ var getDocListUrl = testUrl + "/getDocList";
 var getBudgetListUrl = testUrl + "/getBudgetList";
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 var addNotificationUrl = baseUrl +"/addNotification";
-
+var getVerifyListUrl = baseUrl +"/getVerifyList";
+var delVerifyUrl = baseUrl +'/delVerify';
+var passVerifyUrl = baseUrl +'/passVerify';
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
 
