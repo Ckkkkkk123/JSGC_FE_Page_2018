@@ -34,7 +34,7 @@ var getDocListUrl = testUrl + "/getDocList";
 
 var getBudgetListUrl = testUrl + "/getBudgetList";
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
-
+var addNotificationUrl = baseUrl +"/addNotification";
 
 var getDocumentDetailUrl = baseUrl + "/getDocumentDetail";
 var updateDocumentDetailUrl = baseUrl + "/updateDocumentDetail";
