@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>财务列表</title>
+		<title>财务</title>
 		<!-- Bootstrap core CSS-->
 		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Custom fonts for this template-->
@@ -140,12 +140,10 @@
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">
-						<a href="index.html">金审项目管理</a>
-					</li>
 					<li class="breadcrumb-item active">
 						<a href="financeList.html">财务管理</a>
 					</li>
+					<li class="breadcrumb-item active">财务列表</li>
 				</ol>
 				<!-- Example DataTables Card-->
 				<div class="card mb-1" id="chooseCard">
@@ -419,8 +417,8 @@
 		<script src="js/fileinput/fileinput.min.js"></script>
 			<script type="text/javascript">
 				$(function() {
-					var userLevel=localStorage.getItem('level');
-					switch(userLevel){
+					var userLevel = localStorage.getItem('level');
+					switch(userLevel) {
 						case '1':
 							$('.3button').show();
 							$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
@@ -432,11 +430,11 @@
 						case '3':
 							$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
 							break;
-						case '4':						
+						case '4':
 							$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
 							break;
 						default:
-						   alert('不存在角色');
+							alert('不存在角色');
 					}
 					getLendTypeOption();
 
@@ -562,7 +560,7 @@
 									//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 									callback(returnData);
 									//前端接口不可见性
-									if(localStorage.getItem('level')==3||localStorage.getItem('level')==4){
+									if(localStorage.getItem('level') == 3 || localStorage.getItem('level') == 4) {
 										$('.editMessage').hide();
 										$('.deleteMessage').hide();
 									}
@@ -661,7 +659,7 @@
 					//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
 				});
 			</script>
-			<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+			<script src="js/fnReloadAjax.js"></script>
 			<script>
 				function reRenderTable() {
 					var table = $('#financeTable').dataTable();
@@ -825,8 +823,9 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">Close</button>
-						<button type="button" class="btn btn-primary" onclick="updateFinance()">Save</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+						<button type="button" class="btn btn-warning" onclick="exportDoc()">保存</button>
+						<button type="button" class="btn btn-primary" onclick="updateFinance()">保存</button>
 					</div>
 				</div>
 			</div>
@@ -911,6 +910,7 @@
 						<div class="input-group">
 							<span class="input-group-addon	">是否付款：&nbsp;&nbsp;</span>
 							<select class="form-control" name="checkStatus" id="paidAdd">
+								<option value=""></option>
 								<option value="0">是</option>
 								<option value="1">否</option>
 							</select>
@@ -1190,7 +1190,21 @@
 				</div>
 			</div>
 		</div>
-
+		<div id="exportWord" style="display: none;">
+			<h1>拨款通知单</h1>
+			<p>凭证号:<span id="financeSerialsUpdt2"></span></p>
+			<p>合同编号:<span id="contractSerialUpdt2"></span></p>
+			<p>日期:<span id="dateUpdt2"></span></p>
+			<p>是否付款:<span id="paidUpdt2"></span></p>
+			<p>摘要:<span id="financeNameUpdt2"></span></p>
+			<p>资金:<span id="financeMoneyUpdt2"></span></p>
+			<p>借方科目:<span id="lendTypeUpdt_chosen2"></span></p>
+			<p>贷方科目:<span id="borrowTypeUpdt_chosen2"></span></p>
+			<p>支付方式:<span id="payWayUpdt_chosen2"></span></p>
+			<p>采购方式:<span id="purchaseWayUpdt_chosen2"></span></p>
+			<p>采购组织方式:<span id="orgWayUpdt_chosen2"></span></p>
+			<p>采购项目分类:<span id="purchaseTypeUpdt_chosen2"></span></p>
+		</div>
 		<!--删除信息-->
 		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
@@ -1284,10 +1298,43 @@
 				param.financeOrgID = $('#orgWayUpdt').val();
 				param.financeTypeID = $('#purchaseTypeUpdt').val();
 				param.financeStatus = $('#paidUpdt').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
-				console.log(JSON.stringify(param));
-				//			
+				var serial = $('#financeSerialsUpdt').val();
+				var money = $('#financeMoneyUpdt').val();
+				var date = $('#dateUpdt').val();
+				var lend = $('#lendTypeUpdt').val();
+				var borrow = $('#borrowTypeUpdt').val();
+				var pay1 = $('#payWayUpdt').val();
+				var pay2= $('#purchaseWayUpdt').val();
+				var org =  $('#orgWayUpdt').val();
+				var type = $('#purchaseTypeUpdt').val();
+				
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+					if(money <0){
+						alert('金额不能为负')
+					}else{
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+				if(lend == ''){
+						alert('请选择借方科目')
+				}else{	
+					if(borrow == ''){
+						alert('请选择贷方科目')
+				}else{	
+					if(pay1 == ''){
+						alert('请选择付款方式')
+				}else{	
+					if(pay2 == ''){
+						alert('请选择采购方式')
+				}else{	
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+						}else{
 				$.ajax({
 					type: "post",
 					url: updateFinanceDetailUrl,
@@ -1312,8 +1359,8 @@
 							alert('财务凭证号重复');
 						} else if(result == 100) {
 							alert('所辖合同编号不存在');
-						} else if(result == 222) {
-							alert('所属项目财务余额不足，请申请财务');
+						} else if(result == -222) {
+							alert('修改目的项目财务余额不足');
 						}
 					},
 					error: function(result, status) {
@@ -1329,7 +1376,7 @@
 						}
 					}
 
-				});
+				});}}}}}}}}}
 			}
 
 			function addFinance() {
@@ -1348,10 +1395,43 @@
 				param.financeBuyOrgId = $('#orgWayAdd').val();
 				param.financeTypeId = $('#purchaseTypeAdd').val();
 				param.financeStatus = $('#paidAdd').val();
-				//				alert(JSON.stringify(param))
-				//						console.log(param);
-				console.log(JSON.stringify(param));
-				//			
+				var money = $('#financeMoneyAdd').val();
+				var serial = $('#financeSerialsAdd').val();
+				var date = $('#dateAdd').val();
+				var lend = $('#lendTypeAdd').val();
+				var borrow = $('#borrowTypeAdd').val();
+				var pay1 = $('#payWayAdd').val();
+				var pay2= $('#purchaseWayAdd').val();
+				var org = $('#orgWayAdd').val();
+				var type = $('#purchaseTypeAdd').val();
+				if(serial = ''){
+					alert('财务凭证号不能为空')
+				}else{
+					if(money<0){
+						alert('金额不能为负')
+					}else{
+				if(date == ''){
+					alert('请输入日期');
+				}else{
+					if(lend == ''){
+						alert('请选择借方科目')
+					}else{
+					if(borrow == ''){
+						alert('请选择贷方科目')
+					}else{
+					if(pay1 == ''){
+						alert('请选择付款方式')
+					}else{
+					if(pay2 == ''){
+						alert('请选择采购方式')
+					}else{
+					if(org == ''){
+						alert('请选择采购组织形式')
+					}else{
+					if(type == ''){
+						alert('请选择采购项目分类')
+					}else{
+					
 				$.ajax({
 					type: "post",
 					url: addFinanceDetailUrl,
@@ -1393,7 +1473,7 @@
 						}
 					}
 
-				});
+				});}}}}}}}}}
 			}
 
 			function logout() {
@@ -1541,7 +1621,7 @@
 						xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
 					},
 					success: function(result) {
-						var NotiData = "";
+						var NotiData = "";	
 						for(i in result) {
 							console.log(i);
 							NotiData += '<div class="dropdown-divider"></div>' +
@@ -1692,6 +1772,28 @@
 				}
 				return oFile;
 			};
+		</script>
+		<script src="js/FileSaver.js"></script>
+		<script src="vendor/jquery/jquery.wordexport.js"></script>
+		<script src="js/canvas2image.js"></script>
+		<script>
+			function exportDoc() {
+				$('#financeSerialsUpdt2').text($('#financeSerialsUpdt').val());
+				$('#contractSerialUpdt2').text($('#contractSerialUpdt').val());
+				$('#dateUpdt2').text($('#dateUpdt').val());
+				$('#paidUpdt2').text($('#paidUpdt').val());
+				$('#financeNameUpdt2').text($('#financeNameUpdt').val());
+				$('#financeMoneyUpdt2').text($('#financeMoneyUpdt').val());
+				$('#lendTypeUpdt_chosen2').text($('#lendTypeUpdt_chosen span').text());
+				$('#borrowTypeUpdt_chosen2').text($('#borrowTypeUpdt_chosen span').text());
+				$('#payWayUpdt_chosen2').text($('#payWayUpdt_chosen span').text());
+				$('#purchaseWayUpdt_chosen2').text($('#purchaseWayUpdt_chosen span').text());
+				$('#orgWayUpdt_chosen2').text($('#orgWayUpdt_chosen span').text());
+				$('#purchaseTypeUpdt_chosen2').text($('#purchaseTypeUpdt_chosen span').text());
+				
+				
+				$("#exportWord").wordExport("fileName"); //fileName为导出的word文件的命名,content为要导出的html内容容器
+			}
 		</script>
 	</body>
 	<script>

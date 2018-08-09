@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>合同管理</title>
+		<title>合同</title>
 		<!-- Bootstrap core CSS-->
 		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Custom fonts for this template-->
@@ -129,9 +129,9 @@
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">合同管理</a>
+						<a href="contract.html">合同管理</a>
 					</li>
-					<li class="breadcrumb-item active">合同总览</li>
+					<li class="breadcrumb-item active">合同列表</li>
 				</ol>
 				<!-- Example DataTables Card-->
 				<div class="card mb-1" id="chooseCard">
@@ -326,12 +326,12 @@
 								<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeEdit"></input>
 								</div>
 							</div>
-							<!--<div class="clearfix"><br /></div>
-							<div class="row">
+							<div class="clearfix"><br /></div>
+							<div class="row" style="display: none;">
 								<div class="col-md-2">合同额:</div>						
 								<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyEdit"></input>
 								</div>
-							</div>-->
+							</div>
 							<div class="clearfix"><br /></div>
 							<div class="row">
 								<div class="col-md-2">所属项目编号:</div>
@@ -786,7 +786,7 @@
 		});
 	</script>
 
-	<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+	<script src="js/fnReloadAjax.js"></script>
 	<script type="text/javascript">
 		function reRenderTable() {
 			var table = $('#example').dataTable();
@@ -850,8 +850,13 @@
 			param.contractContent = $('#contractContentEdit').val();
 			param.contractComment = $('#contractCommentEdit').val();
 			param.projectSerial = $('#projectSerialEdit').val();
-var date = $('#contractSignedTimeAdd').val();
-			var money = $('#contractMoneyAdd').val();
+			var serial = $('#contractSerialEdit').val();
+var date = $('#contractSignedTimeEdit').val();
+			var money = $('#contractMoneyEdit').val();
+			var build = $('#buildContentEdit').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -859,6 +864,9 @@ var date = $('#contractSignedTimeAdd').val();
 			
 			if(money<0){
 				alert('请输入正数合同金额');
+			}else{
+				if(build == ''){
+				alert('请选择建设内容');
 			}else{
 			
 			$.ajax({
@@ -884,6 +892,8 @@ var date = $('#contractSignedTimeAdd').val();
 						alert('所辖项目编号不存在');
 					} else if(result==77){
 							alert('合同编号不能为空');
+						}else if(result==-222){
+							alert('更改目的所属项目余额不足');
 						}
 
 				},
@@ -900,7 +910,7 @@ var date = $('#contractSignedTimeAdd').val();
 					}
 				}
 
-			});}}
+			});}}}}
 		}
 
 		function logout() {
@@ -940,8 +950,13 @@ var date = $('#contractSignedTimeAdd').val();
 			param.contractContent = $('#contractContentAdd').val();
 			param.contractComment = $('#contractCommentAdd').val();
 			param.projectSerial = $('#projectSerialAdd').val();
+			var serial = $('#contractSerialAdd').val();
 			var date = $('#contractSignedTimeAdd').val();
 			var money = $('#contractMoneyAdd').val();
+			var build = $('#buildContentAdd').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
 			if(date == ''){
 				alert('请输入日期');
 			}else{
@@ -951,10 +966,9 @@ var date = $('#contractSignedTimeAdd').val();
 				alert('请输入正数合同金额');
 			}else{
 
-			//				alert(JSON.stringify(param))
-			//						console.log(param);
-			console.log(JSON.stringify(param));
-			//			
+			if(build == ''){
+				alert('请选择建设内容');
+			}else{		
 			$.ajax({
 				type: "post",
 				url: addContractDetailUrl,
@@ -994,7 +1008,7 @@ var date = $('#contractSignedTimeAdd').val();
 					}
 				}
 
-			});}}
+			});}}}}
 		}
 
 		function deleteContractId(contractId) {

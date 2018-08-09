@@ -338,7 +338,7 @@
 									</div>
 									<div class="col-md-5">
 										<button type="button" class="btn btn-primary" id="addInputBtn">添加一项</button>&nbsp;&nbsp;
-										<button type="button" class="btn btn-success">发布新版本</button>
+										<button type="button" class="btn btn-success" onclick="updateNewVersion()">发布新版本</button>
 									</div>
 								</div>
 							</div>
@@ -549,8 +549,8 @@
 					resultHtml = '</br>';
 					// 部门信息
 					for(var item in result["departments"]) {
-						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["departments"][item]["departmentId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["departments"][item]["departmentName"] + '">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" name="departmentsID" class="form-control" value="' + result["departments"][item]["departmentId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" name="departmentsName" class="form-control" value="' + result["departments"][item]["departmentName"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
 					//					resultHtml+='</div>';
@@ -558,64 +558,67 @@
 					resultHtml = "</br>";
 					// 付款方式
 					for(var item in result["payMethods"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["payMethods"][item]["payMethodId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["payMethods"][item]["payMethodInfo"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["payMethods"][item]["payMethodId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["payMethods"][item]["payMethodInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
 					$('#PayMethod').html(resultHtml);
 					resultHtml = "</br>";
 					// 借方信息
-					for(var item in result["payMethods"]) {
-						resultHtml += '<div class="input-group mb-3"><input type="text" class="form-control" value="' + result["payMethods"][item]["payMethodInfo"] + '"><div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div>'
+					for(var item in result["borrowTypes"]) {
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["borrowTypes"][item]["accountantId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["borrowTypes"][item]["accountantName"] + '">'
+						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
-					$('#PayMethod').html(resultHtml);
+					$('#BorrowType').html(resultHtml);
 					resultHtml = "</br>";
 					// 贷方信息
-					for(var item in result["payMethods"]) {
-						resultHtml += '<div class="input-group mb-3"><input type="text" class="form-control" value="' + result["payMethods"][item]["payMethodInfo"] + '"><div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div>'
+					for(var item in result["lendTypes"]) {
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["lendTypes"][item]["accountantId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["lendTypes"][item]["accountantName"] + '">'
+						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
-					$('#PayMethod').html(resultHtml);
+					$('#LendType').html(resultHtml);
 					resultHtml = "</br>";
 					// 预算批复
 					for(var item in result["budgetReplies"]) {
-						
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["budgetReplies"][item]["budgetReplyId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["budgetReplies"][item]["budgetReplyInfo"] +'">'
+
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["budgetReplies"][item]["budgetReplyId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["budgetReplies"][item]["budgetReplyInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
-						
 
 					}
 					$('#BudgetReply').html(resultHtml);
 					resultHtml = "</br>";
 					// 建设内容
 					for(var item in result["buildContents"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["buildContents"][item]["buildContentId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["buildContents"][item]["buildInfo"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["buildContents"][item]["buildContentId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["buildContents"][item]["buildInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
 					$('#BuildContent').html(resultHtml);
 					resultHtml = "</br>";
 					// 采购方式
 					for(var item in result["buyMethods"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["buyMethods"][item]["buyMethodId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["buyMethods"][item]["buyMethodInfo"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["buyMethods"][item]["buyMethodId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["buyMethods"][item]["buyMethodInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
-						
+
 					}
 					$('#PurchaseWay').html(resultHtml);
 					resultHtml = "</br>";
 					// 采购组织
 					for(var item in result["buyOrgForms"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["buyOrgForms"][item]["buyOrgFormId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["buyOrgForms"][item]["buyOrgFormInfo"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["buyOrgForms"][item]["buyOrgFormId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["buyOrgForms"][item]["buyOrgFormInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
 					$('#BuyOrgMethod').html(resultHtml);
 					resultHtml = "</br>";
 					// 采购类型
 					for(var item in result["buyTypes"]) {
-						resultHtml+= '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="'+ result["buyTypes"][item]["buyTypeId"]  +'"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
-						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="'+ result["buyTypes"][item]["buyTypeInfo"] +'">'
+						resultHtml += '<div class="row"><div class="col-md-5"><input type="text" class="form-control" value="' + result["buyTypes"][item]["buyTypeId"] + '"></div><div style=" height:50px;line-height:30px"><p class="fa fa-fw fa-caret-right"></p></div>'
+						resultHtml += '<div class="col-md-6"><div class="input-group mb-3"><input type="text" class="form-control" value="' + result["buyTypes"][item]["buyTypeInfo"] + '">'
 						resultHtml += '<div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div></div></div>'
 					}
 					$('#PurchaseType').html(resultHtml);
@@ -625,6 +628,76 @@
 		}
 
 		//		<div class="input-group mb-3"><input type="text" class="form-control" value="背锅部"><div class="input-group-append"><button class="btn btn-danger" onclick="delInput(this)">删除</button></div></div>
+	</script>
+	<script>
+		function updateNewVersion() {
+			var param = {};
+			//				param.userID = 
+			Department = []
+			$("#Department input[type='text']").each(function() {
+				Department.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			PayMethod = []
+			$("#Department input[type='text']").each(function() {
+				PayMethod.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			BorrowType = []
+			$("#BorrowType input[type='text']").each(function() {
+				BorrowType.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			LendType = []
+			$("#LendType input[type='text']").each(function() {
+				LendType.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			BudgetReply = []
+			$("#BudgetReply input[type='text']").each(function() {
+				BudgetReply.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			BuildContent = []
+			$("#BuildContent input[type='text']").each(function() {
+				BuildContent.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			PurchaseWay = []
+			$("#PurchaseWay input[type='text']").each(function() {
+				PurchaseWay.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			BuyOrgMethod = []
+			$("#BuyOrgMethod input[type='text']").each(function() {
+				BuyOrgMethod.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			PurchaseType = []
+			$("#PurchaseType input[type='text']").each(function() {
+				PurchaseType.push($(this).val()); //把当前text下的内容追加到数组里面
+			});
+			param.versionBuildNum = $('#VersionContent').val();
+			param.Department = Department;
+			param.PayMethod = PayMethod;
+			param.BorrowType = BorrowType;
+			param.LendType = LendType;
+			param.BudgetReply = BudgetReply;
+			param.BuildContent = BuildContent;
+			param.PurchaseWay = PurchaseWay;
+			param.BuyOrgMethod = BuyOrgMethod;
+			param.PurchaseType = PurchaseType;
+			console.log(JSON.stringify(param))
+			$.ajax({
+				type: "post",
+				url: updateNewVersionUrl,
+				cache: false, //禁用缓存
+				contentType: "application/json",
+				data: JSON.stringify(param), //传入组装的参数
+//				dataType: "json",
+//				async: false,
+//				crossDomain: true,
+//				beforeSend: function(xhr) {
+//					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+//				},
+				success: function(result) {
+					alert("新版本已发布")
+				}
+			});
+
+		}
 	</script>
 
 	<script>
