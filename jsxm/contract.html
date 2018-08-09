@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>合同</title>
+		<!-- Bootstrap core CSS-->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom fonts for this template-->
+		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Page level plugin CSS-->
+		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+		<!-- Custom styles for this template-->
+		<link href="css/sb-admin.css" rel="stylesheet">
+		<link rel="stylesheet" href="laydate/theme/default/laydate.css">
+		<link rel="stylesheet" href="css/chosen.min.css">
+		<link rel="stylesheet" href="css/fileinput/fileinput.min.css" />
+		<script src="laydate/laydate.js" charset="utf-8"></script>
+		<script src="js/jsxm.js"></script>
+
+		<style>
+			.mycardheader {
+				padding: 0;
+			}
+		</style>
+
+	</head>
+
+	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+		<!-- Navigation-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+			<a id="userLevelText" class="navbar-brand" href="index.html">金审项目管理</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+							<i class="fa fa-fw fa-wrench"></i>
+							<span class="nav-link-text">项目管理</span>
+						</a>
+						<ul class="sidenav-second-level collapse" id="collapseComponents">
+							<li>
+								<a href="project.html">项目列表</a>
+							</li>
+							<li>
+								<a href="contract.html">合同列表</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="financeList.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">财务管理</span>
+						</a>
+
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="budget.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">预算查看</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="asset.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">资产管理</span>
+						</a>
+					</li>
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+						<a class="nav-link" href="document.html">
+							<i class="fa fa-fw fa-table"></i>
+							<span class="nav-link-text">档案管理</span>
+						</a>
+					</li>
+
+					<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+						<a class="nav-link" href="#">
+							<i class="fa fa-fw fa-link"></i>
+							<span class="nav-link-text">审核</span>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav sidenav-toggler">
+					<li class="nav-item">
+						<a class="nav-link text-center" id="sidenavToggler">
+							<i class="fa fa-fw fa-angle-left"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-bell"></i> 通知
+
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" style="width: 250px;" aria-labelledby="alertsDropdown" id="notice">
+							<h6 class="dropdown-header">最近通知:</h6>
+						</div>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-user"></i><label id="usernameLable">用户名</label>
+
+						</a>
+						<!--拉到左边dropdown-menu-right-->
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="window.open('userInfo.html')">
+								<i class="fa fa-fw fa-cogs"></i>个人信息
+							</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" data-toggle="modal" style="color:black" onclick="logout()">
+								<i class="fa fa-fw fa-sign-out"></i>退出登录
+							</a>
+
+						</div>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="contract.html">合同管理</a>
+					</li>
+					<li class="breadcrumb-item active">合同列表</li>
+				</ol>
+				<!-- Example DataTables Card-->
+				<div class="card mb-1" id="chooseCard">
+					<div class="card-header mycardheader">
+						<i class="fa fa-filter"></i>
+						<a class="card-link" href="#collapseOne" data-toggle="collapse" style='color:black'>筛选栏</a>
+					</div>
+
+					<div class="card-body " class="collapse show" id="collapseOne" data-parent="#chooseCard">
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">合同编号：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="contractSerial">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">合同名称：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" placeholder="" value="" id="contractName">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+
+							<div class="col-md-3 ">
+								<div class="input-group">
+									<span class="input-group-addon	">日期范围：&nbsp;&nbsp;</span>
+									<input class="form-control" type="text" id="contractSignedTime">
+								</div>
+								<script src="laydate/laydate.js"></script>
+								<script>
+									//执行一个laydate实例
+									laydate.render({
+										elem: '#contractSignedTime',
+										range: true
+									});
+								</script>
+							</div>
+
+						</div>
+						<br />
+						<div class="form-inline">
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">所属项目编号：&nbsp;</span>
+									<input class="form-control" type="text" id="projectSerial">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">所属项目名称：&nbsp;</span>
+									<input class="form-control" type="text" id="projectName">
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<span class="input-group-addon	">建设内容：&nbsp;</span>
+									<select id="buildContent" data-placeholder="选择建设内容" data-live-search="true" class="chosen-select form-control" tabindex="5">
+
+									</select>
+								</div>
+							</div>
+
+						</div><br />
+
+						<div class="form-inline">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-primary" onclick="resetInput()">重置</button>&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-success" onclick="reRenderTable()">搜索</button>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Example DataTables Card-->
+				<div class="card mb-3">
+					<div class="card-header ">
+						<i class="fa fa-table"></i> 合同列表
+						<div class="3button" style="position: relative;display: none;">
+							<button type="button" class="hehe btn btn-primary" data-toggle="modal" data-target="#fileinputModal" style="position: absolute; right: 100px; top:50%;margin-top:-32px">批量导入</button>
+							<button type="button" id="batchOkButton" class="btn btn-success" style="position: absolute; right: 0; top:50%;margin-top:-32px" onclick="batchDownload()">批量导出</button>
+							<button type="button" style="position: absolute; right: 200px; top:50%;margin-top:-32px" class="hehe btn btn-outline btn-warning " data-toggle="modal" on data-target="#addContract">添加信息</button>
+
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-bordered table-hover" cellspacing="0" style="width:100%">
+								<thead>
+									<tr>
+										<th>合同编号</th>
+										<th>合同名称</th>
+										<th>合同多方</th>
+										<th>签订日期</th>
+										<th>合同金额</th>
+										<th>所属项目</th>
+										<th>建设内容</th>
+										<th class="nosort">合同内容</th>
+										<th class="nosort">备注信息</th>
+										<th class="nosort">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid-->
+		<!-- /.content-wrapper-->
+		<footer class="sticky-footer">
+			<div class="container">
+				<div class="text-center">
+					<small>Copyright © Your Website 2018</small>
+				</div>
+			</div>
+		</footer>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fa fa-angle-up"></i>
+		</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--修改信息模态框-->
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">修改合同</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body">
+						<div class="container" style="width: 90%;">
+							<div class="row" style="display: none;">
+								<div class="col-md-2">合同ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="contractIDEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractSerialEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同名称:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractNameEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同多方:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractPartnerEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同签署日期:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row" style="display: none;">
+								<div class="col-md-2">合同额:</div>						
+								<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">所属项目编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="projectSerialEdit"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">建设内容:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7">
+									<select id="buildContentEdit" class="form-control chosen-select" name="checkStatusEdit">
+
+									</select>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同内容:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-10">
+									<textarea class="form-control" id="contractContentEdit" rows="5">
+										</textarea>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同备注:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="contractCommentEdit" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModel">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="updateContract()">提交</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--修改成功-->
+		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">修改成功</h4>
+
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		<!--上传文件模态框-->
+		<div class="modal fade" id="fileinputModal" tabindex="-1" role="dialog" aria-labelledby="fileinputModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="fileinputModalLabel">选择一个Excel，导入</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+					</div>
+
+					<div class="modal-body">
+						<a download="contractsExcelModel.xls" href="http://localhost:8080/contractsExcelModel.xls" class="form-control" style="border:none;">下载导入模板</a>
+						<div class="file-loading">
+							<input id="excel_file" name="file" type="file" class="file-loading" />
+						</div>
+						<div id="kartik-file-errors"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--添加模态框-->
+		<div class="modal fade bs-example-modal-lg" id="addContract" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabelAdd">添加合同</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body">
+						<div class="container" style="width: 90%;">
+							<div class="row" style="display: none;">
+								<div class="col-md-2">合同ID:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="contractIDAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractSerialAdd"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同名称:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractNameAdd"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同多方:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="contractPartnerAdd"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同签署日期:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="date" class="form-control" id="contractSignedTimeAdd"></input>
+								</div>
+							</div>
+							<!--<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同额:</div>								
+								<div class="col-md-7"><input type="number" class="form-control" id="contractMoneyAdd"></input>
+								</div>
+							</div>-->
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">所属项目编号:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" class="form-control" id="projectSerialAdd"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">建设内容:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7">
+									<select id="buildContentAdd" class="form-control chosen-select" name="checkStatusAdd">
+
+									</select>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同内容:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-10">
+									<textarea class="form-control" id="contractContentAdd" rows="5">
+										</textarea>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+							<div class="row">
+								<div class="col-md-2">合同备注:</div>
+								<!--<div class="col-1"></div>-->
+								<div class="col-md-7"><input type="text" id="contractCommentAdd" class="form-control"></input>
+								</div>
+							</div>
+							<div class="clearfix"><br /></div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelAdd">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="addContract()">提交</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--添加成功-->
+		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">添加成功</h4>
+
+						<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+
+					</div>
+					<!--<div class="modal-body"></div>-->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<!--<button type="button" class="btn btn-primary">提交更改</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		<!--确认删除-->
+		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--<h4 class="modal-title" id="myModalLabel">修改项目信息</h4>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 				 <span aria-hidden="true">×</span>
+                			</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class="container" style="width: 90%;">
+							<h4 class="modal-title" id="myModalLabel">确定删除？</h4>
+
+							<div class="row">
+								<div class="col-md-2">合同ID:</div>
+								<div class="col-md-7"><input type="text" id="contractIdDelete" class="form-control"></input>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModelDelete">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="deleteContract()">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin.min.js"></script>
+	<!-- Custom scripts for this page-->
+	<script src="js/sb-admin-datatables.min.js"></script>
+	<script src="js/chosen.jquery.min.js"></script>
+	<script src="js/fileinput/fileinput.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var userLevel=localStorage.getItem('level');
+			switch(userLevel){
+				case '1':
+					$('.3button').show();
+					$('#userLevelText').append('&nbsp;&nbsp;(管理员)');
+					break;
+				case '2':
+					$('.3button').show();
+					$('#userLevelText').append('&nbsp;&nbsp;(项目负责人)');
+					break;
+				case '3':
+					$('.3button').show();
+					$('.hehe').hide();
+					$('#userLevelText').append('&nbsp;&nbsp;(决策领导)');
+					break;
+				case '4':						
+					$('#userLevelText').append('&nbsp;&nbsp;(大领导)');
+					break;
+				default:
+				   alert('不存在角色');
+			}	
+			getBuildContentOption();
+			$('.chosen-select', this).chosen({
+				width: "190px"
+			});
+			$('#myModal').on('show.bs.modal', function(e) {
+				$("#myModal .chosen-select").trigger("chosen:updated");
+				$('#myModal .chosen-select', this).chosen({
+					width: "500px"
+				});
+			})
+			$('#addContract').on('show.bs.modal', function(e) {
+				$("#addContract .chosen-select").trigger("chosen:updated");
+				$('#addContract .chosen-select', this).chosen({
+					width: "500px"
+				});
+			})
+
+			var oFileInput = new FileInput();
+			oFileInput.Init("excel_file", "http://localhost:8080/batchUploadContracts");
+
+			//提示信息
+			var lang = {
+				"sProcessing": "处理中...",
+				"sLengthMenu": "每页 _MENU_ 项",
+				"sZeroRecords": "没有匹配结果",
+				"sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+				"sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+				"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+				"sInfoPostFix": "",
+				"sSearch": "搜索:",
+				"sUrl": "",
+				"sEmptyTable": "表中数据为空",
+				"sLoadingRecords": "载入中...",
+				"sInfoThousands": ",",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "上页",
+					"sNext": "下页",
+					"sLast": "末页",
+					"sJump": "跳转"
+				},
+				"oAria": {
+					"sSortAscending": ": 以升序排列此列",
+					"sSortDescending": ": 以降序排列此列"
+				}
+			};
+			//列表表头字段
+			var projectID = 0;
+			//初始化表格
+			var table = $("#example").dataTable({
+
+				language: lang, //提示信息
+				autoWidth: false, //禁用自动调整列宽
+				stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
+				processing: true, //隐藏加载提示,自行处理
+				serverSide: true, //启用服务器端分页
+				searching: false, //禁用原生搜索
+				orderMulti: false, //启用多列排序
+				order: [], //取消默认排序查询,否则复选框一列会出现小箭头
+				renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
+				pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+				columnDefs: [{
+					"targets": 'nosort', //列的样式名
+					"orderable": false //包含上样式名‘nosort'的禁止排序
+				}],
+				ajax: function(data, callback, settings) {
+					//封装请求参数
+					var param = {};
+					//						console.log(data)
+					param.limit = data.length; //页面显示记录条数，在页面显示每页显示多少项的时候
+					param.start = data.start; //开始的记录序号
+					param.page = (data.start / data.length) + 1; //当前页码
+					param.order = data.order;
+					getOrder(data.order); //lzq,批量导出获取当前页面的Order
+					param.contractSerial = $('#contractSerial').val();
+					param.contractName = $('#contractName').val();
+					param.contractSignedTime = $('#contractSignedTime').val();
+					param.projectSerial = $('#projectSerial').val();
+					param.projectName = $('#projectName').val();
+					param.buildContentId = $('#buildContent').val();
+					console.log(param);
+
+					//ajax请求数T    
+					$.ajax({
+						type: "POST",
+						url: getContractListUrl,
+						cache: false, //禁用缓存
+						contentType: "application/json",
+						data: JSON.stringify(param), //传入组装的参数
+						dataType: "json",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+						},
+						success: function(result) {
+							//console.log(result);
+							//setTimeout仅为测试延迟效果
+							//封装返回数据
+							var returnData = {};
+							returnData.draw = data.draw; //这里直接自行返回了draw计数器,应该由后台返回	
+							returnData.recordsTotal = result.total; //返回数据全部记录
+							returnData.recordsFiltered = result.total; //后台不实现过滤功能，每次查询均视作全部结果
+							returnData.data = result.data; //返回的数据列表
+							//console.log(returnData);
+							//调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+							//此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+
+							callback(returnData);
+							//隐藏									
+							//前端接口不可见性
+							if(localStorage.getItem('level')==3||localStorage.getItem('level')==4){
+								$('.editMessage').hide();
+								$('.deleteMessage').hide();
+							}
+						},
+						error: function(result, status) {
+							console.log(result)
+						},
+						statusCode: {
+							401: function() {
+								alert("登录状态错误，请重新登录后再尝试");
+								window.open('login.html?type=1');
+							},
+							405: function() {
+								alert("您无权进行此操作");
+							}
+						}
+
+					});
+				},
+				columns: [{
+					"data": "contractSerial"
+				}, {
+					"data": "contractName"
+				}, {
+					"data": "contractPartner"
+				}, {
+					"data": "contractSignedTime",
+					"render": function(data, type, row, callback) {
+						return(timestampToDate(data));
+					}
+				}, {
+					"data": "contractMoney"
+				}, {
+					"data": "projectSerial",
+					"render": function(data, type, row, callback) {
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						projectUrl = "'project.html?projectSerial=" + row.projectSerial + "'";
+						return('<a target="_blank" href=' + projectUrl + '>' + data + '</a>')
+					}
+				}, {
+					"data": "buildInfo",
+				}, {
+					"data": "contractContent",
+					"render": function(data, type, full, callback) {
+						return(cutString(data, 20));
+					}
+				}, {
+					"data": "contractComment",
+					"render": function(data, type, full, callback) {
+						return(cutString(data, 20));
+					}
+				}, {
+
+					"data": "contractId", //json
+					"render": function(data, type, row, callback) {
+
+						//data 就是上面传入的参数，projectID
+						//拼接字符串（懒得处理引号转义）
+						financeUrl = "'financeList.html?contractSerial=" + row.contractSerial + "'";
+						detailUrl = "'/contractDetail.html?contractID=" + data + "'";
+						return('<button type="button" class="btn btn-outline btn-info btn-sm" onclick="window.open(' + financeUrl + ')">查看财务</button>&nbsp;&nbsp;' +
+							'<button type="button" class="btn btn-outline btn-warning btn-sm editMessage" data-toggle="modal" on data-target="#myModal"  onclick="showDetail(' + data + ')">编辑信息</button>' +
+							'&nbsp;&nbsp;<button type="button" class="btn btn-outline btn-warn btn-sm deleteMessage" onclick="deleteContractId(' + data + ')">删除</button>');
+					}
+				}]
+			}).api();
+			//此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
+		});
+	</script>
+
+	<script src="js/fnReloadAjax.js"></script>
+	<script type="text/javascript">
+		function reRenderTable() {
+			var table = $('#example').dataTable();
+			table.fnReloadAjax();
+		}
+	</script>
+	<script>
+		function showDetail(id) {
+			var param = {};
+			param.contractID = id;
+			$.ajax({
+				type: "POST",
+				url: getContractDetailUrl,
+				cache: false,
+				//				contentType: "application/json",
+				data: param, //传入组装的参数
+				dataType: "json",
+				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+					$('#contractIDEdit').val(id);
+					$('#contractSerialEdit').val(result.contractSerial);
+					$('#contractNameEdit').val(result.contractName);
+					$('#contractPartnerEdit').val(result.contractPartner);
+					$('#contractSignedTimeEdit').val(result.contractSignedTime);
+					$('#contractMoneyEdit').val(result.contractMoney);
+					$('#buildContentEdit').val(result.buildContentID);
+					$('#contractContentEdit').val(result.contractContent);
+					$('#contractCommentEdit').val(result.contractComment);
+					$('#projectSerialEdit').val(result.projectSerial);
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
+					}
+				}
+
+			});
+		}
+		//发送修改的内容
+		function updateContract() {
+			//				ajax
+			var param = {};
+			param.contractId = $('#contractIDEdit').val();
+			param.contractSerial = $('#contractSerialEdit').val();
+			param.contractName = $('#contractNameEdit').val();
+			param.contractPartner = $('#contractPartnerEdit').val();
+			param.contractSignedTime = $('#contractSignedTimeEdit').val();
+			param.contractMoney = $('#contractMoneyEdit').val();
+			param.buildContentId = $('#buildContentEdit').val();
+			param.contractContent = $('#contractContentEdit').val();
+			param.contractComment = $('#contractCommentEdit').val();
+			param.projectSerial = $('#projectSerialEdit').val();
+			var serial = $('#contractSerialEdit').val();
+var date = $('#contractSignedTimeEdit').val();
+			var money = $('#contractMoneyEdit').val();
+			var build = $('#buildContentEdit').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
+			if(date == ''){
+				alert('请输入日期');
+			}else{
+			
+			
+			if(money<0){
+				alert('请输入正数合同金额');
+			}else{
+				if(build == ''){
+				alert('请选择建设内容');
+			}else{
+			
+			$.ajax({
+				type: "post",
+				url: updateContractDetailUrl,
+				cache: false, //禁用缓存
+				contentType: "application/json",
+				data: JSON.stringify(param), //传入组装的参数
+				dataType: "json",
+				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+
+					if(result == 1) {
+						$('#closeModel').click();
+						$('#successModal').modal('show');
+						reRenderTable();
+					} else if(result == 99) {
+						alert('合同编号重复');
+					} else if(result == 100) {
+						alert('所辖项目编号不存在');
+					} else if(result==77){
+							alert('合同编号不能为空');
+						}else if(result==-222){
+							alert('更改目的所属项目余额不足');
+						}
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
+					}
+				}
+
+			});}}}}
+		}
+
+		function logout() {
+
+			$.ajax({
+				type: "post",
+				url: logoutUrl,
+				cache: false, //禁用缓存
+				data: "", //传入组装的参数
+				dataType: "json",
+				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+					//								alert("登录状态错误，请重新登录");
+					//							
+					window.open('login.html');
+				},
+				error: function(result, status) {
+					console.log(result)
+					window.location.href = 'login.html';
+				}
+			});
+		}
+
+		function addContract() {
+			//				ajax
+			var param = {};
+			param.contractID = $('#contractIDAdd').val();
+			param.contractSerial = $('#contractSerialAdd').val();
+			param.contractName = $('#contractNameAdd').val();
+			param.contractPartner = $('#contractPartnerAdd').val();
+			param.contractSignedTime = $('#contractSignedTimeAdd').val();
+			param.contractMoney = $('#contractMoneyAdd').val();
+			param.buildContentId = $('#buildContentAdd').val();
+			param.contractContent = $('#contractContentAdd').val();
+			param.contractComment = $('#contractCommentAdd').val();
+			param.projectSerial = $('#projectSerialAdd').val();
+			var serial = $('#contractSerialAdd').val();
+			var date = $('#contractSignedTimeAdd').val();
+			var money = $('#contractMoneyAdd').val();
+			var build = $('#buildContentAdd').val();
+			if(serial == ''){
+				alert('合同编号不能为空');
+			}else{
+			if(date == ''){
+				alert('请输入日期');
+			}else{
+			
+			
+			if(money<0){
+				alert('请输入正数合同金额');
+			}else{
+
+			if(build == ''){
+				alert('请选择建设内容');
+			}else{		
+			$.ajax({
+				type: "post",
+				url: addContractDetailUrl,
+				cache: false, //禁用缓存
+				contentType: "application/json",
+				data: JSON.stringify(param), //传入组装的参数
+				dataType: "json",
+				async: false,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+
+					if(result == 1) {
+						$('#closeModelAdd').click();
+						$('#successModalAdd').modal('show');
+						reRenderTable();
+					} else if(result == 99) {
+						alert('合同编号重复');
+					} else if(result == 100) {
+						alert('所辖项目编号不存在');
+					}  else if(result==77){
+							alert('合同编号不能为空');
+						}
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
+					}
+				}
+
+			});}}}}
+		}
+
+		function deleteContractId(contractId) {
+			$('#contractIdDelete').val(contractId);
+			$('#deleteModal').modal('show');
+		}
+
+		function deleteContract() {
+			var param = {};
+			param.contractID = $('#contractIdDelete').val();
+			console.log(JSON.stringify(param));
+
+			$.ajax({
+				type: "post",
+				url: deleteContractUrl,
+				cache: false, //禁用缓存
+				//					contentType: "application/json",
+				data: param, //传入组装的参数
+				dataType: "json",
+				async: false,
+				crossDomain: true,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+
+					$('#closeModelDelete').click();
+					reRenderTable();
+
+					//						
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
+					}
+				}
+			});
+		}
+
+		function getNotice() {
+			$.ajax({
+				type: "post",
+				url: getNoticeUrl,
+				cache: false, //禁用缓存
+				contentType: "application/json,charset=utf-8",
+				data: null, //传入组装的参数
+				dataType: "json",
+				async: false,
+				crossDomain: true,
+				scriptCharset: 'utf-8',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", localStorage.getItem("Token"));
+				},
+				success: function(result) {
+					var NotiData = "";
+					for(i in result) {
+						console.log(i);
+						NotiData += '<div class="dropdown-divider"></div>' +
+							'<a class="dropdown-item">' +
+							'<span class="text-success">' +
+							'<strong>' + result[i]["NoTitle"] + '</strong></span>' +
+							'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
+							'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
+
+					}
+					console.log(NotiData);
+					$('#notice').append(NotiData);
+
+				},
+				error: function(result, status) {
+					console.log(result)
+				},
+				statusCode: {
+					401: function() {
+						alert("登录状态错误，请重新登录后再尝试");
+						window.open('login.html?type=1');
+					},
+					405: function() {
+						alert("您无权进行此操作");
+					}
+				}
+			});
+		}
+	</script>
+	<script>
+		$('#usernameLable').text(localStorage.getItem("username"));
+	</script>
+	<script>
+		//初始化fileinput
+		var FileInput = function() {
+
+			var oFile = new Object();
+
+			//初始化fileinput控件（第一次初始化）
+			oFile.Init = function(ctrlName, uploadUrl) {
+				var control = $('#' + ctrlName);
+
+				//初始化上传控件的样式
+				control.fileinput({
+					language: 'zh', //设置语言
+					uploadUrl: uploadUrl, //上传的地址
+					allowedFileExtensions: ['xls', 'xlsx', ''], //接收的文件后缀
+					showUpload: true, //是否显示上传按钮
+					showCaption: true, //是否显示标题
+					browseClass: "btn btn-primary", //按钮样式     
+					dropZoneEnabled: false, //是否显示拖拽区域
+					showPreview: true, //乱码?
+					//minImageWidth: 50, //图片的最小宽度
+					//minImageHeight: 50,//图片的最小高度
+					//maxImageWidth: 1000,//图片的最大宽度
+					//maxImageHeight: 1000,//图片的最大高度
+					//maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+					//minFileCount: 0,
+					maxFileCount: 1, //表示允许同时上传的最大文件个数
+					enctype: 'multipart/form-data',
+					validateInitialCount: true,
+					previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+					msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+					fileSingle: '文件',
+					filePlural: '个文件',
+					browseLabel: '选择 &hellip;',
+					removeLabel: '移除',
+					removeTitle: '清除选中文件',
+					//lzq,7.27文件上传
+					uploadExtraData: function(previewId, index) { //额外参数
+						var obj = {};
+						obj.userID = localStorage.getItem('userID'); // 这里回调方法
+						return obj;
+					},
+					preferIconicPreview: true, // 开启用图标替换预览效果
+					previewFileIconSettings: { // configure your icon file extensions
+						'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+						'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+						'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+						'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+						'txt': '<i class="fa fa-file-text-o text-info"></i>',
+						'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+						'htm': '<i class="fa fa-file-code-o text-info"></i>',
+						'mov': '<i class="fa fa-file-movie-o text-warning"></i>',
+						'mp3': '<i class="fa fa-file-audio-o text-warning"></i>'
+					},
+					previewFileExtSettings: {
+						'doc': function(ext) {
+							return ext.match(/(doc|docx)$/i);
+						},
+						'xls': function(ext) {
+							return ext.match(/(xls|xlsx)$/i);
+						},
+						'ppt': function(ext) {
+							return ext.match(/(ppt|pptx)$/i);
+						},
+						'zip': function(ext) {
+							return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+						},
+						'htm': function(ext) {
+							return ext.match(/(htm|html)$/i);
+						},
+						'mov': function(ext) {
+							return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+						},
+						'mp3': function(ext) {
+							return ext.match(/(mp3|wav)$/i);
+						},
+						'txt': function(ext) {
+							return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+						}
+					},
+					layoutTemplates: { // 预览图片按钮控制，这里屏蔽预览按钮
+						actionZoom: ''
+					}
+
+				});
+
+				//导入文件上传完成之后的事件
+				$("#excel_file").on("fileuploaded", function(event, data, previewId, index) {
+					$("#fileinputModal").modal("hide");
+
+					console.log(data);
+					alert('成功行数->' + data.response.successSize + '\n' +
+						'失败行数->' + data.response.defeatSize + '\n' +
+						'Excel内部编号冲突行号:' + data.response.rowNumsRepeatInner + '\n' +
+						'与数据库编号冲突行号:' + data.response.rowNumsRepeatDB + '\n' +
+						'所属关系不对行号:' + data.response.rowNumsOutJoinNotExist);
+						
+					reRenderTable();	
+				});
+				
+			}
+			return oFile;
+		};
+
+		$(document).ready(function() {
+			var qs = getQueryString();
+			var contractSerialUrl = qs["contractSerial"];
+			var projectSerialUrl = qs["projectSerial"];
+			$('#contractSerial').val(contractSerialUrl);
+			$('#projectSerial').val(projectSerialUrl);
+
+			reRenderTable();
+			$('#projectSerialAdd').val(projectSerialUrl);
+		})
+	</script>
+	<script>
+		$(document).ready(function() {
+			getNotice();
+			$.fn.dataTable.ext.errMode = 'none';
+		})
+	</script>
+
+	<script>
+		var tempOrder;
+
+		function getOrder(order) {
+			tempOrder = order;
+		}
+		var batchDownload = function() {
+			var param = {};
+			if(tempOrder != '')
+				param.order = tempOrder;
+			if($('#contractSerial').val() != "")
+				param.contractSerial = $('#contractSerial').val();
+			if($('#contractName').val() != "")
+				param.contractName = $('#contractName').val();
+			if($('#contractSignedTime').val() != "")
+				param.contractSignedTime = $('#contractSignedTime').val();
+			if($('#projectSerial').val() != "")
+				param.projectSerial = $('#projectSerial').val();
+			if($('#projectName').val() != "")
+				param.projectName = $('#projectName').val();
+			if($('#buildContent').val() != "")
+				param.buildContentId = $('#buildContent').val();
+			if($('#allFinancePayed :selected').val() != "")
+				param.allFinancePayed = $('#allFinancePayed :selected').val();
+			//伪表单提交
+			var form = $("<form>"); //定义一个form表单
+			form.attr("style", "display:none");
+			form.attr("target", "");
+			form.attr("method", "post");
+			form.attr("action", "http://localhost:8080/batchDownloadContracts"); //请求url
+			var input1 = $("<input>");
+			input1.attr("type", "hidden");
+			input1.attr("name", "param"); //设置属性的名字
+			input1.attr("value", JSON.stringify(param)); //设置属性的值
+			var input2 = $("<input>");
+			input2.attr("type", "hidden");
+			input2.attr("name", "userID"); //设置属性的名字
+			input2.attr("value", localStorage.getItem('userID')); //设置属性的值
+			var input3 = $("<input>");
+			input3.attr("type", "hidden");
+			input3.attr("name", "level"); //设置属性的名字
+			input3.attr("value", localStorage.getItem('level')); //设置属性的值
+			$("body").append(form); //将表单放置在web中
+			form.append(input1);
+			form.append(input2);
+			form.append(input3);
+			form.submit(); //表单提交
+		}
+	</script>
