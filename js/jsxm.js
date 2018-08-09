@@ -31,7 +31,7 @@ var addContractDetailUrl = testUrl + "/addContract";
 var deleteContractUrl = testUrl + "/deleteContract";
 var updateNewVersionUrl = testUrl +'/updateNewVersion'
 var getDocListUrl = testUrl + "/getDocList";
-
+var FullTextSearchUrl = "http://192.168.55.123:8080" +'/FullTextSearch';
 var getBudgetListUrl = testUrl + "/getBudgetList";
 var getBudgetDetailrl = baseUrl + "/getBudgetDetail";
 var addNotificationUrl = baseUrl +"/addNotification";
