@@ -633,15 +633,16 @@
 								'<span class="small float-right text-muted" >' + result[i]["NoTime"] + '</span>' +
 								'</br><div class="dropdown-message small" >' + result[i]["NoContent"] + '</div></a>';
 
-						}
+}
 
-					});
-			}
-		}
+}
+});
 
-		function apply() {
-			var param = {};
-			param.projectID = $('#projectID').text();
+}
+
+function apply() {
+	var param = {};
+	param.projectID = $('#projectID').text();
 			param.applyMoney = $('#applyMoney').val();
 			param.applyReason = $('#applyReason').val();
 			$.ajax({
